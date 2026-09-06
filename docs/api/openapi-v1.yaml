@@ -1,0 +1,1174 @@
+openapi: 3.0.3
+info:
+  title: Financing System Accounting API
+  version: 1.0.0
+  description: |
+    HTTP application layer (`/api/v1`) over the accounting domain.
+    Controllers validate and authorize; Application Services orchestrate;
+    Domain Services + AccountingEngine own all posting logic.
+
+    **Authentication:** Bearer token from `POST /api/v1/auth/token` (Laravel Sanctum).
+
+    **Company context:** required header `X-Company-Id` (user must hold at least one AccessGrant for that company).
+
+    **Book context:** `X-Book-Id` or `X-Book-Code` (default `LOCAL`). Book must belong to the company.
+
+    **Permissions:** dotted grants such as `ar.read`, `ar.write`, `ap.read`, `gl.read`, `reports.read`, etc.
+
+    **Standard success:** `{ "success": true, "data": ..., "meta": { "pagination": ... } }`
+
+    **Standard error:** `{ "success": false, "error": { "code": "...", "message": "..." } }`
+
+servers:
+  - url: /api/v1
+    description: Versioned API
+
+tags:
+  - name: Auth
+  - name: AR
+  - name: AP
+  - name: GL
+  - name: Investments
+  - name: Expenses
+  - name: Projects
+  - name: Tax
+  - name: OpeningBalances
+  - name: Books
+  - name: Reports
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Sanctum
+
+  parameters:
+    CompanyId:
+      name: X-Company-Id
+      in: header
+      required: true
+      schema:
+        type: integer
+      description: Tenant company context
+    BookId:
+      name: X-Book-Id
+      in: header
+      required: false
+      schema:
+        type: integer
+      description: Accounting book id (preferred). Must belong to company.
+    BookCode:
+      name: X-Book-Code
+      in: header
+      required: false
+      schema:
+        type: string
+        default: LOCAL
+      description: Used when X-Book-Id is omitted
+    PerPage:
+      name: per_page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+    Direction:
+      name: direction
+      in: query
+      schema:
+        type: string
+        enum: [asc, desc]
+        default: asc
+    AsOf:
+      name: as_of
+      in: query
+      schema:
+        type: string
+        format: date
+
+  schemas:
+    SuccessEnvelope:
+      type: object
+      required: [success, data]
+      properties:
+        success:
+          type: boolean
+          example: true
+        data: {}
+        meta:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/Pagination'
+    ErrorEnvelope:
+      type: object
+      required: [success, error]
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              enum: [forbidden, not_found, business_rule, integrity_violation, company_context_required, book_inactive, validation]
+            message:
+              type: string
+    Pagination:
+      type: object
+      properties:
+        current_page: { type: integer }
+        per_page: { type: integer }
+        total: { type: integer }
+        last_page: { type: integer }
+    ValidationError:
+      type: object
+      properties:
+        message: { type: string }
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items: { type: string }
+    TokenRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, format: password }
+        device_name: { type: string }
+    TokenResponse:
+      type: object
+      properties:
+        token: { type: string }
+        token_type: { type: string, example: Bearer }
+        user:
+          type: object
+          properties:
+            id: { type: integer }
+            name: { type: string }
+            email: { type: string }
+    CustomerCreate:
+      type: object
+      required: [code, name_ar]
+      properties:
+        code: { type: string }
+        name_ar: { type: string }
+        currency: { type: string, minLength: 3, maxLength: 3 }
+    SalesInvoiceCreate:
+      type: object
+      required: [customer_id, invoice_date, lines]
+      properties:
+        customer_id: { type: integer }
+        invoice_date: { type: string, format: date }
+        currency: { type: string }
+        exchange_rate: { type: number }
+        number: { type: string }
+        post: { type: boolean, description: Post immediately after draft create }
+        lines:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [revenue_account, net]
+            properties:
+              revenue_account: { type: string }
+              net: { type: number }
+              tax: { type: number }
+    SupplierCreate:
+      type: object
+      required: [code, legal_name]
+      properties:
+        code: { type: string }
+        legal_name: { type: string }
+        currency: { type: string }
+    PurchaseInvoiceCreate:
+      type: object
+      required: [supplier_id, invoice_date, lines]
+      properties:
+        supplier_id: { type: integer }
+        invoice_date: { type: string, format: date }
+        supplier_invoice_number: { type: string }
+        post: { type: boolean }
+        lines:
+          type: array
+          items:
+            type: object
+            required: [expense_account, net]
+            properties:
+              expense_account: { type: string }
+              net: { type: number }
+              tax: { type: number }
+    InvestmentAcquire:
+      type: object
+      required: [code, classification, cost, date]
+      properties:
+        code: { type: string }
+        classification: { type: string, enum: [FVTPL, FVOCI, AMORTIZED_COST] }
+        cost: { type: number }
+        date: { type: string, format: date }
+    OpeningBalanceCreate:
+      type: object
+      required: [as_of, lines]
+      properties:
+        as_of: { type: string, format: date }
+        lines:
+          type: array
+          minItems: 2
+          items:
+            type: object
+            required: [account]
+            properties:
+              account: { type: string }
+              debit: { type: number }
+              credit: { type: number }
+
+  responses:
+    Unauthorized:
+      description: Unauthenticated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+          example:
+            success: false
+            error: { code: unauthenticated, message: Unauthenticated. }
+    Forbidden:
+      description: Authenticated but missing permission or company membership
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+          example:
+            success: false
+            error: { code: forbidden, message: Missing permission 'ar.read' for this company. }
+    NotFound:
+      description: Resource or book not found in company scope
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    ValidationFailed:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+    BusinessRule:
+      description: Domain business rule rejected the operation (closed period, posted mutation, etc.)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+          example:
+            success: false
+            error: { code: business_rule, message: Period is hard-closed. }
+
+security:
+  - bearerAuth: []
+
+paths:
+  /auth/token:
+    post:
+      tags: [Auth]
+      security: []
+      summary: Issue API bearer token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        '201':
+          description: Token created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEnvelope'
+        '422':
+          $ref: '#/components/responses/ValidationFailed'
+    delete:
+      tags: [Auth]
+      summary: Revoke current token
+      responses:
+        '200':
+          description: Token revoked
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /ar/customers:
+    get:
+      tags: [AR]
+      summary: List customers
+      description: Permission `ar.read`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/PerPage'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Direction'
+        - name: code
+          in: query
+          schema: { type: string }
+        - name: currency
+          in: query
+          schema: { type: string }
+      responses:
+        '200': { description: Paginated customers }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+    post:
+      tags: [AR]
+      summary: Create customer
+      description: Permission `ar.write`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '201': { description: Created }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '422': { $ref: '#/components/responses/ValidationFailed' }
+
+  /ar/customers/{customer}:
+    get:
+      tags: [AR]
+      summary: Get customer
+      description: Permission `ar.read`. Scoped to X-Company-Id.
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: customer
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Customer }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /ar/customers/{customer}/statement:
+    get:
+      tags: [AR]
+      summary: Customer statement
+      description: Permission `ar.read`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+        - name: customer
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Statement payload from ArLedgerService }
+
+  /ar/sales-invoices:
+    get:
+      tags: [AR]
+      summary: List sales invoices
+      description: Permission `ar.read`. Filtered to company + book.
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/PerPage'
+        - name: status
+          in: query
+          schema: { type: string }
+        - name: customer_id
+          in: query
+          schema: { type: integer }
+      responses:
+        '200': { description: Paginated invoices }
+    post:
+      tags: [AR]
+      summary: Create (and optionally post) sales invoice
+      description: |
+        Permission `ar.write`.
+        Business errors (422): closed period, invalid accounts, unbalanced lines.
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesInvoiceCreate'
+      responses:
+        '201': { description: Draft or posted invoice }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /ar/sales-invoices/{invoice}:
+    get:
+      tags: [AR]
+      summary: Get sales invoice
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: invoice
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Invoice }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /ar/sales-invoices/{invoice}/post:
+    post:
+      tags: [AR]
+      summary: Post sales invoice
+      description: |
+        Permission `ar.write`.
+        Rejects already-posted documents and hard-closed periods (`business_rule`).
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: invoice
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Posted invoice with journal_id }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /ar/receipts:
+    get:
+      tags: [AR]
+      summary: List receipts
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated receipts }
+    post:
+      tags: [AR]
+      summary: Create receipt
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+
+  /ar/receipts/{receipt}/allocate:
+    post:
+      tags: [AR]
+      summary: Allocate receipt to invoice
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: receipt
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [invoice_id, amount]
+              properties:
+                invoice_id: { type: integer }
+                amount: { type: number }
+      responses:
+        '200': { description: Allocation }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /ar/credit-notes:
+    get:
+      tags: [AR]
+      summary: List credit notes
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [AR]
+      summary: Create credit note
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+
+  /ar/debit-notes:
+    get:
+      tags: [AR]
+      summary: List debit notes
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [AR]
+      summary: Create debit note
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+
+  /ar/aging:
+    get:
+      tags: [AR]
+      summary: AR aging
+      description: Permission `ar.read`. Delegates to ArLedgerService (no JS recalculation).
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+        - name: customer_id
+          in: query
+          schema: { type: integer }
+      responses:
+        '200': { description: '{ buckets, total }' }
+
+  /ar/open-items:
+    get:
+      tags: [AR]
+      summary: AR open items for a customer
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+        - name: customer_id
+          in: query
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Open items }
+
+  /ar/reconciliation:
+    get:
+      tags: [AR]
+      summary: AR subledger vs GL control
+      description: Permission `ar.read`. INV-7 reconciliation.
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+      responses:
+        '200': { description: Integrity check result }
+
+  /ap/suppliers:
+    get:
+      tags: [AP]
+      summary: List suppliers
+      description: Permission `ap.read`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [AP]
+      summary: Create supplier
+      description: Permission `ap.write`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupplierCreate'
+      responses:
+        '201': { description: Created }
+
+  /ap/suppliers/{supplier}:
+    get:
+      tags: [AP]
+      summary: Get supplier
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - name: supplier
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Supplier }
+
+  /ap/suppliers/{supplier}/statement:
+    get:
+      tags: [AP]
+      summary: Supplier statement
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: supplier
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200': { description: Statement }
+
+  /ap/purchase-invoices:
+    get:
+      tags: [AP]
+      summary: List purchase invoices
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [AP]
+      summary: Create purchase invoice
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseInvoiceCreate'
+      responses:
+        '201': { description: Created }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /ap/purchase-invoices/{invoice}/post:
+    post:
+      tags: [AP]
+      summary: Post purchase invoice
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: invoice
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Posted }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /ap/supplier-payments:
+    get:
+      tags: [AP]
+      summary: List supplier payments
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [AP]
+      summary: Create supplier payment
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+
+  /ap/supplier-payments/{payment}/allocate:
+    post:
+      tags: [AP]
+      summary: Allocate payment to purchase invoice
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: payment
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Allocation }
+
+  /ap/supplier-credit-notes:
+    get:
+      tags: [AP]
+      summary: List supplier credit notes
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [AP]
+      summary: Create supplier credit note
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+
+  /ap/supplier-debit-notes:
+    get:
+      tags: [AP]
+      summary: List supplier debit notes
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [AP]
+      summary: Create supplier debit note
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+
+  /ap/aging:
+    get:
+      tags: [AP]
+      summary: AP aging
+      description: Permission `ap.read`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+      responses:
+        '200': { description: '{ buckets, total }' }
+
+  /ap/open-items:
+    get:
+      tags: [AP]
+      summary: AP open items
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - name: supplier_id
+          in: query
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Open items }
+
+  /ap/reconciliation:
+    get:
+      tags: [AP]
+      summary: AP subledger vs GL control
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Integrity check }
+
+  /gl/accounts:
+    get:
+      tags: [GL]
+      summary: List chart of accounts
+      description: Permission `gl.read`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200': { description: Paginated accounts }
+
+  /gl/accounts/{account}:
+    get:
+      tags: [GL]
+      summary: Get account
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - name: account
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Account }
+
+  /gl/journals:
+    get:
+      tags: [GL]
+      summary: List journals
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [GL]
+      summary: Create manual journal draft
+      description: Permission `gl.write`. Lines use account codes; converted to LineInput in application layer.
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /gl/journals/{journal}:
+    get:
+      tags: [GL]
+      summary: Get journal
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: journal
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Journal with lines }
+
+  /gl/journals/{journal}/post:
+    post:
+      tags: [GL]
+      summary: Post manual journal
+      description: Requires domain permission `journal.post` when actor is present, plus API `gl.write`.
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: journal
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Posted }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /gl/journal-lines:
+    get:
+      tags: [GL]
+      summary: List journal lines
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: account_code
+          in: query
+          schema: { type: string }
+      responses:
+        '200': { description: Paginated lines }
+
+  /gl/trial-balance:
+    get:
+      tags: [GL]
+      summary: Trial balance
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+      responses:
+        '200': { description: '{ rows, totals }' }
+
+  /gl/general-ledger:
+    get:
+      tags: [GL]
+      summary: General ledger lines (posted)
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: account_code
+          in: query
+          schema: { type: string }
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200': { description: Paginated posted lines }
+
+  /gl/account-balances:
+    get:
+      tags: [GL]
+      summary: Account balances
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+      responses:
+        '200': { description: Balance rows }
+
+  /gl/periods:
+    get:
+      tags: [GL]
+      summary: Fiscal periods
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated periods }
+
+  /investments:
+    get:
+      tags: [Investments]
+      summary: List investments
+      description: Permission `investments.read`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [Investments]
+      summary: Acquire investment
+      description: Permission `investments.write`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestmentAcquire'
+      responses:
+        '201': { description: Created }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /investments/{investment}:
+    get:
+      tags: [Investments]
+      summary: Get investment
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - name: investment
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Investment }
+
+  /expenses:
+    get:
+      tags: [Expenses]
+      summary: List expense claims
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [Expenses]
+      summary: Create expense draft
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+
+  /expenses/{expense}/submit:
+    post:
+      tags: [Expenses]
+      summary: Submit expense claim
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: expense
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Submitted }
+
+  /expenses/{expense}/approve:
+    post:
+      tags: [Expenses]
+      summary: Approve expense claim
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: expense
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Approved }
+
+  /expenses/{expense}/post:
+    post:
+      tags: [Expenses]
+      summary: Post expense claim
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: expense
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Posted }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /projects:
+    get:
+      tags: [Projects]
+      summary: List projects
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [Projects]
+      summary: Define project
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+
+  /projects/{project}/charge:
+    post:
+      tags: [Projects]
+      summary: Charge project cost
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: project
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Charged }
+
+  /projects/{project}/capitalize:
+    post:
+      tags: [Projects]
+      summary: Capitalize project cost
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: project
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Capitalized }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /tax/codes:
+    get:
+      tags: [Tax]
+      summary: List tax codes
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [Tax]
+      summary: Define tax code
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '201': { description: Created }
+
+  /opening-balances:
+    get:
+      tags: [OpeningBalances]
+      summary: List opening balance batches
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: Paginated }
+    post:
+      tags: [OpeningBalances]
+      summary: Post opening balances
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpeningBalanceCreate'
+      responses:
+        '201': { description: Posted run }
+        '422': { $ref: '#/components/responses/BusinessRule' }
+
+  /books:
+    get:
+      tags: [Books]
+      summary: List accounting books for company
+      description: Permission `books.read`
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+      responses:
+        '200': { description: LOCAL / IFRS / TAX books }
+
+  /books/reconcile:
+    get:
+      tags: [Books]
+      summary: Reconcile two books
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - name: left_book_id
+          in: query
+          required: true
+          schema: { type: integer }
+        - name: right_book_id
+          in: query
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: '{ matched, differences }' }
+
+  /reports/balance-sheet:
+    get:
+      tags: [Reports]
+      summary: Balance sheet
+      description: Permission `reports.read`. Consumed by frontend — do not recompute in Vue.
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+      responses:
+        '200': { description: Balance sheet payload }
+
+  /reports/profit-loss:
+    get:
+      tags: [Reports]
+      summary: Profit and loss / income statement
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+      responses:
+        '200': { description: P&L payload }
+
+  /reports/cash-flow:
+    get:
+      tags: [Reports]
+      summary: Cash flow (from management pack)
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+      responses:
+        '200': { description: Cash flow O/I/F }
+
+  /reports/management-pack:
+    get:
+      tags: [Reports]
+      summary: Management pack
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - $ref: '#/components/parameters/BookId'
+        - $ref: '#/components/parameters/AsOf'
+      responses:
+        '200': { description: Aggregated management pack }

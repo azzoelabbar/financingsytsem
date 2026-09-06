@@ -1,0 +1,50 @@
+{
+ "mandatory_fields": [
+  "rule_code",
+  "rule_type",
+  "rate",
+  "formula",
+  "effective_from",
+  "effective_to",
+  "authority",
+  "legal_reference",
+  "version",
+  "status"
+ ],
+ "supporting_fields": [
+  "country",
+  "name_ar",
+  "name_en",
+  "amount",
+  "currency",
+  "meta",
+  "approved_by",
+  "approved_at",
+  "source_url",
+  "audit_trail"
+ ],
+ "rule_types": [
+  "tax_rate",
+  "threshold",
+  "deduction",
+  "contribution",
+  "legal_limit",
+  "reporting_deadline",
+  "document_requirement",
+  "numbering_rule",
+  "withholding"
+ ],
+ "status_lifecycle": [
+  "draft",
+  "pending_approval",
+  "active",
+  "superseded",
+  "repealed"
+ ],
+ "resolution": "resolve(country, rule_code, on_date) -> newest ACTIVE version where effective_from<=date<=effective_to(or open); else explicit error (no hidden default).",
+ "invariants": [
+  "one ACTIVE rule per (country, rule_code) at any date",
+  "change of law = new version, not edit; old becomes superseded",
+  "no hard-coded rate/threshold/limit/deduction/contribution/deadline/document anywhere in the engine"
+ ]
+}

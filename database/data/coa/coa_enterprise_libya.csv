@@ -1,0 +1,331 @@
+﻿code,name_ar,name_en,parent,level,account_type,account_nature,normal_balance,is_posting,control_or_detail,is_contra,contra_of,financial_statement_line,cash_flow_classification,ifrs_mapping,ias_mapping,tax_mapping,subledger_mapping,reconciliation_required,closing_behavior,industry_applicability
+1,الأصول,Assets,,1,asset,أصل,debit,False,header,False,,SFP > Non-current Assets,none,,,,,False,permanent,ALL
+2,الخصوم,Liabilities,,1,liability,خصم,credit,False,header,False,,SFP > Non-current Liabilities,none,,,,,False,permanent,ALL
+3,حقوق الملكية,Equity,,1,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,none,,,,,False,permanent,ALL
+4,الإيرادات,Revenue,,1,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+5,تكلفة المبيعات,Cost of Sales,,1,cost_of_sales,مصروف,debit,False,header,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+6,المصروفات التشغيلية,Operating Expenses,,1,expense,مصروف,debit,False,header,False,,P&L > Tax,operating,,,,,False,temporary,ALL
+7,حسابات ختامية ومقابلة,Closing and Contra Accounts,,1,closing,ختامي,none,False,header,False,,Memo,none,,,,,False,closing_account,ALL
+8,حسابات نظامية وخارج الميزانية,Memo and Off-Balance-Sheet Accounts,,1,memo,نظامي,none,False,header,False,,Memo,none,,,,,False,none,ALL
+11,الأصول المتداولة,Current Assets,1,2,asset,أصل,debit,False,header,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+12,الأصول غير المتداولة,Non-current Assets,1,2,asset,أصل,debit,False,header,False,,SFP > Non-current Assets,none,,,,,False,permanent,ALL
+21,الخصوم المتداولة,Current Liabilities,2,2,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+22,الخصوم غير المتداولة,Non-current Liabilities,2,2,liability,خصم,credit,False,header,False,,SFP > Non-current Liabilities,financing,,,,,False,permanent,ALL
+31,رأس المال,Capital,3,2,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,financing,,,,,False,permanent,ALL
+32,الاحتياطيات والأرباح المرحلة,Reserves and Retained Earnings,3,2,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,none,,,,,False,permanent,ALL
+33,بنود الدخل الشامل الآخر,Other Comprehensive Income (OCI) Reserves,3,2,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,none,,,,,False,permanent,ALL
+34,صافي الأصول (منظمات غير ربحية),Net Assets (Non-profit),3,2,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,none,,,,,False,permanent,NON_PROFIT
+41,إيرادات التشغيل,Operating Revenue,4,2,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+42,الإيرادات الأخرى,Other Revenue,4,2,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+51,تكلفة البضاعة المباعة,Cost of Goods Sold,5,2,cost_of_sales,مصروف,debit,False,header,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+61,مصروفات البيع والتوزيع,Selling and Distribution Expenses,6,2,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+62,المصروفات الإدارية والعمومية,General and Administrative Expenses,6,2,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+63,المصروفات المالية,Financial Expenses,6,2,expense,مصروف,debit,False,header,False,,P&L > Finance Costs,operating,,,,,False,temporary,ALL
+64,ضريبة الدخل,Income Tax Expense,6,2,expense,مصروف,debit,False,header,False,,P&L > Income Tax,operating,,,,,False,temporary,ALL
+65,مصروفات البرامج والأنشطة,Program & Activity Expenses,6,2,expense,مصروف,debit,False,header,False,,P&L > Tax,operating,,,,,False,temporary,NON_PROFIT
+71,حسابات الختام,Closing Accounts,7,2,closing,ختامي,none,False,header,False,,Memo,none,,,,,False,closing_account,ALL
+81,حسابات نظامية,Memorandum Accounts,8,2,memo,نظامي,none,False,header,False,,Memo,none,,,,,False,none,ALL
+1101,النقدية وما في حكمها,Cash and Cash Equivalents,11,3,asset,أصل,debit,False,header,False,,SFP > Current Assets,none,,,,,False,permanent,ALL
+1102,الذمم المدينة,Receivables,11,3,asset,أصل,debit,False,header,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+1103,المخزون,Inventory,11,3,asset,أصل,debit,False,header,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+1104,المصروفات المدفوعة مقدماً,Prepaid Expenses,11,3,asset,أصل,debit,False,header,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+1105,استثمارات قصيرة الأجل,Short-term Investments,11,3,asset,أصل,debit,False,header,False,,SFP > Current Assets,investing,,,,,False,permanent,ALL
+1106,الأصول المتداولة الأخرى,Other Current Assets,11,3,asset,أصل,debit,False,header,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+1107,حسابات وسيطة ومعلقة (مدينة),Clearing and Suspense (Debit),11,3,asset,أصل,debit,False,header,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+1201,الأصول الثابتة,"Property, Plant and Equipment",12,3,asset,أصل,debit,False,header,False,,SFP > Non-current Assets,investing,,,,,False,permanent,ALL
+1202,الأصول غير الملموسة,Intangible Assets,12,3,asset,أصل,debit,False,header,False,,SFP > Non-current Assets,investing,,,,,False,permanent,ALL
+1203,استثمارات طويلة الأجل,Long-term Investments,12,3,asset,أصل,debit,False,header,False,,SFP > Non-current Assets,investing,,,,,False,permanent,ALL
+1204,الأصول الضريبية المؤجلة,Deferred Tax Assets,12,3,asset,أصل,debit,False,header,False,,SFP > Non-current Assets,none,,,,,False,permanent,ALL
+1205,ذمم مدينة بين الشركات - غير متداول,Intercompany Receivables - Non-current,12,3,asset,أصل,debit,False,header,False,,SFP > Non-current Assets,investing,,,,,False,permanent,ALL
+2101,الذمم الدائنة,Payables,21,3,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+2102,المصروفات المستحقة,Accrued Expenses,21,3,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+2103,الإيرادات المقدمة,Deferred / Unearned Revenue,21,3,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+2104,الاستحقاقات الضريبية,Tax Liabilities,21,3,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+2105,القروض قصيرة الأجل,Short-term Loans,21,3,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,financing,,,,,False,permanent,ALL
+2106,المخصصات المتداولة,Current Provisions,21,3,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+2107,التزامات الرواتب,Payroll Liabilities,21,3,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+2108,حسابات وسيطة ومعلقة (دائنة),Clearing and Suspense (Credit),21,3,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+2109,مشتقات مالية - التزامات,Derivative Financial Liabilities,21,3,liability,خصم,credit,False,header,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+2201,قروض طويلة الأجل,Long-term Loans,22,3,liability,خصم,credit,False,header,False,,SFP > Non-current Liabilities,financing,,,,,False,permanent,ALL
+2202,مخصصات طويلة الأجل,Long-term Provisions,22,3,liability,خصم,credit,False,header,False,,SFP > Non-current Liabilities,financing,,,,,False,permanent,ALL
+2203,التزامات الإيجار طويلة الأجل,Lease Liabilities - Non-current,22,3,liability,خصم,credit,False,header,False,,SFP > Non-current Liabilities,financing,,,,,False,permanent,ALL
+2204,التزامات منافع الموظفين,Employee Benefit Obligations,22,3,liability,خصم,credit,False,header,False,,SFP > Non-current Liabilities,financing,,,,,False,permanent,ALL
+2205,الالتزامات الضريبية المؤجلة,Deferred Tax Liabilities,22,3,liability,خصم,credit,False,header,False,,SFP > Non-current Liabilities,none,,,,,False,permanent,ALL
+2206,ذمم دائنة بين الشركات - غير متداول,Intercompany Payables - Non-current,22,3,liability,خصم,credit,False,header,False,,SFP > Non-current Liabilities,financing,,,,,False,permanent,ALL
+3101,رأس المال المدفوع,Paid-in Capital,31,3,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,financing,,,,,False,permanent,ALL
+3201,الاحتياطيات,Reserves,32,3,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,none,,,,,False,permanent,ALL
+3202,الأرباح والخسائر,Profit and Loss,32,3,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,none,,,,,False,permanent,ALL
+3203,المسحوبات,Drawings,32,3,equity,حقوق ملكية,debit,False,header,True,31,SFP > Equity (contra),none,,,,,False,permanent,ALL
+3301,احتياطيات الدخل الشامل الآخر,OCI Reserves,33,3,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,none,,,,,False,permanent,ALL
+3401,صافي الأصول,Net Assets,34,3,equity,حقوق ملكية,credit,False,header,False,,SFP > Equity,none,,,,,False,permanent,NON_PROFIT
+4101,المبيعات,Sales,41,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+4102,إيرادات الخدمات,Service Revenue,41,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+4103,الإيرادات المتكررة (الاشتراكات),Recurring / Subscription Revenue,41,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+4104,إيرادات العقود طويلة الأجل,Long-term Contract Revenue,41,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+4105,إيرادات الضيافة,Hospitality Revenue,41,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,HOSPITALITY
+4106,إيرادات الخدمات الطبية,Medical Service Revenue,41,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,HEALTHCARE
+4107,إيرادات الشحن والنقل,Freight & Transport Revenue,41,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,LOGISTICS
+4108,المنح والتبرعات,Grants & Donations,41,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,NON_PROFIT
+4201,الإيرادات الاستثمارية,Investment Income,42,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+4202,إيرادات متنوعة,Miscellaneous Revenue,42,3,revenue,إيراد,credit,False,header,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+5101,مشتريات البضاعة,Purchases,51,3,cost_of_sales,مصروف,debit,False,header,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+5102,تكاليف الإنتاج المباشرة,Direct Production Costs,51,3,cost_of_sales,مصروف,debit,False,header,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+5103,تكاليف الإنتاج غير المباشرة,Manufacturing Overhead,51,3,cost_of_sales,مصروف,debit,False,header,False,,P&L > Cost of Sales,operating,,,,,False,temporary,MANUFACTURING
+5104,تكلفة الخدمات المقدمة,Cost of Services Rendered,51,3,cost_of_sales,مصروف,debit,False,header,False,,P&L > Cost of Sales,operating,,,,,False,temporary,SERVICES|SAAS
+5105,انحرافات التكلفة المعيارية,Standard Cost Variances,51,3,cost_of_sales,مصروف,debit,False,header,False,,P&L > Cost of Sales,operating,,,,,False,temporary,MANUFACTURING
+5106,تكاليف التشغيل اللوجستي,Logistics Operating Costs,51,3,cost_of_sales,مصروف,debit,False,header,False,,P&L > Cost of Sales,operating,,,,,False,temporary,LOGISTICS
+6101,رواتب وأجور المبيعات,Sales Salaries and Wages,61,3,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+6102,مصروفات التسويق والإعلان,Marketing and Advertising Expenses,61,3,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+6103,مصروفات التوصيل والشحن,Delivery and Shipping Expenses,61,3,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+6201,الرواتب والأجور الإدارية,Administrative Salaries and Wages,62,3,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+6202,مصروفات الإيجار والمرافق,Rent and Utilities Expenses,62,3,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+6203,مصروفات إدارية متنوعة,Miscellaneous Administrative Expenses,62,3,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+6204,الاستهلاك والإطفاء,Depreciation and Amortization,62,3,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+6205,خسائر انخفاض القيمة,Impairment Losses,62,3,expense,مصروف,debit,False,header,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+6301,فوائد وعمولات بنكية,Interest and Bank Charges,63,3,expense,مصروف,debit,False,header,False,,P&L > Finance Costs,operating,,,,,False,temporary,ALL
+6302,مصروفات مالية أخرى,Other Financial Expenses,63,3,expense,مصروف,debit,False,header,False,,P&L > Finance Costs,operating,,,,,False,temporary,ALL
+6401,ضريبة الدخل,Income Tax,64,3,expense,مصروف,debit,False,header,False,,P&L > Income Tax,operating,,,,,False,temporary,ALL
+6501,مصروفات البرامج,Program Expenses,65,3,expense,مصروف,debit,False,header,False,,P&L > Tax,operating,,,,,False,temporary,NON_PROFIT
+6502,مصروفات الدعم,Support Expenses,65,3,expense,مصروف,debit,False,header,False,,P&L > Tax,operating,,,,,False,temporary,NON_PROFIT
+7101,حساب الأرباح والخسائر,Profit and Loss Account,71,3,closing,ختامي,none,False,header,False,,Memo,none,,,,,False,closing_account,ALL
+7102,حساب المتاجرة,Trading Account,71,3,closing,ختامي,none,False,header,False,,Memo,none,,,,,False,closing_account,ALL
+7103,حساب ملخص الدخل الشامل,Comprehensive Income Summary,71,3,closing,ختامي,none,False,header,False,,Memo,none,,,,,False,closing_account,ALL
+8101,التزامات وضمانات محتملة,Contingencies and Guarantees,81,3,memo,نظامي,none,False,header,False,,Memo,none,,,,,False,none,ALL
+8102,أصول مُدارة لحساب الغير,Assets Held on Behalf of Others,81,3,memo,نظامي,none,False,header,False,,Memo,none,,,,,False,none,ALL
+110101,الصندوق,Cash on Hand,1101,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,none,,,,,False,permanent,ALL
+110102,البنك الرئيسي,Main Bank Account,1101,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,none,,,,BANK,True,permanent,ALL
+110103,بنك احتياطي,Reserve Bank Account,1101,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,none,,,,BANK,True,permanent,ALL
+110104,شيكات تحت التحصيل,Cheques Under Collection,1101,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,none,,,,,True,permanent,ALL
+110201,العملاء,Trade Receivables (Customers),1102,4,asset,أصل,debit,True,control,False,,SFP > Current Assets,operating,,,,AR,True,permanent,ALL
+110202,أوراق قبض,Notes Receivable,1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,AR,True,permanent,ALL
+110203,مدينون متنوعون,Sundry Debtors,1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+110204,مخصص خسائر ائتمانية متوقعة (ديون مشكوك فيها),Allowance for Expected Credit Losses (Doubtful Debts),1102,4,asset,أصل,credit,True,detail,True,110201,SFP > Current Assets (contra),operating,IFRS 9,,,AR,True,permanent,ALL
+110205,ذمم مدينة تجارية أخرى,Other Trade Receivables,1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,IFRS 9,,AR,True,permanent,ALL
+110206,أوراق قبض مخصومة,Discounted Notes Receivable,1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,AR,False,permanent,ALL
+110207,أصل عقد (إيراد غير مفوتر),Contract Asset (Unbilled Revenue),1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,IFRS 15,,,AR,False,permanent,SERVICES|CONSTRUCTION|SAAS
+110208,مبالغ محتجزة مدينة,Retention Receivable,1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,IFRS 15,,,,False,permanent,CONSTRUCTION
+110209,ذمم مدينة بين الشركات - متداول,Intercompany Receivables - Current,1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,IAS 24,,,False,permanent,ALL
+110210,ضريبة القيمة المضافة على المدخلات,Input VAT (Recoverable),1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,VAT,TAX,True,permanent,ALL
+110211,ذمم مرضى مدينة,Patient Receivables,1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,AR,True,permanent,HEALTHCARE
+110212,مطالبات تأمين مدينة,Insurance Claims Receivable,1102,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,AR,True,permanent,HEALTHCARE
+110301,مخزون بضاعة,Merchandise Inventory,1103,4,asset,أصل,debit,True,control,False,,SFP > Current Assets,operating,,,,INV,False,permanent,ALL
+110302,مخزون مواد خام,Raw Materials Inventory,1103,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,INV,False,permanent,ALL
+110303,مخزون منتجات تامة,Finished Goods Inventory,1103,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,INV,False,permanent,ALL
+110304,مخزون تحت التشغيل,Work-in-Process Inventory,1103,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,INV,False,permanent,ALL
+110305,مخزون مستلزمات طبية,Medical Supplies Inventory,1103,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,IAS 2,,INV,False,permanent,HEALTHCARE
+110306,مخزون أدوية,Pharmaceuticals Inventory,1103,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,IAS 2,,INV,False,permanent,HEALTHCARE
+110307,مخصص تلف/انتهاء صلاحية المخزون الطبي,Allowance for Expired/Obsolete Medical Stock,1103,4,asset,أصل,credit,True,detail,True,110305,SFP > Current Assets (contra),operating,,IAS 2,,,False,permanent,HEALTHCARE
+110308,مخزون بضاعة في الطريق,Goods in Transit,1103,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,INV,False,permanent,LOGISTICS|TRADING
+110401,إيجار مدفوع مقدماً,Prepaid Rent,1104,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+110402,تأمين مدفوع مقدماً,Prepaid Insurance,1104,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+110403,مصروفات مقدمة أخرى,Other Prepaid Expenses,1104,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+110404,دفعات مقدمة للموردين,Advances to Suppliers,1104,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,AP,False,permanent,ALL
+110405,ذمم موظفين مدينة,Employee Receivables,1104,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,PAYROLL,False,permanent,ALL
+110501,أوراق مالية متداولة,Marketable Securities,1105,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,investing,,,,,False,permanent,ALL
+110502,ودائع بنكية قصيرة الأجل,Short-term Bank Deposits,1105,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,investing,,,,,False,permanent,ALL
+110601,سلف وعُهد الموظفين,Employee Advances and Imprest,1106,4,asset,أصل,debit,True,control,False,,SFP > Current Assets,operating,,,,PAYROLL,False,permanent,ALL
+110602,إيرادات مستحقة القبض,Accrued Income Receivable,1106,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,False,permanent,ALL
+110603,أدوات مالية بالقيمة العادلة من خلال الأرباح أو الخسائر,Financial Assets at FVTPL,1106,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,IFRS 9,IAS 32,,,False,permanent,ALL
+110604,مشتقات مالية - أصول,Derivative Financial Assets,1106,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,IFRS 9 / IFRS 7,,,,False,permanent,ALL
+110701,حساب وسيط للمقبوضات,Cash Receipts Clearing,1107,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,True,permanent,ALL
+110702,حساب معلق مدين,Suspense Account - Debit,1107,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,True,permanent,ALL
+110703,حساب وسيط للتحويلات البنكية,Bank Transfer Clearing,1107,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,True,permanent,ALL
+110704,حساب وسيط للرواتب,Payroll Clearing,1107,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,PAYROLL,True,permanent,ALL
+110705,حساب وسيط لنقاط البيع,POS / Card Settlement Clearing,1107,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,True,permanent,TRADING|RETAIL|HOSPITALITY
+110706,حساب وسيط للتخليص الجمركي,Customs Clearing,1107,4,asset,أصل,debit,True,detail,False,,SFP > Current Assets,operating,,,,,True,permanent,LOGISTICS
+120101,الأراضي,Land,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 16,,FA,False,permanent,ALL
+120102,المباني والإنشاءات,Buildings and Constructions,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 16,,FA,False,permanent,ALL
+120103,مجمع استهلاك المباني,Accumulated Depreciation - Buildings,1201,4,asset,أصل,credit,True,detail,True,120102,SFP > Non-current Assets (contra),investing,,,,,False,permanent,ALL
+120104,الآلات والمعدات,Machinery and Equipment,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 16,,FA,False,permanent,ALL
+120105,مجمع استهلاك الآلات والمعدات,Accumulated Depreciation - Machinery and Equipment,1201,4,asset,أصل,credit,True,detail,True,120104,SFP > Non-current Assets (contra),investing,,,,,False,permanent,ALL
+120106,أثاث ومفروشات,Furniture and Fixtures,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 16,,FA,False,permanent,ALL
+120107,مجمع استهلاك الأثاث والمفروشات,Accumulated Depreciation - Furniture,1201,4,asset,أصل,credit,True,detail,True,120106,SFP > Non-current Assets (contra),investing,,,,,False,permanent,ALL
+120108,سيارات ومركبات,Vehicles,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 16,,FA,False,permanent,ALL
+120109,مجمع استهلاك السيارات والمركبات,Accumulated Depreciation - Vehicles,1201,4,asset,أصل,credit,True,detail,True,120108,SFP > Non-current Assets (contra),investing,,,,,False,permanent,ALL
+120110,أجهزة وحاسبات,Computers and IT Equipment,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 16,,FA,False,permanent,ALL
+120111,مجمع استهلاك الأجهزة والحاسبات,Accumulated Depreciation - Computers and IT Equipment,1201,4,asset,أصل,credit,True,detail,True,120110,SFP > Non-current Assets (contra),investing,,,,,False,permanent,ALL
+120112,حق استخدام أصل - عقارات,Right-of-Use Asset - Property,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,IFRS 16,,,LEASE,False,permanent,ALL
+120113,حق استخدام أصل - مركبات ومعدات,Right-of-Use Asset - Vehicles & Equipment,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,IFRS 16,,,LEASE,False,permanent,ALL
+120114,مجمع استهلاك حق الاستخدام,Accumulated Depreciation - Right-of-Use Assets,1201,4,asset,أصل,credit,True,detail,True,120112,SFP > Non-current Assets (contra),investing,IFRS 16,,,,False,permanent,ALL
+120115,مجمع انخفاض قيمة الأصول الثابتة,Accumulated Impairment - PPE,1201,4,asset,أصل,credit,True,detail,True,1201,SFP > Non-current Assets (contra),investing,,IAS 36,,,False,permanent,ALL
+120116,أعمال رأسمالية تحت التنفيذ,Capital Work-in-Progress (CWIP),1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 16,,,False,permanent,ALL
+120117,استثمار عقاري,Investment Property,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 40,,,False,permanent,REAL_ESTATE
+120118,مجمع استهلاك الاستثمار العقاري,Accumulated Depreciation - Investment Property,1201,4,asset,أصل,credit,True,detail,True,120117,SFP > Non-current Assets (contra),investing,,IAS 40,,,False,permanent,REAL_ESTATE
+120119,أصول بيولوجية,Biological Assets,1201,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 41,,,False,permanent,AGRICULTURE
+120201,الشهرة (goodwill),Goodwill,1202,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 38 / IAS 36,,FA,False,permanent,ALL
+120202,براءات الاختراع,Patents,1202,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 38,,,False,permanent,ALL
+120203,العلامات التجارية,Trademarks,1202,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 38,,,False,permanent,ALL
+120204,برامج وتراخيص,Software and Licenses,1202,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 38,,,False,permanent,ALL
+120205,مجمع إطفاء الأصول غير الملموسة,Accumulated Amortization - Intangibles,1202,4,asset,أصل,credit,True,detail,True,1202,SFP > Non-current Assets (contra),investing,,IAS 38,,,False,permanent,ALL
+120206,مجمع انخفاض قيمة الشهرة,Accumulated Impairment - Goodwill,1202,4,asset,أصل,credit,True,detail,True,120201,SFP > Non-current Assets (contra),investing,,IAS 36,,,False,permanent,ALL
+120207,تكاليف تطوير مرسملة,Capitalized Development Costs,1202,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 38,,,False,permanent,SAAS|TECHNOLOGY
+120301,استثمارات في شركات تابعة,Investments in Subsidiaries,1203,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 27 / IFRS 10,,,False,permanent,ALL
+120302,استثمارات في شركات زميلة,Investments in Associates,1203,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 28,,,False,permanent,ALL
+120303,ودائع بنكية طويلة الأجل,Long-term Bank Deposits,1203,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,,,,False,permanent,ALL
+120304,أدوات مالية بالقيمة العادلة من خلال الدخل الشامل,Financial Assets at FVOCI,1203,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,IFRS 9,IAS 32,,,False,permanent,ALL
+120305,أدوات دين بالتكلفة المطفأة,Debt Instruments at Amortized Cost,1203,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,IFRS 9,,,,False,permanent,ALL
+120306,استثمارات في مشاريع مشتركة,Investments in Joint Ventures,1203,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 28 / IFRS 11,,,False,permanent,ALL
+120401,أصل ضريبي مؤجل,Deferred Tax Asset,1204,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,none,,IAS 12,DEFERRED,,False,permanent,ALL
+120501,قروض للشركات التابعة/الزميلة,Loans to Group Companies,1205,4,asset,أصل,debit,True,detail,False,,SFP > Non-current Assets,investing,,IAS 24,,,False,permanent,ALL
+210101,الموردون,Trade Payables (Suppliers),2101,4,liability,خصم,credit,True,control,False,,SFP > Current Liabilities,operating,,,,AP,True,permanent,ALL
+210102,أوراق دفع,Notes Payable,2101,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,AP,True,permanent,ALL
+210103,دائنون متنوعون,Sundry Creditors,2101,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+210104,ذمم دائنة تجارية أخرى,Other Trade Payables,2101,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,AP,False,permanent,ALL
+210105,مصروفات مستحقة - فوائد,Accrued Interest Payable,2101,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+210108,ذمم دائنة بين الشركات - متداول,Intercompany Payables - Current,2101,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,IAS 24,,,False,permanent,ALL
+210201,رواتب وأجور مستحقة,Accrued Salaries and Wages,2102,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+210202,إيجار مستحق,Accrued Rent,2102,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+210203,مصروفات مستحقة أخرى,Other Accrued Expenses,2102,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+210301,إيرادات مقبوضة مقدماً,Unearned Revenue,2103,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,,False,permanent,ALL
+210302,التزام عقد,Contract Liability,2103,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,IFRS 15,,,,False,permanent,SERVICES|CONSTRUCTION|SAAS
+210303,إيراد اشتراكات مؤجل,Deferred Subscription Revenue,2103,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,IFRS 15,,,,False,permanent,SAAS
+210304,دفعات مقدمة من العملاء,Customer Advances / Deposits,2103,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,IFRS 15,,,,False,permanent,ALL
+210305,مبالغ محتجزة دائنة,Retention Payable,2103,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,,False,permanent,CONSTRUCTION
+210306,ودائع حجوزات مقدمة,Guest Advance Deposits,2103,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,IFRS 15,,,,False,permanent,HOSPITALITY
+210307,التزام برامج الولاء,Customer Loyalty Liability,2103,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,IFRS 15,,,,False,permanent,TRADING|RETAIL
+210308,التزام بطاقات الهدايا,Gift Card Liability,2103,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,IFRS 15,,,,False,permanent,TRADING|RETAIL
+210401,ضريبة القيمة المضافة,Value Added Tax (VAT),2104,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,VAT,TAX,False,permanent,ALL
+210402,ضريبة الدخل مستحقة,Income Tax Payable,2104,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,IAS 12,CIT,,False,permanent,ALL
+210403,ضريبة الاستقطاع,Withholding Tax,2104,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,WHT,TAX,False,permanent,ALL
+210404,ضريبة القيمة المضافة على المخرجات,Output VAT,2104,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,VAT,TAX,True,permanent,ALL
+210405,ضريبة القيمة المضافة مستحقة الدفع,VAT Payable (Net),2104,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,VAT,TAX,True,permanent,ALL
+210406,ضريبة الدمغة,Stamp Tax,2104,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,STAMP,,False,permanent,ALL
+210407,مساهمة التضامن الاجتماعي,Social Solidarity Contribution,2104,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,SOLIDARITY,,False,permanent,ALL
+210501,تسهيلات بنكية,Bank Facilities / Overdraft,2105,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,financing,,,,,False,permanent,ALL
+210502,الجزء المتداول من قروض طويلة الأجل,Current Portion of Long-term Loans,2105,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,financing,,,,,False,permanent,ALL
+210503,الجزء المتداول من التزام الإيجار,Current Portion of Lease Liability,2105,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,financing,IFRS 16,,,LEASE,False,permanent,ALL
+210601,مخصص الضمان,Warranty Provision - Current,2106,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,IAS 37,,,False,permanent,ALL
+210602,مخصصات أخرى,Other Provisions,2106,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,IAS 37,,,False,permanent,ALL
+210603,مخصص عقود مثقلة,Onerous Contract Provision,2106,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,IAS 37,,,False,permanent,CONSTRUCTION
+210701,رواتب صافية مستحقة الدفع,Net Salaries Payable,2107,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,PAYROLL,False,permanent,ALL
+210702,استقطاع ضريبة الدخل من الرواتب,Payroll Income Tax Withheld (PAYE),2107,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,PAYE,PAYROLL,False,permanent,ALL
+210703,ضمان اجتماعي - حصة الموظف,Social Security - Employee Share,2107,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,PAYROLL,False,permanent,ALL
+210704,ضمان اجتماعي - حصة صاحب العمل,Social Security - Employer Share,2107,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,PAYROLL,False,permanent,ALL
+210705,استقطاعات أخرى من الرواتب,Other Payroll Deductions,2107,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,PAYROLL,False,permanent,ALL
+210801,حساب معلق دائن,Suspense Account - Credit,2108,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,,True,permanent,ALL
+210802,حساب وسيط للمدفوعات,Payments Clearing,2108,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,,,,,True,permanent,ALL
+210901,مشتقات مالية - التزامات,Derivative Financial Liabilities,2109,4,liability,خصم,credit,True,detail,False,,SFP > Current Liabilities,operating,IFRS 9 / IFRS 7,,,,False,permanent,ALL
+220101,قروض بنكية طويلة الأجل,Long-term Bank Loans,2201,4,liability,خصم,credit,True,detail,False,,SFP > Non-current Liabilities,financing,,,,,False,permanent,ALL
+220102,سندات مستحقة الدفع,Bonds Payable,2201,4,liability,خصم,credit,True,detail,False,,SFP > Non-current Liabilities,financing,,,,,False,permanent,ALL
+220201,مخصص مكافآت نهاية الخدمة,End-of-Service Benefits Provision,2202,4,liability,خصم,credit,True,detail,False,,SFP > Non-current Liabilities,financing,,IAS 19,,,False,permanent,ALL
+220202,مخصص الصيانة والضمان,Maintenance and Warranty Provision,2202,4,liability,خصم,credit,True,detail,False,,SFP > Non-current Liabilities,financing,,IAS 37,,,False,permanent,ALL
+220301,التزام إيجار طويل الأجل,Lease Liability - Non-current,2203,4,liability,خصم,credit,True,detail,False,,SFP > Non-current Liabilities,financing,IFRS 16,,,LEASE,False,permanent,ALL
+220401,التزام منافع محددة (نهاية الخدمة),Defined Benefit Obligation,2204,4,liability,خصم,credit,True,detail,False,,SFP > Non-current Liabilities,financing,,IAS 19,,,False,permanent,ALL
+220501,التزام ضريبي مؤجل,Deferred Tax Liability,2205,4,liability,خصم,credit,True,detail,False,,SFP > Non-current Liabilities,none,,IAS 12,DEFERRED,,False,permanent,ALL
+220601,قروض من الشركات القابضة/التابعة,Loans from Group Companies,2206,4,liability,خصم,credit,True,detail,False,,SFP > Non-current Liabilities,financing,,IAS 24,,,False,permanent,ALL
+310101,رأس المال المصرح به,Authorized Capital,3101,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,financing,,,,,False,permanent,ALL
+310102,علاوة إصدار الأسهم,Share Premium,3101,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,financing,,,,,False,permanent,ALL
+310103,أسهم الخزينة,Treasury Shares,3101,4,equity,حقوق ملكية,debit,True,detail,True,3101,SFP > Equity (contra),financing,,IAS 32,,,False,permanent,ALL
+310104,حقوق غير مسيطرة (حصص الأقلية),Non-controlling Interests (NCI),3101,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,financing,IFRS 10,,,,False,permanent,ALL
+320101,الاحتياطي القانوني,Legal Reserve,3201,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,none,,,,,False,permanent,ALL
+320102,الاحتياطي الاختياري,Voluntary Reserve,3201,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,none,,,,,False,permanent,ALL
+320103,احتياطي إعادة التقييم,Revaluation Reserve,3201,4,equity,حقوق ملكية,credit,True,detail,False,,Equity > Other Comprehensive Income > Revaluation surplus,none,,IAS 16,,,False,oci,ALL
+320201,أرباح مرحلة من سنوات سابقة,Retained Earnings,3202,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,none,,,,,False,retained_earnings,ALL
+320202,أرباح / خسائر السنة الحالية,Current Year Profit / Loss,3202,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,none,,,,,False,retained_earnings,ALL
+320203,تعديلات فترات سابقة (تغير سياسات/تصحيح أخطاء),Prior Period Adjustments,3202,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,none,,IAS 8,,,False,permanent,ALL
+320301,مسحوبات الشركاء,Partners' Drawings,3203,4,equity,حقوق ملكية,debit,True,detail,True,3101,SFP > Equity (contra),financing,,,,,False,permanent,ALL
+320302,توزيعات الأرباح,Dividends Distributed,3203,4,equity,حقوق ملكية,debit,True,detail,True,3101,SFP > Equity (contra),financing,,,,,False,permanent,ALL
+330101,احتياطي القيمة العادلة - FVOCI,Fair Value Reserve - FVOCI,3301,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity > Other Comprehensive Income,none,IFRS 9,,,,False,oci,ALL
+330102,احتياطي ترجمة العملات الأجنبية,Foreign Currency Translation Reserve,3301,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity > Other Comprehensive Income,none,,IAS 21,,,False,oci,ALL
+330103,احتياطي تحوط التدفقات النقدية,Cash Flow Hedge Reserve,3301,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity > Other Comprehensive Income,none,IFRS 9,,,,False,oci,ALL
+330104,احتياطي إعادة قياس منافع محددة,Remeasurement of Defined Benefit Plans,3301,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity > Other Comprehensive Income,none,,IAS 19,,,False,oci,ALL
+340101,صافي أصول غير مقيّدة,Unrestricted Net Assets,3401,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,none,,,,,False,permanent,NON_PROFIT
+340102,صافي أصول مقيّدة,Restricted Net Assets,3401,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,none,,,,,False,permanent,NON_PROFIT
+340103,أوقاف وهبات دائمة,Endowment Net Assets,3401,4,equity,حقوق ملكية,credit,True,detail,False,,SFP > Equity,none,,,,,False,permanent,NON_PROFIT
+410101,مبيعات محلية,Local Sales,4101,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+410102,مبيعات تصدير,Export Sales,4101,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+410103,مردودات ومسموحات المبيعات,Sales Returns and Allowances,4101,4,revenue,إيراد,debit,True,detail,True,4101,P&L > Revenue (contra),operating,,,,,False,temporary,ALL
+410201,إيرادات خدمات رئيسية,Primary Service Revenue,4102,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+410202,إيرادات خدمات إضافية,Additional Service Revenue,4102,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+410301,إيرادات اشتراكات,Subscription Revenue,4103,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,IFRS 15,,,,False,temporary,SAAS
+410401,إيراد معترف به على مدى الزمن,Revenue Recognized Over Time,4104,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,IFRS 15,,,,False,temporary,CONSTRUCTION|SERVICES
+410501,إيرادات الغرف,Room Revenue,4105,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,IFRS 15,,,,False,temporary,HOSPITALITY
+410502,إيرادات الأطعمة والمشروبات,Food & Beverage Revenue,4105,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,IFRS 15,,,,False,temporary,HOSPITALITY
+410503,إيرادات القاعات والفعاليات,Banquet & Events Revenue,4105,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,IFRS 15,,,,False,temporary,HOSPITALITY
+410601,إيرادات خدمات المرضى,Patient Service Revenue,4106,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,IFRS 15,,,,False,temporary,HEALTHCARE
+410602,إيراد طبي غير مفوتر,Unbilled Medical Revenue,4106,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,IFRS 15,,,,False,temporary,HEALTHCARE
+410701,إيرادات الشحن,Freight Revenue,4107,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,IFRS 15,,,,False,temporary,LOGISTICS
+410801,تبرعات وهبات,Donations & Gifts,4108,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,NON_PROFIT
+410802,منح مقيّدة,Restricted Grants,4108,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,NON_PROFIT
+420101,فوائد وعوائد بنكية,Interest and Bank Income,4201,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+420102,أرباح توزيعات الاستثمارات,Dividend Income,4201,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+420103,أرباح بيع أصول,Gain on Disposal of Assets,4201,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+420104,أرباح فروق العملة المحققة,Realized Foreign Exchange Gains,4201,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,IAS 21,,,False,temporary,ALL
+420105,أرباح القيمة العادلة - FVTPL,Fair Value Gains - FVTPL,4201,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,IFRS 9,,,,False,temporary,ALL
+420106,أرباح انعكاس انخفاض القيمة,Reversal of Impairment Losses,4201,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,IAS 36,,,False,temporary,ALL
+420201,إيرادات إيجار,Rental Income,4202,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+420202,غرامات وتعويضات محصلة,Fines and Compensation Received,4202,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+420203,إيرادات متنوعة أخرى,Other Miscellaneous Revenue,4202,4,revenue,إيراد,credit,True,detail,False,,P&L > Revenue,operating,,,,,False,temporary,ALL
+510101,مشتريات محلية,Local Purchases,5101,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+510102,مشتريات مستوردة,Imported Purchases,5101,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+510103,مردودات ومسموحات المشتريات,Purchase Returns and Allowances,5101,4,cost_of_sales,مصروف,credit,True,detail,True,5101,P&L > Cost of Sales (contra),operating,,,,,False,temporary,ALL
+510104,مصاريف الشحن والنقل,Freight and Transportation In,5101,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+510105,رسوم جمركية,Customs Duties,5101,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+510201,مواد خام مستهلكة,Raw Materials Consumed,5102,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+510202,أجور عمال الإنتاج المباشرون,Direct Production Labor,5102,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,ALL
+510301,أجور غير مباشرة,Indirect Labor,5103,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,MANUFACTURING
+510302,مصروفات المصنع (كهرباء/صيانة),Factory Overheads,5103,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,MANUFACTURING
+510303,استهلاك أصول الإنتاج,Depreciation - Production Assets,5103,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,IAS 16,,,False,temporary,MANUFACTURING
+510401,تكلفة العمالة المباشرة للخدمات,Direct Service Labor,5104,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,SERVICES
+510402,تكاليف الاستضافة والبنية التحتية,Hosting & Infrastructure Costs,5104,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,SAAS
+510501,انحراف المواد,Material Variance,5105,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,MANUFACTURING
+510502,انحراف الأجور,Labor Variance,5105,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,MANUFACTURING
+510503,انحراف التكاليف غير المباشرة,Overhead Variance,5105,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,MANUFACTURING
+510601,وقود,Fuel,5106,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,LOGISTICS
+510602,صيانة الأسطول,Fleet Maintenance,5106,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,,,,False,temporary,LOGISTICS
+510603,استهلاك الأسطول,Fleet Depreciation,5106,4,cost_of_sales,مصروف,debit,True,detail,False,,P&L > Cost of Sales,operating,,IAS 16,,,False,temporary,LOGISTICS
+610101,رواتب مندوبي المبيعات,Sales Representatives' Salaries,6101,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+610102,عمولات المبيعات,Sales Commissions,6101,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+610103,مكافآت المبيعات,Sales Bonuses,6101,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+610201,إعلانات ووسائط,Advertising and Media,6102,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+610202,مصروفات المعارض والفعاليات,Exhibitions and Events,6102,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+610203,هدايا ومواد ترويجية,Gifts and Promotional Materials,6102,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+610301,رسوم الشحن المحلي,Local Shipping Fees,6103,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+610302,رسوم الشحن الخارجي,International Shipping Fees,6103,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620101,رواتب الموظفين الإداريين,Administrative Staff Salaries,6201,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620102,بدلات ومزايا الموظفين,Employee Allowances and Benefits,6201,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620103,مكافأة نهاية الخدمة,End-of-Service Benefits Expense,6201,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620104,تأمين طبي للموظفين,Employee Medical Insurance,6201,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620201,إيجار المكاتب والمستودعات,Office and Warehouse Rent,6202,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620202,كهرباء وماء,Electricity and Water,6202,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620203,اتصالات وإنترنت,Telecommunications and Internet,6202,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620301,مستلزمات مكتبية وقرطاسية,Office Supplies and Stationery,6203,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620302,صيانة وإصلاحات,Maintenance and Repairs,6203,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620303,رسوم قانونية ومحاسبية,Legal and Accounting Fees,6203,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620304,اشتراكات وعضويات,Subscriptions and Memberships,6203,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620305,مصروفات السفر والانتقالات,Travel and Transportation Expenses,6203,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620306,تدريب وتطوير الكوادر,Training and Development,6203,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620307,مستلزمات تشغيلية (OS&E),Operating Supplies & Equipment,6203,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,HOSPITALITY
+620401,استهلاك المباني,Depreciation - Buildings,6204,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620402,استهلاك الآلات والمعدات,Depreciation - Machinery,6204,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620403,استهلاك الأثاث,Depreciation - Furniture,6204,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620404,استهلاك السيارات,Depreciation - Vehicles,6204,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620405,استهلاك الأجهزة والحاسبات,Depreciation - Computers,6204,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620406,إطفاء الأصول غير الملموسة,Amortization - Intangibles,6204,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,,,,False,temporary,ALL
+620407,استهلاك حق استخدام الأصل,Depreciation - Right-of-Use Assets,6204,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,IFRS 16,,,,False,temporary,ALL
+620501,خسارة انخفاض قيمة الأصول الثابتة,Impairment Loss - PPE,6205,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,IAS 36,,,False,temporary,ALL
+620502,خسارة انخفاض قيمة الشهرة,Impairment Loss - Goodwill,6205,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,IAS 36,,,False,temporary,ALL
+620503,خسارة انخفاض قيمة المخزون,Inventory Write-down,6205,4,expense,مصروف,debit,True,detail,False,,P&L > Operating Expenses,operating,,IAS 2,,,False,temporary,ALL
+630101,فوائد قروض بنكية,Interest on Bank Loans,6301,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,,,,,False,temporary,ALL
+630102,عمولات بنكية,Bank Commissions,6301,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,,,,,False,temporary,ALL
+630103,فروق العملة الأجنبية,Foreign Exchange Differences,6301,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,,,,,False,temporary,ALL
+630104,خسائر فروق العملة المحققة,Realized Foreign Exchange Losses,6301,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,,IAS 21,,,False,temporary,ALL
+630105,خسائر فروق العملة غير المحققة,Unrealized Foreign Exchange Losses,6301,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,,IAS 21,,,False,temporary,ALL
+630106,فائدة التزام الإيجار,Interest on Lease Liabilities,6301,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,IFRS 16,,,,False,temporary,ALL
+630201,مصروف ديون معدومة,Bad Debts Expense,6302,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,,,,,False,temporary,ALL
+630202,خسارة بيع أصول,Loss on Disposal of Assets,6302,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,,,,,False,temporary,ALL
+630203,مصروف الخسائر الائتمانية المتوقعة,Expected Credit Loss Expense,6302,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,IFRS 9,,,,False,temporary,ALL
+630204,خسائر القيمة العادلة - FVTPL,Fair Value Losses - FVTPL,6302,4,expense,مصروف,debit,True,detail,False,,P&L > Finance Costs,operating,IFRS 9,,,,False,temporary,ALL
+640101,ضريبة الدخل الجارية,Current Income Tax Expense,6401,4,expense,مصروف,debit,True,detail,False,,P&L > Income Tax,operating,,IAS 12,CIT,,False,temporary,ALL
+640102,ضريبة الدخل المؤجلة,Deferred Income Tax Expense,6401,4,expense,مصروف,debit,True,detail,False,,P&L > Income Tax,operating,,IAS 12,DEFERRED,,False,temporary,ALL
+650101,مصروفات تنفيذ البرامج,Program Delivery Expenses,6501,4,expense,مصروف,debit,True,detail,False,,P&L > Tax,operating,,,,,False,temporary,NON_PROFIT
+650201,مصروفات إدارية وجمع تبرعات,Administrative & Fundraising Expenses,6502,4,expense,مصروف,debit,True,detail,False,,P&L > Tax,operating,,,,,False,temporary,NON_PROFIT
+710101,الأرباح والخسائر,Profit and Loss Summary,7101,4,closing,ختامي,none,True,detail,False,,Memo,none,,,,,False,closing_account,ALL
+710201,المتاجرة,Trading Summary,7102,4,closing,ختامي,none,True,detail,False,,Memo,none,,,,,False,closing_account,ALL
+710301,ملخص الدخل الشامل الآخر,Other Comprehensive Income Summary,7103,4,closing,ختامي,none,True,detail,False,,Memo,none,,,,,False,closing_account,ALL
+810101,خطابات ضمان صادرة,Guarantees Issued,8101,4,memo,نظامي,none,True,detail,False,,Off-Balance-Sheet > Guarantees Issued,none,,IAS 37,,,False,none,ALL
+810102,خطابات ضمان واردة,Guarantees Received,8101,4,memo,نظامي,none,True,detail,False,,Off-Balance-Sheet > Guarantees Received,none,,,,,False,none,ALL
+810103,التزامات محتملة,Contingent Liabilities,8101,4,memo,نظامي,none,True,detail,False,,Off-Balance-Sheet > Contingent Liabilities,none,,IAS 37,,,False,none,ALL
+810104,التزامات رأسمالية تعاقدية,Capital Commitments,8101,4,memo,نظامي,none,True,detail,False,,Off-Balance-Sheet > Capital Commitments,none,,,,,False,none,ALL
+810201,بضاعة أمانة,Consignment Goods,8102,4,memo,نظامي,none,True,detail,False,,Off-Balance-Sheet > Consignment Goods,none,,,,,False,none,TRADING
+810202,أصول عملاء مُدارة,Managed Client Assets,8102,4,memo,نظامي,none,True,detail,False,,Off-Balance-Sheet > Managed Client Assets,none,,,,,False,none,ALL

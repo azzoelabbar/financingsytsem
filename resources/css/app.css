@@ -1,0 +1,932 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../resources/views/**/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* Lama Sans (Baianat, free for commercial use) — Latin + Arabic. Self-hosted from public/fonts. */
+@font-face {
+    font-family: "Lama Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/fonts/lama-sans/LamaSans-Regular.woff") format("woff");
+}
+@font-face {
+    font-family: "Lama Sans";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("/fonts/lama-sans/LamaSans-Medium.woff") format("woff");
+}
+@font-face {
+    font-family: "Lama Sans";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("/fonts/lama-sans/LamaSans-SemiBold.woff") format("woff");
+}
+@font-face {
+    font-family: "Lama Sans";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/fonts/lama-sans/LamaSans-Bold.woff") format("woff");
+}
+
+/*
+  ================================================================
+  MIZAN / Ledger - enterprise accounting design system
+  Arabic-first (RTL default) - light - data-dense - financial.
+
+  Identity:  navy navigation, deep teal actions, mint accents,
+             layered white surfaces and precise financial type.
+  Semantics: emerald = positive/settled, red = negative/overdue,
+             amber = pending/attention, blue = informational.
+             Colour is never decoration; it always states a fact.
+  Structure: editorial headers, quiet surfaces, document sheets,
+             and measured elevation for a clear working hierarchy.
+  Numbers:   always tabular, always end-aligned, negatives in red
+             with a true minus sign.
+  ================================================================
+*/
+
+@theme inline {
+    --font-sans:
+        "Lama Sans", ui-sans-serif, system-ui, "Segoe UI", Tahoma, Arial, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 3px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-surface-sunken: var(--surface-sunken);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+    --color-info: var(--info);
+    --color-info-foreground: var(--info-foreground);
+
+    --color-brand: var(--brand-600);
+    --color-brand-tint: var(--brand-50);
+
+    --color-border: var(--border);
+    --color-border-strong: var(--border-strong);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-sidebar: var(--sidebar-background);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-muted: var(--sidebar-muted);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+
+    /* Legacy aliases kept so older markup retunes to the new palette */
+    --color-ink: var(--ink);
+    --color-paper: var(--paper);
+    --color-teal: var(--brand-600);
+    --color-sage: var(--border-strong);
+}
+
+:root {
+    /* ---------- Cool slate neutrals ---------- */
+    --ink: #132f3b; /* primary text */
+    --ink-soft: #264854;
+    --paper: #f2f6f6; /* application canvas */
+    --paper-elevated: #ffffff; /* cards, tables, panels */
+
+    /* ---------- Brand: deep institutional blue ---------- */
+    --brand-50: #edf8f6;
+    --brand-100: #d3efe8;
+    --brand-200: #acdacf;
+    --brand-400: #47a99a;
+    --brand-500: #168476;
+    --brand-600: #076c65;
+    --brand-700: #07564f;
+    --brand-900: #073a3a;
+    --navy: #082d3d;
+    --mint: #b6edcf;
+
+    /* Aliases used across existing markup */
+    --accent-solid: var(--brand-600);
+    --accent-hover: var(--brand-700);
+    --accent-tint: var(--brand-50);
+    --teal: var(--brand-600);
+    --teal-hover: var(--brand-700);
+    --teal-muted: var(--brand-50);
+    --teal-strong: var(--brand-700);
+
+    /* ---------- Financial semantics ---------- */
+    --success-color: #0e7a4a;
+    --success-muted: #e6f5ec;
+    --success-line: #a5d9bd;
+
+    --danger: #b42318;
+    --danger-muted: #fdeceb;
+    --danger-line: #f2b4ae;
+    --danger-strong: #8f1c13;
+
+    --warning-color: #96620f;
+    --warning-muted: #fbf1de;
+    --warning-line: #e6cd9a;
+    --warning-soft: #d3a647;
+    --warning-strong: #c2570f;
+
+    --info-color: var(--brand-600);
+    --info-muted: var(--brand-50);
+    --info-line: var(--brand-200);
+
+    /* Legacy alias still referenced by book-basis markup */
+    --gold: var(--warning-color);
+
+    --neutral-muted: #eef1f6;
+    --neutral-line: #d3dae4;
+
+    /* ---------- Role tokens ---------- */
+    --background: var(--paper);
+    --foreground: var(--ink);
+    --card: var(--paper-elevated);
+    --card-foreground: var(--ink);
+    --popover: var(--paper-elevated);
+    --popover-foreground: var(--ink);
+    --surface-sunken: #f5f8f9;
+
+    --primary: var(--brand-600);
+    --primary-foreground: #ffffff;
+    --secondary: #e8edf4;
+    --secondary-foreground: var(--ink);
+    --muted: #eef1f6;
+    --muted-foreground: #657d86;
+    --accent: var(--brand-50);
+    --accent-foreground: var(--brand-700);
+    --destructive: var(--danger);
+    --destructive-foreground: #ffffff;
+    --success: var(--success-color);
+    --success-foreground: #ffffff;
+    --warning: var(--warning-color);
+    --warning-foreground: #ffffff;
+    --info: var(--info-color);
+    --info-foreground: #ffffff;
+
+    --border: #e0e9eb;
+    --border-strong: #bfced2;
+    --input: #cddadd;
+    --ring: var(--brand-500);
+    --radius: 0.875rem;
+
+    /* ---------- Navigation rail ---------- */
+    --sidebar-background: var(--navy);
+    --sidebar-foreground: #c6d7dd;
+    --sidebar-muted: #87a6b2;
+    --sidebar-accent: #174655;
+    --sidebar-accent-foreground: #c9f5de;
+    --sidebar-border: #224452;
+
+    /* ---------- Elevation (reserved for floating surfaces) ---------- */
+    --elevation-xs: 0 1px 1px rgba(14, 23, 38, 0.03);
+    --elevation-sm: 0 2px 3px -2px rgb(8 45 61 / 8%), 0 6px 24px -18px rgb(8 45 61 / 12%);
+    --elevation-md: 0 10px 30px -12px rgb(8 45 61 / 13%);
+    --elevation-lg: 0 24px 70px -20px rgb(8 45 61 / 28%);
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--border);
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-background font-sans text-foreground antialiased;
+        font-feature-settings:
+            "kern" 1,
+            "liga" 1,
+            "cv05" 1;
+    }
+
+    .tnum,
+    table td,
+    table th {
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum" 1;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        letter-spacing: -0.014em;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--ring);
+        outline-offset: 1px;
+    }
+
+    ::selection {
+        background: var(--brand-100);
+        color: var(--brand-900);
+    }
+
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-strong) transparent;
+    }
+}
+
+@layer components {
+    /* ================= Navigation rail ================= */
+    .erp-sidebar-link {
+        @apply relative flex items-center gap-2.5 rounded-md px-3 py-1.5 text-sm text-sidebar-foreground transition-colors;
+    }
+    .erp-sidebar-link:hover {
+        background: #123c4c;
+        color: #ffffff;
+    }
+    .erp-sidebar-link-active {
+        background: var(--sidebar-accent);
+        color: var(--sidebar-accent-foreground);
+        font-weight: 600;
+    }
+    .erp-sidebar-link-active::before {
+        content: "";
+        position: absolute;
+        inset-inline-start: 0;
+        inset-block: 0.3rem;
+        width: 3px;
+        border-radius: 9999px;
+        background: var(--mint);
+    }
+    .erp-nav-group-label {
+        @apply px-3 pb-1 pt-4 text-[0.6875rem] font-semibold uppercase tracking-[0.12em];
+        color: var(--sidebar-muted);
+    }
+
+    /* ================= Surfaces ================= */
+    .erp-card {
+        @apply rounded-lg border border-border bg-card text-card-foreground;
+    }
+    .erp-band {
+        background: var(--surface-sunken);
+    }
+
+    /* ================= Typography ================= */
+    .erp-page-title {
+        @apply text-[1.75rem] font-semibold leading-tight tracking-tight text-foreground;
+    }
+    .erp-section-title {
+        @apply text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-muted-foreground;
+    }
+    .erp-eyebrow {
+        @apply text-[0.6875rem] font-semibold uppercase tracking-[0.12em];
+        color: var(--brand-600);
+    }
+    .erp-kpi-value {
+        @apply mt-1 text-[1.5rem] font-semibold leading-tight tracking-tight text-foreground tabular-nums;
+    }
+    .erp-kpi-label {
+        @apply text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-muted-foreground;
+    }
+    .erp-field-label {
+        @apply block text-[0.8125rem] font-medium text-foreground;
+    }
+
+    /* ================= Numbers ================= */
+    .erp-num {
+        font-variant-numeric: tabular-nums;
+        @apply text-end;
+    }
+
+    /* ================= Elevation utilities ================= */
+    .shadow-elevation-xs {
+        box-shadow: var(--elevation-xs);
+    }
+    .shadow-elevation-sm {
+        box-shadow: var(--elevation-sm);
+    }
+    .shadow-elevation-md {
+        box-shadow: var(--elevation-md);
+    }
+    .shadow-elevation-lg {
+        box-shadow: var(--elevation-lg);
+    }
+
+    /* ================= Form controls ================= */
+    .erp-control {
+        @apply flex h-10 w-full rounded-md border border-input bg-card px-3 text-sm text-foreground transition-colors;
+        @apply placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/20;
+        @apply disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-70;
+        box-shadow: var(--elevation-xs);
+    }
+    .erp-control-invalid {
+        border-color: var(--danger);
+    }
+}
+
+/* Mizan compositions deliberately take precedence over primitive utilities. */
+.mizan-sidebar {
+    background: linear-gradient(165deg, #0b3445, #072938 75%);
+    box-shadow: 0 12px 32px -20px rgb(8 45 61 / 45%);
+}
+.mizan-sidebar .erp-sidebar-link {
+    min-height: 38px;
+    font-size: 0.8125rem;
+}
+.mizan-sidebar .erp-nav-group-label {
+    font-size: 0.59rem;
+    padding-block-start: 1.3rem;
+    letter-spacing: 0.13em;
+}
+.mizan-nav-trigger {
+    @apply flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-sm text-sidebar-foreground transition-colors;
+}
+.mizan-nav-trigger:hover,
+.mizan-nav-trigger[aria-expanded="true"] {
+    background: #123c4c;
+    color: white;
+}
+.mizan-topbar {
+    background: rgb(242 246 246 / 92%);
+    backdrop-filter: blur(18px);
+}
+.mizan-content {
+    animation: workspace-in 260ms ease-out both;
+}
+.mizan-page-header {
+    margin-block-end: 1.75rem;
+}
+.mizan-page-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+}
+.mizan-card {
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--elevation-sm);
+}
+.mizan-card-header {
+    padding-block: 1.1rem;
+}
+.mizan-stat {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    padding: 1.2rem 1.25rem;
+    box-shadow: var(--elevation-sm);
+}
+.mizan-stat::after {
+    content: "";
+    position: absolute;
+    inset-inline-start: 1.25rem;
+    top: 0;
+    width: 2rem;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: var(--stat-accent);
+}
+.mizan-stat[href]:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--elevation-md);
+}
+.mizan-stat .erp-kpi-label {
+    font-size: 0.69rem;
+    text-transform: none;
+    letter-spacing: 0;
+}
+.mizan-stat .erp-kpi-value {
+    margin-block-start: 0.75rem;
+}
+.mizan-button {
+    transition:
+        background 160ms,
+        box-shadow 160ms,
+        transform 160ms;
+}
+.mizan-button:active {
+    transform: translateY(1px);
+}
+.mizan-button-primary {
+    background: linear-gradient(135deg, #087a70, #075c59);
+    box-shadow:
+        0 3px 8px -3px rgb(7 108 101 / 38%),
+        inset 0 1px 0 rgb(255 255 255 / 12%);
+}
+.mizan-button-primary:hover {
+    background: linear-gradient(135deg, #06675f, #064b49);
+    box-shadow: 0 4px 12px -3px rgb(7 108 101 / 35%);
+}
+.mizan-table-shell {
+    box-shadow: var(--elevation-sm);
+}
+.mizan-table tbody td {
+    border-color: #edf1f2;
+}
+.mizan-table thead th {
+    padding-block: 0.9rem;
+    background: #f7fafb;
+    font-size: 0.63rem;
+    letter-spacing: 0.055em;
+}
+.mizan-table tbody tr:hover td:first-child {
+    box-shadow: inset 3px 0 var(--brand-500);
+}
+[dir="rtl"] .mizan-table tbody tr:hover td:first-child {
+    box-shadow: inset -3px 0 var(--brand-500);
+}
+.mizan-toolbar {
+    box-shadow: var(--elevation-sm);
+    border-radius: 1rem;
+    padding: 0.75rem;
+}
+.mizan-toolbar input[type="search"] {
+    border-color: transparent;
+    background: var(--surface-sunken);
+    box-shadow: none;
+}
+.mizan-entity {
+    overflow: hidden;
+    border-radius: 1.2rem;
+    border: 1px solid var(--border);
+    background: white;
+    box-shadow: var(--elevation-sm);
+}
+.mizan-entity-top {
+    background: linear-gradient(110deg, #f8fcfb, white 70%);
+    padding: 1.7rem;
+    border-top: 3px solid var(--brand-500);
+}
+.mizan-monogram {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1rem;
+}
+.mizan-entity-metrics {
+    background: #f6f9fa;
+    padding: 0.25rem 0.5rem;
+    gap: 0;
+}
+.mizan-entity-metrics > div {
+    background: transparent;
+}
+.mizan-tab-rail {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.35rem;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 0.85rem;
+    background: #eaf0f1;
+}
+.mizan-tab {
+    flex-shrink: 0;
+    border-radius: 0.55rem;
+    color: var(--muted-foreground);
+}
+.mizan-tab:hover {
+    color: var(--brand-700);
+    background: rgb(255 255 255 / 50%);
+}
+.mizan-tab[aria-selected="true"] {
+    color: var(--brand-700);
+    background: white;
+    box-shadow: 0 2px 6px rgb(8 45 61 / 8%);
+}
+.mizan-form-section {
+    padding: 1.6rem;
+}
+.mizan-form-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.mizan-form-section h2::before {
+    content: "";
+    width: 4px;
+    height: 1rem;
+    background: var(--brand-500);
+    border-radius: 4px;
+}
+.mizan-form-section-wide {
+    display: block;
+}
+.mizan-form-section-wide > div:first-child {
+    margin-block-end: 1.25rem;
+    max-width: 44rem;
+}
+.mizan-form-actions {
+    background: rgb(250 253 253 / 96%);
+    backdrop-filter: blur(12px);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 -5px 18px -14px rgb(8 45 61 / 25%);
+}
+.mizan-document-form {
+    border-radius: 1.2rem;
+    overflow: clip;
+    background: white;
+    border: 1px solid var(--border);
+    box-shadow: var(--elevation-sm);
+}
+.mizan-document-rail {
+    padding: 1.5rem;
+    background: #f8fbfa;
+    border-bottom: 1px solid var(--border);
+}
+.mizan-draft-guidance {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 1rem;
+    background: #edf7f2;
+    padding: 1rem 1.25rem;
+    color: var(--brand-900);
+}
+.mizan-report-identity {
+    border-radius: 1rem;
+    box-shadow: var(--elevation-sm);
+    border-top: 3px solid var(--navy);
+}
+.mizan-report-body {
+    padding: 1.5rem;
+    background: rgb(255 255 255 / 55%);
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+}
+.mizan-overview {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1rem;
+}
+.mizan-capital-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: linear-gradient(125deg, #0b3447, #074e54);
+    color: white;
+    padding: 1.75rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 12px 30px -18px #063a45;
+}
+.mizan-capital-card::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 250px;
+    height: 250px;
+    inset-inline-end: -110px;
+    top: -80px;
+    border: 35px solid rgb(134 220 190 / 7%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 35px rgb(134 220 190 / 4%),
+        0 0 0 70px rgb(134 220 190 / 3%);
+}
+.mizan-capital-card .mizan-cash-value > span {
+    color: white;
+    font-size: clamp(1.85rem, 3vw, 2.5rem);
+    letter-spacing: -0.04em;
+}
+.mizan-capital-card .mizan-cash-value > span > span {
+    color: #bad5d8;
+    font-size: 0.8rem;
+    letter-spacing: 0;
+}
+.mizan-capital-card .mizan-profit-value > span {
+    color: var(--mint);
+}
+.mizan-capital-card .mizan-profit-value[data-negative="true"] > span {
+    color: #ffb7ae;
+}
+.mizan-overview .mizan-stat {
+    padding: 1.65rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.mizan-overview .mizan-stat > .mt-1 {
+    margin-block: 1rem;
+}
+.mizan-overview .mizan-stat::after {
+    display: none;
+}
+.mizan-overview .mizan-stat .erp-kpi-label {
+    font-size: 0.8rem;
+}
+.mizan-dashboard .mizan-card {
+    min-width: 0;
+}
+.mizan-dashboard .mizan-card h3 {
+    font-size: 0.94rem;
+}
+.mizan-attention-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: center;
+    overflow: hidden;
+}
+.mizan-attention-card .mizan-card-header {
+    border: 0;
+    background: transparent;
+}
+.mizan-command-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: white;
+    padding: 0.6rem 0.75rem;
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+}
+.mizan-command-dialog {
+    width: min(620px, calc(100vw - 2rem));
+    max-height: min(620px, calc(100dvh - 4rem));
+    margin: min(15vh, 7rem) auto auto;
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    background: white;
+    color: var(--ink);
+    padding: 0;
+    box-shadow: 0 30px 100px rgb(8 30 45 / 30%);
+}
+.mizan-command-dialog::backdrop {
+    background: rgb(6 30 42 / 55%);
+    backdrop-filter: blur(5px);
+}
+.mizan-command-dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+.mizan-capital-card .mizan-cash-value > [data-negative="true"] {
+    color: #ffb7ae;
+}
+.mizan-line-editor {
+    container-type: inline-size;
+}
+.mizan-line-head {
+    display: none;
+}
+.mizan-line-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 0.9rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.85rem;
+    background: var(--surface-sunken);
+}
+.mizan-line-row > label {
+    min-width: 0;
+}
+.mizan-line-number {
+    align-self: center;
+    grid-column: 1;
+    grid-row: 1;
+}
+.mizan-line-description {
+    grid-column: 1 / -1;
+}
+.mizan-line-account {
+    grid-column: 1 / -1;
+}
+.mizan-line-with-tax .mizan-line-account {
+    grid-column: auto;
+}
+.mizan-line-remove {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+}
+.mizan-line-label {
+    display: block;
+    margin-block-end: 0.4rem;
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+}
+@container (min-width: 860px) {
+    .mizan-line-head,
+    .mizan-line-row {
+        display: grid;
+        grid-template-columns: 1.5rem minmax(0, 2fr) minmax(0, 1.3fr) 5rem 7rem 2.25rem;
+        gap: 0.75rem;
+        padding-inline: 1rem;
+    }
+    .mizan-line-with-tax {
+        grid-template-columns: 1.5rem minmax(0, 2fr) minmax(0, 1.3fr) minmax(
+                0,
+                1.2fr
+            ) 5rem 7rem 2.25rem;
+    }
+    .mizan-line-row > * {
+        grid-column: auto;
+        grid-row: auto;
+    }
+    .mizan-line-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+}
+.mizan-command-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 0.65rem;
+    text-align: start;
+    font-size: 0.875rem;
+}
+.mizan-command-result:hover,
+.mizan-command-result[data-active="true"] {
+    background: var(--brand-50);
+    color: var(--brand-700);
+}
+.mizan-key {
+    border: 1px solid var(--border);
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.3rem;
+    font:
+        10px ui-sans-serif,
+        system-ui;
+    color: var(--muted-foreground);
+}
+@media (min-width: 1024px) {
+    .mizan-sidebar {
+        position: sticky;
+        top: 0.75rem;
+        height: calc(100dvh - 1.5rem);
+        width: 15.25rem;
+        flex-shrink: 0;
+        margin: 0.75rem;
+        border-radius: 1.2rem;
+    }
+    .mizan-form-section:not(.mizan-form-section-wide) {
+        grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+        gap: 2rem;
+    }
+}
+@media (max-width: 767px) {
+    .mizan-attention-card {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .mizan-overview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+    .mizan-capital-card {
+        grid-column: 1 / -1;
+    }
+    .mizan-overview .mizan-stat {
+        padding: 1rem;
+    }
+    .mizan-overview .mizan-stat [dir="ltr"] {
+        font-size: 1.3rem;
+    }
+    .mizan-overview .mizan-stat [dir="ltr"] > span {
+        font-size: 0.6rem;
+    }
+    .mizan-page-heading {
+        align-items: start;
+    }
+    .mizan-page-heading > div:last-child {
+        max-width: 100%;
+    }
+    .erp-page-title {
+        font-size: 1.5rem;
+    }
+    .mizan-form-section,
+    .mizan-entity-top {
+        padding: 1.2rem;
+    }
+    .mizan-form-actions {
+        padding: 1rem;
+        position: static;
+    }
+    .mizan-form-actions > div {
+        width: 100%;
+    }
+    .mizan-form-actions > div > * {
+        flex: 1;
+    }
+    .mizan-report-body {
+        padding: 0.75rem;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+@media (max-width: 639px) {
+    .mizan-context-group {
+        width: 100%;
+    }
+    .mizan-context-bar {
+        flex: 1;
+    }
+    .mizan-company-context {
+        flex: 1;
+        padding-inline: 0.65rem;
+    }
+    .mizan-company-context > svg {
+        display: none;
+    }
+    .mizan-company-context > div {
+        width: 100%;
+    }
+    .mizan-company-context select {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@keyframes workspace-in {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+    .animate-skeleton {
+        animation: skeleton-pulse 1.5s ease-in-out infinite;
+    }
+}
+
+@keyframes skeleton-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@media print {
+    .erp-no-print {
+        display: none !important;
+    }
+    .mizan-sidebar,
+    .mizan-topbar {
+        display: none !important;
+    }
+    .mizan-report-body {
+        padding: 0;
+        border: none;
+    }
+    body {
+        background: #ffffff;
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}

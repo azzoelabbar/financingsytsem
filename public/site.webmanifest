@@ -1,0 +1,20 @@
+{
+    "name": "ميزان",
+    "short_name": "ميزان",
+    "description": "Financial Management & ERP",
+    "icons": [
+        {
+            "src": "/brand/mizan-icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/brand/mizan-mark.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#06345c",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}

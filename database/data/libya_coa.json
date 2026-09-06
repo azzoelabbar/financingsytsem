@@ -1,0 +1,1514 @@
+[
+ {
+  "code": "1",
+  "name_ar": "الأصول",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "11",
+  "name_ar": "الأصول المتداولة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "1101",
+  "name_ar": "النقدية وما في حكمها",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110101",
+  "name_ar": "الصندوق",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": "النقد الموجود في الصندوق"
+ },
+ {
+  "code": "110102",
+  "name_ar": "البنك الرئيسي",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": "الحساب البنكي التشغيلي"
+ },
+ {
+  "code": "110103",
+  "name_ar": "بنك احتياطي",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110104",
+  "name_ar": "شيكات تحت التحصيل",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "1102",
+  "name_ar": "الذمم المدينة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110201",
+  "name_ar": "العملاء",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": "مستحقات العملاء"
+ },
+ {
+  "code": "110202",
+  "name_ar": "أوراق قبض",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": "كمبيالات وسندات"
+ },
+ {
+  "code": "110203",
+  "name_ar": "مدينون متنوعون",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110204",
+  "name_ar": "مخصص الديون المشكوك فيها",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": "حساب مقابل (مدين)"
+ },
+ {
+  "code": "1103",
+  "name_ar": "المخزون",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110301",
+  "name_ar": "مخزون بضاعة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110302",
+  "name_ar": "مخزون مواد خام",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110303",
+  "name_ar": "مخزون منتجات تامة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110304",
+  "name_ar": "مخزون تحت التشغيل",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "1104",
+  "name_ar": "المصروفات المدفوعة مقدماً",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110401",
+  "name_ar": "إيجار مدفوع مقدماً",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110402",
+  "name_ar": "تأمين مدفوع مقدماً",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110403",
+  "name_ar": "مصروفات مقدمة أخرى",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "1105",
+  "name_ar": "استثمارات قصيرة الأجل",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110501",
+  "name_ar": "أوراق مالية متداولة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "110502",
+  "name_ar": "ودائع بنكية قصيرة الأجل",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": "أقل من سنة"
+ },
+ {
+  "code": "12",
+  "name_ar": "الأصول غير المتداولة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "1201",
+  "name_ar": "الأصول الثابتة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120101",
+  "name_ar": "الأراضي",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": "لا تُستهلك"
+ },
+ {
+  "code": "120102",
+  "name_ar": "المباني والإنشاءات",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120103",
+  "name_ar": "م.م. مباني",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": "مجمع الاستهلاك"
+ },
+ {
+  "code": "120104",
+  "name_ar": "الآلات والمعدات",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120105",
+  "name_ar": "م.م. آلات ومعدات",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": "مجمع الاستهلاك"
+ },
+ {
+  "code": "120106",
+  "name_ar": "أثاث ومفروشات",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120107",
+  "name_ar": "م.م. أثاث",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": "مجمع الاستهلاك"
+ },
+ {
+  "code": "120108",
+  "name_ar": "سيارات ومركبات",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120109",
+  "name_ar": "م.م. سيارات",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": "مجمع الاستهلاك"
+ },
+ {
+  "code": "120110",
+  "name_ar": "أجهزة وحاسبات",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120111",
+  "name_ar": "م.م. أجهزة وحاسبات",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": "مجمع الاستهلاك"
+ },
+ {
+  "code": "1202",
+  "name_ar": "الأصول غير الملموسة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120201",
+  "name_ar": "الشهرة (goodwill)",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120202",
+  "name_ar": "براءات الاختراع",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120203",
+  "name_ar": "العلامات التجارية",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120204",
+  "name_ar": "برامج وتراخيص",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "1203",
+  "name_ar": "استثمارات طويلة الأجل",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120301",
+  "name_ar": "استثمارات في شركات تابعة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120302",
+  "name_ar": "استثمارات في شركات زميلة",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "120303",
+  "name_ar": "ودائع بنكية طويلة الأجل",
+  "nature_ar": "أصل",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "لا",
+  "notes": "أكثر من سنة"
+ },
+ {
+  "code": "2",
+  "name_ar": "الخصوم",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "21",
+  "name_ar": "الخصوم المتداولة",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "2101",
+  "name_ar": "الذمم الدائنة",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210101",
+  "name_ar": "الموردون",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": "مستحقات الموردين"
+ },
+ {
+  "code": "210102",
+  "name_ar": "أوراق دفع",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210103",
+  "name_ar": "دائنون متنوعون",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "2102",
+  "name_ar": "المصروفات المستحقة",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210201",
+  "name_ar": "رواتب وأجور مستحقة",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210202",
+  "name_ar": "إيجار مستحق",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210203",
+  "name_ar": "مصروفات مستحقة أخرى",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "2103",
+  "name_ar": "الإيرادات المقدمة",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210301",
+  "name_ar": "إيرادات مقبوضة مقدماً",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "2104",
+  "name_ar": "الاستحقاقات الضريبية",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210401",
+  "name_ar": "ضريبة القيمة المضافة",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": "VAT"
+ },
+ {
+  "code": "210402",
+  "name_ar": "ضريبة الدخل مستحقة",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210403",
+  "name_ar": "ضريبة الاستقطاع",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "2105",
+  "name_ar": "القروض قصيرة الأجل",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210501",
+  "name_ar": "تسهيلات بنكية",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "210502",
+  "name_ar": "الجزء المتداول من قروض طويلة الأجل",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "22",
+  "name_ar": "الخصوم غير المتداولة",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "2201",
+  "name_ar": "قروض طويلة الأجل",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "220101",
+  "name_ar": "قروض بنكية طويلة الأجل",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "220102",
+  "name_ar": "سندات مستحقة الدفع",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "2202",
+  "name_ar": "مخصصات طويلة الأجل",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "220201",
+  "name_ar": "مخصص مكافآت نهاية الخدمة",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "220202",
+  "name_ar": "مخصص الصيانة والضمان",
+  "nature_ar": "خصم",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "3",
+  "name_ar": "حقوق الملكية",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "31",
+  "name_ar": "رأس المال",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "3101",
+  "name_ar": "رأس المال المدفوع",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "310101",
+  "name_ar": "رأس المال المصرح به",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "310102",
+  "name_ar": "علاوة إصدار الأسهم",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "32",
+  "name_ar": "الاحتياطيات والأرباح المرحلة",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "3201",
+  "name_ar": "الاحتياطيات",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "320101",
+  "name_ar": "الاحتياطي القانوني",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": "10% من صافي الربح"
+ },
+ {
+  "code": "320102",
+  "name_ar": "الاحتياطي الاختياري",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "320103",
+  "name_ar": "احتياطي إعادة التقييم",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "لا",
+  "notes": null
+ },
+ {
+  "code": "3202",
+  "name_ar": "الأرباح والخسائر",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "320201",
+  "name_ar": "أرباح مرحلة من سنوات سابقة",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "320202",
+  "name_ar": "أرباح / خسائر السنة الحالية",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "3203",
+  "name_ar": "المسحوبات",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "320301",
+  "name_ar": "مسحوبات الشركاء",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "320302",
+  "name_ar": "توزيعات الأرباح",
+  "nature_ar": "حقوق ملكية",
+  "statement_ar": "ميزانية عمومية",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "4",
+  "name_ar": "الإيرادات",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "41",
+  "name_ar": "إيرادات التشغيل",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "4101",
+  "name_ar": "المبيعات",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "410101",
+  "name_ar": "مبيعات محلية",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "410102",
+  "name_ar": "مبيعات تصدير",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "410103",
+  "name_ar": "مردودات ومسموحات المبيعات",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": "حساب مقابل (عكسي)"
+ },
+ {
+  "code": "4102",
+  "name_ar": "إيرادات الخدمات",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "410201",
+  "name_ar": "إيرادات خدمات رئيسية",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "410202",
+  "name_ar": "إيرادات خدمات إضافية",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "42",
+  "name_ar": "الإيرادات الأخرى",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "4201",
+  "name_ar": "الإيرادات الاستثمارية",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "420101",
+  "name_ar": "فوائد وعوائد بنكية",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "420102",
+  "name_ar": "أرباح توزيعات الاستثمارات",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "420103",
+  "name_ar": "أرباح بيع أصول",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "4202",
+  "name_ar": "إيرادات متنوعة",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "420201",
+  "name_ar": "إيجارات مستحقة",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "420202",
+  "name_ar": "غرامات وتعويضات محصلة",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "420203",
+  "name_ar": "إيرادات متنوعة أخرى",
+  "nature_ar": "إيراد",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "5",
+  "name_ar": "تكلفة المبيعات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "51",
+  "name_ar": "تكلفة البضاعة المباعة",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "5101",
+  "name_ar": "مشتريات البضاعة",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "510101",
+  "name_ar": "مشتريات محلية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "510102",
+  "name_ar": "مشتريات مستوردة",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "510103",
+  "name_ar": "مردودات ومسموحات المشتريات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "دائن",
+  "closing_ar": "نعم",
+  "notes": "حساب مقابل"
+ },
+ {
+  "code": "510104",
+  "name_ar": "مصاريف الشحن والنقل",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "510105",
+  "name_ar": "رسوم جمركية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "5102",
+  "name_ar": "تكاليف الإنتاج المباشرة",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "510201",
+  "name_ar": "مواد خام مستهلكة",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "510202",
+  "name_ar": "أجور عمال الإنتاج المباشرون",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6",
+  "name_ar": "المصروفات التشغيلية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "61",
+  "name_ar": "مصروفات البيع والتوزيع",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6101",
+  "name_ar": "رواتب وأجور المبيعات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "610101",
+  "name_ar": "رواتب مندوبي المبيعات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "610102",
+  "name_ar": "عمولات المبيعات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "610103",
+  "name_ar": "مكافآت المبيعات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6102",
+  "name_ar": "مصروفات التسويق والإعلان",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "610201",
+  "name_ar": "إعلانات ووسائط",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "610202",
+  "name_ar": "مصروفات المعارض والفعاليات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "610203",
+  "name_ar": "هدايا ومواد ترويجية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6103",
+  "name_ar": "مصروفات التوصيل والشحن",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "610301",
+  "name_ar": "رسوم الشحن المحلي",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "610302",
+  "name_ar": "رسوم الشحن الخارجي",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "62",
+  "name_ar": "المصروفات الإدارية والعمومية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6201",
+  "name_ar": "الرواتب والأجور الإدارية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620101",
+  "name_ar": "رواتب الموظفين الإداريين",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620102",
+  "name_ar": "بدلات ومزايا الموظفين",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620103",
+  "name_ar": "مكافأة نهاية الخدمة",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620104",
+  "name_ar": "تأمين طبي للموظفين",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6202",
+  "name_ar": "مصروفات الإيجار والمرافق",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620201",
+  "name_ar": "إيجار المكاتب والمستودعات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620202",
+  "name_ar": "كهرباء وماء",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620203",
+  "name_ar": "اتصالات وإنترنت",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6203",
+  "name_ar": "مصروفات إدارية متنوعة",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620301",
+  "name_ar": "مستلزمات مكتبية وقرطاسية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620302",
+  "name_ar": "صيانة وإصلاحات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620303",
+  "name_ar": "رسوم قانونية ومحاسبية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620304",
+  "name_ar": "اشتراكات وعضويات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620305",
+  "name_ar": "مصروفات السفر والانتقالات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620306",
+  "name_ar": "تدريب وتطوير الكوادر",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6204",
+  "name_ar": "الاستهلاك والإطفاء",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620401",
+  "name_ar": "استهلاك المباني",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620402",
+  "name_ar": "استهلاك الآلات والمعدات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620403",
+  "name_ar": "استهلاك الأثاث",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620404",
+  "name_ar": "استهلاك السيارات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620405",
+  "name_ar": "استهلاك الأجهزة والحاسبات",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "620406",
+  "name_ar": "إطفاء الأصول غير الملموسة",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "63",
+  "name_ar": "المصروفات المالية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6301",
+  "name_ar": "فوائد وعمولات بنكية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "630101",
+  "name_ar": "فوائد قروض بنكية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "630102",
+  "name_ar": "عمولات بنكية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "630103",
+  "name_ar": "فروق العملة الأجنبية",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "6302",
+  "name_ar": "مصروفات مالية أخرى",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "630201",
+  "name_ar": "مصروف ديون معدومة",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "630202",
+  "name_ar": "خسارة بيع أصول",
+  "nature_ar": "مصروف",
+  "statement_ar": "قائمة الدخل",
+  "dc_ar": "مدين",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "7",
+  "name_ar": "حسابات ختامية ومقابلة",
+  "nature_ar": "ختامي",
+  "statement_ar": "ختامي",
+  "dc_ar": "—",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "71",
+  "name_ar": "حسابات الختام",
+  "nature_ar": "ختامي",
+  "statement_ar": "ختامي",
+  "dc_ar": "—",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "7101",
+  "name_ar": "حساب الأرباح والخسائر",
+  "nature_ar": "ختامي",
+  "statement_ar": "ختامي",
+  "dc_ar": "—",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "710101",
+  "name_ar": "الأرباح والخسائر",
+  "nature_ar": "ختامي",
+  "statement_ar": "ختامي",
+  "dc_ar": "—",
+  "closing_ar": "نعم",
+  "notes": "لتجميع كل الإيرادات والمصروفات"
+ },
+ {
+  "code": "7102",
+  "name_ar": "حساب المتاجرة",
+  "nature_ar": "ختامي",
+  "statement_ar": "ختامي",
+  "dc_ar": "—",
+  "closing_ar": "نعم",
+  "notes": null
+ },
+ {
+  "code": "710201",
+  "name_ar": "المتاجرة",
+  "nature_ar": "ختامي",
+  "statement_ar": "ختامي",
+  "dc_ar": "—",
+  "closing_ar": "نعم",
+  "notes": "مجمّع تكلفة البضاعة والمبيعات"
+ }
+]

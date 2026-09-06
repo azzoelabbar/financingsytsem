@@ -1,0 +1,10 @@
+{
+ "template": "trading_retail",
+ "adds_account_codes": [
+  "110308",
+  "110705",
+  "210307",
+  "210308",
+  "810201"
+ ]
+}

@@ -1,0 +1,108 @@
+# ميزان / Mizan — the whole system in one container.
+#
+#   Start   :  docker compose up -d
+#   Stop    :  docker compose down
+#   Update  :  docker compose up -d --build
+#
+# It restarts by itself after a crash and after the machine reboots, so once
+# it is started the first time there is nothing left to do.
+
+# Fixed project name so the data volumes keep their identity even if this
+# folder is renamed or moved.
+name: mizan
+
+services:
+  mizan:
+    build:
+      context: .
+    image: mizan-erp:latest
+    container_name: mizan
+    restart: unless-stopped
+
+    ports:
+      # Open http://localhost:8080 in a browser. Change the left-hand number
+      # (only) if port 8080 is already taken on this machine.
+      - "${MIZAN_PORT:-8080}:8080"
+
+    environment:
+      APP_NAME: "ميزان"
+      APP_ENV: production
+      APP_DEBUG: "false"
+      # Must match the address people type in the browser.
+      APP_URL: "${MIZAN_URL:-http://localhost:8080}"
+
+      APP_LOCALE: ar
+      APP_FALLBACK_LOCALE: ar
+      APP_FAKER_LOCALE: ar_SA
+
+      # One SQLite file inside the mizan-data volume — no database server,
+      # no passwords, and a backup is a copy of that one file.
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /data/mizan.sqlite
+
+      SESSION_DRIVER: database
+      SESSION_LIFETIME: "480"
+      CACHE_STORE: database
+      QUEUE_CONNECTION: database
+
+      # Container logs, readable with: docker compose logs -f
+      LOG_CHANNEL: stderr
+      LOG_LEVEL: warning
+
+      # Email is written to the log until a real mail server is configured.
+      MAIL_MAILER: log
+
+    volumes:
+      # The database and the application key. Losing this volume loses the
+      # accounts and the books — back it up.
+      - mizan-data:/data
+      # Uploaded files and generated documents.
+      - mizan-storage:/app/storage
+
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/up"]
+      interval: 30s
+      timeout: 5s
+      start_period: 90s
+      retries: 5
+
+  # -------------------------------------------------------------------------
+  # A temporary public link — no account, no domain, no setup.
+  #
+  #   docker compose --profile quick-link up -d
+  #   docker compose logs quick-link      ← the https://….trycloudflare.com URL
+  #
+  # The address changes every time this starts, so it suits a demo or a quick
+  # hand-off, not daily use.
+  # -------------------------------------------------------------------------
+  quick-link:
+    image: cloudflare/cloudflared:latest
+    container_name: mizan-quick-link
+    restart: unless-stopped
+    profiles: ["quick-link"]
+    depends_on:
+      - mizan
+    command: tunnel --no-autoupdate --url http://mizan:8080
+
+  # -------------------------------------------------------------------------
+  # A permanent link on your own domain, e.g. https://mizan.yourcompany.com
+  #
+  # Create a tunnel at https://one.dash.cloudflare.com → Networks → Tunnels,
+  # point it at http://mizan:8080, put its token in a .env file beside this one:
+  #
+  #   CLOUDFLARE_TUNNEL_TOKEN=eyJhI…
+  #
+  #   docker compose --profile link up -d
+  # -------------------------------------------------------------------------
+  link:
+    image: cloudflare/cloudflared:latest
+    container_name: mizan-link
+    restart: unless-stopped
+    profiles: ["link"]
+    depends_on:
+      - mizan
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN:?set CLOUDFLARE_TUNNEL_TOKEN in a .env file next to docker-compose.yml}
+
+volumes:
+  mizan-data:
+  mizan-storage:

@@ -1,0 +1,957 @@
+{
+ "total": 28,
+ "by_category": {
+  "financial": 8,
+  "subledger": 7,
+  "management": 10,
+  "group": 1,
+  "governance": 2
+ },
+ "universal_parameters": {
+  "period": {
+   "type": "period|date_range|fiscal_period",
+   "required": true
+  },
+  "comparative": {
+   "type": "list[prior_period|prior_year|budget|forecast]",
+   "required": false
+  },
+  "entity": {
+   "type": "company|group|list[company]",
+   "required": true
+  },
+  "branch": {
+   "type": "dimension_value|all",
+   "required": false
+  },
+  "department": {
+   "type": "dimension_value|all",
+   "required": false
+  },
+  "cost_center": {
+   "type": "dimension_value|all",
+   "required": false
+  },
+  "project": {
+   "type": "dimension_value|all",
+   "required": false
+  },
+  "currency": {
+   "type": "transaction|functional|presentation",
+   "required": false,
+   "default": "functional"
+  },
+  "book": {
+   "type": "local|ifrs|tax",
+   "required": false,
+   "default": "primary"
+  },
+  "framework": {
+   "type": "full_ifrs|ifrs_for_smes|local_gaap",
+   "required": false,
+   "default": "company_default"
+  },
+  "level_of_detail": {
+   "type": "class|group|account|detail",
+   "required": false,
+   "default": "account"
+  },
+  "options": {
+   "include_zero": false,
+   "rounding": "unit",
+   "consolidated": false,
+   "as_of_date": null
+  }
+ },
+ "drill_down_chain": [
+  "report",
+  "account",
+  "ledger",
+  "journal",
+  "source",
+  "document"
+ ],
+ "report_builder": {
+  "definition_is_data": true,
+  "data_sources": [
+   "gl_cube",
+   "subledger",
+   "budget",
+   "forecast",
+   "join"
+  ],
+  "versioned": true,
+  "no_core_change": true,
+  "respects_authorization": "docs/authz/permissions.json"
+ },
+ "reports": [
+  {
+   "num": 1,
+   "id": "trial_balance",
+   "name_en": "Trial Balance",
+   "name_ar": "ميزان المراجعة",
+   "category": "financial",
+   "source": "gl_cube",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 2,
+   "id": "general_ledger",
+   "name_en": "General Ledger",
+   "name_ar": "دفتر الأستاذ العام",
+   "category": "financial",
+   "source": "journal_lines",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 3,
+   "id": "balance_sheet",
+   "name_en": "Balance Sheet / SFP",
+   "name_ar": "قائمة المركز المالي",
+   "category": "financial",
+   "source": "gl_cube",
+   "standard": "IAS 1 / IFRS 18",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 4,
+   "id": "profit_or_loss",
+   "name_en": "Profit or Loss",
+   "name_ar": "قائمة الأرباح والخسائر",
+   "category": "financial",
+   "source": "gl_cube",
+   "standard": "IAS 1 / IFRS 18",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 5,
+   "id": "comprehensive_income",
+   "name_en": "Statement of Comprehensive Income",
+   "name_ar": "قائمة الدخل الشامل",
+   "category": "financial",
+   "source": "gl_cube",
+   "standard": "IAS 1 / IFRS 9 / IAS 19 / IAS 21",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 6,
+   "id": "changes_in_equity",
+   "name_en": "Statement of Changes in Equity",
+   "name_ar": "قائمة التغيرات في حقوق الملكية",
+   "category": "financial",
+   "source": "gl_cube",
+   "standard": "IAS 1",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 7,
+   "id": "cash_flows",
+   "name_en": "Statement of Cash Flows",
+   "name_ar": "قائمة التدفقات النقدية",
+   "category": "financial",
+   "source": "gl_cube",
+   "standard": "IAS 7",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 8,
+   "id": "notes",
+   "name_en": "Notes to Financial Statements",
+   "name_ar": "الإيضاحات",
+   "category": "financial",
+   "source": "all+ifrs_mapping",
+   "standard": "IFRS",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 9,
+   "id": "ar_aging",
+   "name_en": "AR Aging",
+   "name_ar": "أعمار الذمم المدينة",
+   "category": "subledger",
+   "source": "ar_subledger",
+   "standard": "IFRS 9",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 10,
+   "id": "ap_aging",
+   "name_en": "AP Aging",
+   "name_ar": "أعمار الذمم الدائنة",
+   "category": "subledger",
+   "source": "ap_subledger",
+   "standard": "IAS 37",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 11,
+   "id": "inventory_valuation",
+   "name_en": "Inventory Valuation",
+   "name_ar": "تقييم المخزون",
+   "category": "subledger",
+   "source": "inventory_subledger",
+   "standard": "IAS 2",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 12,
+   "id": "fixed_assets_register",
+   "name_en": "Fixed Assets Register",
+   "name_ar": "سجل الأصول الثابتة",
+   "category": "subledger",
+   "source": "fa_subledger",
+   "standard": "IAS 16",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 13,
+   "id": "depreciation",
+   "name_en": "Depreciation",
+   "name_ar": "الإهلاك",
+   "category": "subledger",
+   "source": "fa_schedules",
+   "standard": "IAS 16",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 14,
+   "id": "tax_reports",
+   "name_en": "Tax Reports",
+   "name_ar": "التقارير الضريبية",
+   "category": "subledger",
+   "source": "tax_accounts",
+   "standard": "IAS 12",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 15,
+   "id": "budget_vs_actual",
+   "name_en": "Budget vs Actual",
+   "name_ar": "الموازنة مقابل الفعلي",
+   "category": "management",
+   "source": "gl_cube+budget",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 16,
+   "id": "forecast",
+   "name_en": "Forecast",
+   "name_ar": "التوقع",
+   "category": "management",
+   "source": "actual+drivers",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 17,
+   "id": "cash_forecast",
+   "name_en": "Cash Forecast",
+   "name_ar": "توقع التدفق النقدي",
+   "category": "management",
+   "source": "ar+ap+bank+loans",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 18,
+   "id": "working_capital",
+   "name_en": "Working Capital",
+   "name_ar": "رأس المال العامل",
+   "category": "management",
+   "source": "ar+ap+inventory",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 19,
+   "id": "cost_center_pnl",
+   "name_en": "Cost Center P&L",
+   "name_ar": "أرباح مركز التكلفة",
+   "category": "management",
+   "source": "gl_cube",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 20,
+   "id": "branch_pnl",
+   "name_en": "Branch P&L",
+   "name_ar": "أرباح الفرع",
+   "category": "management",
+   "source": "gl_cube",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 21,
+   "id": "project_pnl",
+   "name_en": "Project P&L",
+   "name_ar": "أرباح المشروع",
+   "category": "management",
+   "source": "gl_cube",
+   "standard": "IFRS 15",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 22,
+   "id": "customer_profitability",
+   "name_en": "Customer Profitability",
+   "name_ar": "ربحية العميل",
+   "category": "management",
+   "source": "gl_cube+ar",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 23,
+   "id": "product_profitability",
+   "name_en": "Product Profitability",
+   "name_ar": "ربحية المنتج",
+   "category": "management",
+   "source": "gl_cube+inventory",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 24,
+   "id": "intercompany",
+   "name_en": "Intercompany",
+   "name_ar": "المعاملات بين الشركات",
+   "category": "subledger",
+   "source": "intercompany_accounts",
+   "standard": "IAS 24",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 25,
+   "id": "consolidation",
+   "name_en": "Consolidation",
+   "name_ar": "التوحيد",
+   "category": "group",
+   "source": "group_balances",
+   "standard": "IFRS 10/11/12",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 26,
+   "id": "audit_reports",
+   "name_en": "Audit Reports",
+   "name_ar": "تقارير التدقيق",
+   "category": "governance",
+   "source": "audit_logs+journals",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 27,
+   "id": "exception_reports",
+   "name_en": "Exception Reports",
+   "name_ar": "تقارير الاستثناءات",
+   "category": "governance",
+   "source": "all",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  },
+  {
+   "num": 28,
+   "id": "kpi_reports",
+   "name_en": "KPI Reports",
+   "name_ar": "تقارير المؤشرات",
+   "category": "management",
+   "source": "all",
+   "standard": "",
+   "supports_params": [
+    "period",
+    "comparative",
+    "entity",
+    "branch",
+    "department",
+    "cost_center",
+    "project",
+    "currency",
+    "book",
+    "framework",
+    "level_of_detail",
+    "options"
+   ],
+   "drill_down": [
+    "report",
+    "account",
+    "ledger",
+    "journal",
+    "source",
+    "document"
+   ]
+  }
+ ]
+}

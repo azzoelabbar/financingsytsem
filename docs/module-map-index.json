@@ -1,0 +1,750 @@
+{
+ "total": 63,
+ "by_group": {
+  "CORE": 8,
+  "SUBLEDGERS": 8,
+  "TREASURY": 6,
+  "OPERATIONS": 6,
+  "CONTROL": 6,
+  "TAX": 5,
+  "REPORTING": 5,
+  "GOVERNANCE": 7,
+  "PLATFORM": 7,
+  "AI": 5
+ },
+ "by_priority": {
+  "critical": 28,
+  "important": 28,
+  "optional": 7
+ },
+ "by_status": {
+  "built": 6,
+  "designed": 5,
+  "planned": 52
+ },
+ "modules": [
+  {
+   "id": "chart_of_accounts",
+   "group": "CORE",
+   "name_en": "Chart of Accounts",
+   "priority": "critical",
+   "status": "built",
+   "depends_on": []
+  },
+  {
+   "id": "general_ledger",
+   "group": "CORE",
+   "name_en": "General Ledger",
+   "priority": "critical",
+   "status": "built",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "periods"
+   ]
+  },
+  {
+   "id": "journals",
+   "group": "CORE",
+   "name_en": "Journals & Posting Engine",
+   "priority": "critical",
+   "status": "built",
+   "depends_on": [
+    "chart_of_accounts",
+    "periods",
+    "dimensions",
+    "multi_currency"
+   ]
+  },
+  {
+   "id": "periods",
+   "group": "CORE",
+   "name_en": "Periods & Fiscal Calendar",
+   "priority": "critical",
+   "status": "built",
+   "depends_on": []
+  },
+  {
+   "id": "accounting_rules",
+   "group": "CORE",
+   "name_en": "Accounting Rules Engine",
+   "priority": "critical",
+   "status": "designed",
+   "depends_on": [
+    "journals",
+    "chart_of_accounts",
+    "tax_engine",
+    "multi_currency"
+   ]
+  },
+  {
+   "id": "dimensions",
+   "group": "CORE",
+   "name_en": "Dimensions Framework",
+   "priority": "critical",
+   "status": "built",
+   "depends_on": [
+    "journals"
+   ]
+  },
+  {
+   "id": "multi_book",
+   "group": "CORE",
+   "name_en": "Multi-Book Accounting",
+   "priority": "important",
+   "status": "designed",
+   "depends_on": [
+    "journals",
+    "accounting_rules",
+    "chart_of_accounts"
+   ]
+  },
+  {
+   "id": "multi_currency",
+   "group": "CORE",
+   "name_en": "Multi-Currency",
+   "priority": "critical",
+   "status": "designed",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals"
+   ]
+  },
+  {
+   "id": "ar",
+   "group": "SUBLEDGERS",
+   "name_en": "Accounts Receivable",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "sales",
+    "tax_engine",
+    "bank"
+   ]
+  },
+  {
+   "id": "ap",
+   "group": "SUBLEDGERS",
+   "name_en": "Accounts Payable",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "purchases",
+    "tax_engine",
+    "bank"
+   ]
+  },
+  {
+   "id": "inventory_accounting",
+   "group": "SUBLEDGERS",
+   "name_en": "Inventory Accounting",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "inventory_ops",
+    "cost_accounting"
+   ]
+  },
+  {
+   "id": "fixed_assets",
+   "group": "SUBLEDGERS",
+   "name_en": "Fixed Assets",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "ap"
+   ]
+  },
+  {
+   "id": "payroll_accounting",
+   "group": "SUBLEDGERS",
+   "name_en": "Payroll Accounting",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "bank",
+    "tax_engine",
+    "dimensions"
+   ]
+  },
+  {
+   "id": "loans",
+   "group": "SUBLEDGERS",
+   "name_en": "Loans",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "bank",
+    "multi_currency"
+   ]
+  },
+  {
+   "id": "leases",
+   "group": "SUBLEDGERS",
+   "name_en": "Leases",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "fixed_assets",
+    "multi_book"
+   ]
+  },
+  {
+   "id": "investments",
+   "group": "SUBLEDGERS",
+   "name_en": "Investments",
+   "priority": "optional",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "multi_currency",
+    "multi_book"
+   ]
+  },
+  {
+   "id": "cash",
+   "group": "TREASURY",
+   "name_en": "Cash Management",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "bank"
+   ]
+  },
+  {
+   "id": "bank",
+   "group": "TREASURY",
+   "name_en": "Bank Management",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals",
+    "multi_currency"
+   ]
+  },
+  {
+   "id": "bank_reconciliation",
+   "group": "TREASURY",
+   "name_en": "Bank Reconciliation",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "bank",
+    "reconciliation",
+    "journals"
+   ]
+  },
+  {
+   "id": "payments",
+   "group": "TREASURY",
+   "name_en": "Payments",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "ap",
+    "bank",
+    "approval_workflows"
+   ]
+  },
+  {
+   "id": "collections",
+   "group": "TREASURY",
+   "name_en": "Collections",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "ar",
+    "notifications",
+    "bank"
+   ]
+  },
+  {
+   "id": "cash_forecasting",
+   "group": "TREASURY",
+   "name_en": "Cash Forecasting",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "ar",
+    "ap",
+    "bank",
+    "loans"
+   ]
+  },
+  {
+   "id": "sales",
+   "group": "OPERATIONS",
+   "name_en": "Sales",
+   "priority": "critical",
+   "status": "designed",
+   "depends_on": [
+    "ar",
+    "inventory_accounting",
+    "tax_engine",
+    "accounting_rules"
+   ]
+  },
+  {
+   "id": "purchases",
+   "group": "OPERATIONS",
+   "name_en": "Purchases",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "ap",
+    "inventory_accounting",
+    "procurement",
+    "tax_engine"
+   ]
+  },
+  {
+   "id": "expenses",
+   "group": "OPERATIONS",
+   "name_en": "Expenses",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "ap",
+    "documents",
+    "approval_workflows"
+   ]
+  },
+  {
+   "id": "inventory_ops",
+   "group": "OPERATIONS",
+   "name_en": "Inventory Operations",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "inventory_accounting",
+    "purchases",
+    "sales"
+   ]
+  },
+  {
+   "id": "procurement",
+   "group": "OPERATIONS",
+   "name_en": "Procurement",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "purchases",
+    "documents",
+    "approval_workflows"
+   ]
+  },
+  {
+   "id": "projects",
+   "group": "OPERATIONS",
+   "name_en": "Projects",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "dimensions",
+    "ar",
+    "cost_accounting"
+   ]
+  },
+  {
+   "id": "budget",
+   "group": "CONTROL",
+   "name_en": "Budget",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "dimensions",
+    "general_ledger"
+   ]
+  },
+  {
+   "id": "forecast",
+   "group": "CONTROL",
+   "name_en": "Forecast",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "budget",
+    "general_ledger",
+    "ai_forecasting"
+   ]
+  },
+  {
+   "id": "cost_accounting",
+   "group": "CONTROL",
+   "name_en": "Cost Accounting",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "general_ledger",
+    "dimensions",
+    "inventory_accounting"
+   ]
+  },
+  {
+   "id": "reconciliation",
+   "group": "CONTROL",
+   "name_en": "Reconciliation Framework",
+   "priority": "important",
+   "status": "designed",
+   "depends_on": [
+    "general_ledger",
+    "ar",
+    "ap",
+    "bank"
+   ]
+  },
+  {
+   "id": "closing",
+   "group": "CONTROL",
+   "name_en": "Closing (Period/Year-End)",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "general_ledger",
+    "periods",
+    "reconciliation"
+   ]
+  },
+  {
+   "id": "consolidation",
+   "group": "CONTROL",
+   "name_en": "Consolidation",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "general_ledger",
+    "multi_currency"
+   ]
+  },
+  {
+   "id": "tax_engine",
+   "group": "TAX",
+   "name_en": "Tax Engine",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "accounting_rules",
+    "country_localization"
+   ]
+  },
+  {
+   "id": "tax_returns",
+   "group": "TAX",
+   "name_en": "Tax Returns",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "tax_engine",
+    "general_ledger",
+    "bank"
+   ]
+  },
+  {
+   "id": "withholding",
+   "group": "TAX",
+   "name_en": "Withholding Tax",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "tax_engine",
+    "ap",
+    "payments"
+   ]
+  },
+  {
+   "id": "tax_reconciliation",
+   "group": "TAX",
+   "name_en": "Tax Reconciliation",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "tax_engine",
+    "multi_book",
+    "reconciliation"
+   ]
+  },
+  {
+   "id": "country_localization",
+   "group": "TAX",
+   "name_en": "Country Localization (Libya)",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "tax_engine",
+    "compliance"
+   ]
+  },
+  {
+   "id": "financial_statements",
+   "group": "REPORTING",
+   "name_en": "Financial Statements",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "general_ledger",
+    "closing",
+    "consolidation"
+   ]
+  },
+  {
+   "id": "management_reports",
+   "group": "REPORTING",
+   "name_en": "Management Reports",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "general_ledger",
+    "dimensions",
+    "cost_accounting"
+   ]
+  },
+  {
+   "id": "regulatory_reports",
+   "group": "REPORTING",
+   "name_en": "Regulatory Reports",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "general_ledger",
+    "country_localization",
+    "compliance"
+   ]
+  },
+  {
+   "id": "custom_reports",
+   "group": "REPORTING",
+   "name_en": "Custom Reports",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "general_ledger",
+    "dimensions",
+    "import_export"
+   ]
+  },
+  {
+   "id": "analytics",
+   "group": "REPORTING",
+   "name_en": "Analytics",
+   "priority": "optional",
+   "status": "planned",
+   "depends_on": [
+    "general_ledger",
+    "financial_statements"
+   ]
+  },
+  {
+   "id": "roles",
+   "group": "GOVERNANCE",
+   "name_en": "Roles",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "multi_tenancy",
+    "permissions"
+   ]
+  },
+  {
+   "id": "permissions",
+   "group": "GOVERNANCE",
+   "name_en": "Permissions",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "roles",
+    "multi_tenancy"
+   ]
+  },
+  {
+   "id": "approval_workflows",
+   "group": "GOVERNANCE",
+   "name_en": "Approval Workflows",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "permissions",
+    "notifications"
+   ]
+  },
+  {
+   "id": "audit_trail",
+   "group": "GOVERNANCE",
+   "name_en": "Audit Trail",
+   "priority": "critical",
+   "status": "built",
+   "depends_on": []
+  },
+  {
+   "id": "internal_controls",
+   "group": "GOVERNANCE",
+   "name_en": "Internal Controls",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "permissions",
+    "approval_workflows",
+    "audit_trail"
+   ]
+  },
+  {
+   "id": "risk_fraud",
+   "group": "GOVERNANCE",
+   "name_en": "Risk & Fraud",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "audit_trail",
+    "ai_anomaly"
+   ]
+  },
+  {
+   "id": "compliance",
+   "group": "GOVERNANCE",
+   "name_en": "Compliance",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "country_localization",
+    "documents"
+   ]
+  },
+  {
+   "id": "multi_tenancy",
+   "group": "PLATFORM",
+   "name_en": "Multi-tenancy",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": []
+  },
+  {
+   "id": "api",
+   "group": "PLATFORM",
+   "name_en": "API",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "permissions",
+    "multi_tenancy"
+   ]
+  },
+  {
+   "id": "integrations",
+   "group": "PLATFORM",
+   "name_en": "Integrations",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": [
+    "api"
+   ]
+  },
+  {
+   "id": "notifications",
+   "group": "PLATFORM",
+   "name_en": "Notifications",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": []
+  },
+  {
+   "id": "documents",
+   "group": "PLATFORM",
+   "name_en": "Documents",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": []
+  },
+  {
+   "id": "import_export",
+   "group": "PLATFORM",
+   "name_en": "Import / Export",
+   "priority": "critical",
+   "status": "planned",
+   "depends_on": [
+    "chart_of_accounts",
+    "journals"
+   ]
+  },
+  {
+   "id": "localization",
+   "group": "PLATFORM",
+   "name_en": "Localization (i18n)",
+   "priority": "important",
+   "status": "planned",
+   "depends_on": []
+  },
+  {
+   "id": "ai_assistant",
+   "group": "AI",
+   "name_en": "Accounting Assistant",
+   "priority": "optional",
+   "status": "planned",
+   "depends_on": [
+    "general_ledger"
+   ]
+  },
+  {
+   "id": "ai_anomaly",
+   "group": "AI",
+   "name_en": "Anomaly Detection",
+   "priority": "optional",
+   "status": "planned",
+   "depends_on": [
+    "audit_trail",
+    "risk_fraud"
+   ]
+  },
+  {
+   "id": "ai_journal_suggestions",
+   "group": "AI",
+   "name_en": "Journal Suggestions",
+   "priority": "optional",
+   "status": "planned",
+   "depends_on": [
+    "accounting_rules",
+    "documents"
+   ]
+  },
+  {
+   "id": "ai_forecasting",
+   "group": "AI",
+   "name_en": "Forecasting (AI)",
+   "priority": "optional",
+   "status": "planned",
+   "depends_on": [
+    "cash_forecasting",
+    "forecast"
+   ]
+  },
+  {
+   "id": "ai_financial_analysis",
+   "group": "AI",
+   "name_en": "Financial Analysis (AI)",
+   "priority": "optional",
+   "status": "planned",
+   "depends_on": [
+    "financial_statements",
+    "analytics"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,928 @@
+{
+ "invariants": {
+  "INV-1": "Total Debits = Total Credits",
+  "INV-2": "Assets = Liabilities + Equity",
+  "INV-3": "No unbalanced posted journals",
+  "INV-4": "No posting to summary/system accounts",
+  "INV-5": "Subledger = GL Control (generic)",
+  "INV-6": "Bank Reconciliation = Bank Ledger",
+  "INV-7": "AR Aging = AR Control",
+  "INV-8": "AP Aging = AP Control",
+  "INV-9": "Inventory Valuation = Inventory GL",
+  "INV-10": "Fixed Asset Register = FA GL",
+  "INV-11": "No unexplained suspense/clearing balance"
+ },
+ "total_cases": 122,
+ "by_status": {
+  "implemented": 100,
+  "planned": 22
+ },
+ "by_module": {
+  "core": 12,
+  "ar": 20,
+  "ap": 24,
+  "treasury": 15,
+  "gl": 8,
+  "inventory": 5,
+  "assets": 6,
+  "fx": 6,
+  "tax": 4,
+  "closing": 3,
+  "security": 5,
+  "integrity": 6,
+  "engine": 3,
+  "reporting": 3,
+  "localization": 2
+ },
+ "cases": [
+  {
+   "module": "core",
+   "case": "debit_equals_credit_accepted",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "unbalanced_rejected",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "posting_immutable_numbered",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "reversal_mirror_nets_zero",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "adjustment_not_delete",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "period_lock_rejects_closed",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "summary_account_rejected",
+   "invariants": [
+    "INV-4"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "closing_account_manual_rejected",
+   "invariants": [
+    "INV-4"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "mandatory_dimension_enforced",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "audit_trail_written",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "opening_balance_preserves_tb",
+   "invariants": [
+    "INV-1",
+    "INV-2"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "core",
+   "case": "year_end_closing_to_retained",
+   "invariants": [
+    "INV-2"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "invoice_dr_ar_cr_revenue_vat",
+   "invariants": [
+    "INV-1",
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "payment_receipt_dr_bank_cr_ar",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "receipt_allocation",
+   "invariants": [
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "credit_note_reverses_ar",
+   "invariants": [
+    "INV-1",
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "aging_equals_control",
+   "invariants": [
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "posted_invoice_immutable",
+   "invariants": [
+    "INV-4"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "duplicate_invoice_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "allocation_exceeds_open_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "closed_period_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "invalid_account_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "bad_debt_writeoff",
+   "invariants": [
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "ecl_allowance",
+   "invariants": [
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "debit_note_dr_ar_cr_revenue",
+   "invariants": [
+    "INV-1",
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "fx_invoice_conversion",
+   "invariants": [
+    "INV-1",
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "missing_dimension_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "zero_amount_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "period_boundary_dates",
+   "invariants": [
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "allocation_currency_mismatch",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "customer_statement",
+   "invariants": [
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ar",
+   "case": "overpayment_advance",
+   "invariants": [
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "supplier_creation_chart_control",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "bill_dr_expense_cr_ap",
+   "invariants": [
+    "INV-1",
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "tax_invoice",
+   "invariants": [
+    "INV-1",
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "multi_line_invoice",
+   "invariants": [
+    "INV-1",
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "payment_allocation",
+   "invariants": [
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "full_payment",
+   "invariants": [
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "multiple_invoice_allocation",
+   "invariants": [
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "credit_note",
+   "invariants": [
+    "INV-1",
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "debit_note",
+   "invariants": [
+    "INV-1",
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "payment_reversal",
+   "invariants": [
+    "INV-1",
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "invoice_reversal",
+   "invariants": [
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "aging_equals_control",
+   "invariants": [
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "supplier_statement",
+   "invariants": [
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "unapplied_payment",
+   "invariants": [
+    "INV-8"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "posted_invoice_immutable",
+   "invariants": [
+    "INV-4"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "duplicate_invoice_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "allocation_exceeds_open_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "closed_period_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "invalid_account_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "zero_amount_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "currency_validation",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "exchange_rate_validation",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "inactive_supplier_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "ap",
+   "case": "missing_dimension_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "bank_account_chart_link",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "bank_receipt_payment_inv6",
+   "invariants": [
+    "INV-1",
+    "INV-6"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "cash_bank_transfer",
+   "invariants": [
+    "INV-1",
+    "INV-6"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "bank_fee_interest",
+   "invariants": [
+    "INV-6"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "bank_reconciliation_complete",
+   "invariants": [
+    "INV-6"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "reconciliation_mismatch_rejected",
+   "invariants": [
+    "INV-6"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "cash_count_adjustment",
+   "invariants": [
+    "INV-6"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "outstanding_deposits_cheques",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "posted_immutable_reversal",
+   "invariants": [
+    "INV-4"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "duplicate_number_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "zero_invalid_account_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "closed_period_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "non_bank_gl_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "treasury",
+   "case": "audit_trail",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "inventory",
+   "case": "receipt_grni",
+   "invariants": [
+    "INV-9"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "inventory",
+   "case": "issue_cogs",
+   "invariants": [
+    "INV-9"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "inventory",
+   "case": "transfer_zero_gl",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "inventory",
+   "case": "return_adjustment",
+   "invariants": [
+    "INV-9"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "inventory",
+   "case": "valuation_equals_gl",
+   "invariants": [
+    "INV-9"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "assets",
+   "case": "capitalization",
+   "invariants": [
+    "INV-10"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "assets",
+   "case": "depreciation_contra",
+   "invariants": [
+    "INV-10"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "assets",
+   "case": "disposal_gain_loss",
+   "invariants": [
+    "INV-10"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "assets",
+   "case": "transfer",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "assets",
+   "case": "impairment",
+   "invariants": [
+    "INV-10"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "assets",
+   "case": "register_equals_gl",
+   "invariants": [
+    "INV-10"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "fx",
+   "case": "transaction_currency_conversion",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "fx",
+   "case": "revaluation_unrealized",
+   "invariants": [
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "fx",
+   "case": "realized_gain_loss",
+   "invariants": [
+    "INV-1",
+    "INV-7"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "fx",
+   "case": "translation_oci",
+   "invariants": [
+    "INV-2"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "fx",
+   "case": "exchange_rate_resolve_fallback",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "fx",
+   "case": "missing_rate_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "tax",
+   "case": "input_output_split",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "tax",
+   "case": "withholding",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "tax",
+   "case": "adjustment",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "tax",
+   "case": "reconciliation_deferred",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "gl",
+   "case": "manual_journal_workflow",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "gl",
+   "case": "manual_journal_void",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "gl",
+   "case": "recurring_journal_run",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "gl",
+   "case": "accrual_auto_reverse",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "gl",
+   "case": "prepayment_amortization",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "gl",
+   "case": "period_soft_hard_lock_reopen",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "gl",
+   "case": "checklist_blocks_on_draft_accrual",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "gl",
+   "case": "suspense_inv11_fail",
+   "invariants": [
+    "INV-11"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "closing",
+   "case": "month_end_checklist",
+   "invariants": [
+    "INV-5",
+    "INV-6",
+    "INV-7",
+    "INV-8",
+    "INV-9",
+    "INV-10",
+    "INV-11"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "closing",
+   "case": "year_end_retained_earnings",
+   "invariants": [
+    "INV-2"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "closing",
+   "case": "opening_balance_rollforward",
+   "invariants": [
+    "INV-1",
+    "INV-2"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "security",
+   "case": "unauthorized_posting_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "security",
+   "case": "unauthorized_approval_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "security",
+   "case": "self_approval_rejected_sod1",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "security",
+   "case": "unauthorized_period_reopen_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "security",
+   "case": "posted_journal_not_modifiable",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "integrity",
+   "case": "trial_balance_balanced",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "integrity",
+   "case": "accounting_equation",
+   "invariants": [
+    "INV-2"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "integrity",
+   "case": "no_unbalanced_journals",
+   "invariants": [
+    "INV-3"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "integrity",
+   "case": "control_equals_subledger_match",
+   "invariants": [
+    "INV-5"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "integrity",
+   "case": "control_equals_subledger_mismatch_flagged",
+   "invariants": [
+    "INV-5"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "integrity",
+   "case": "injected_corruption_raises_exception",
+   "invariants": [
+    "INV-1",
+    "INV-2"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "engine",
+   "case": "sales_via_engine",
+   "invariants": [
+    "INV-1"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "engine",
+   "case": "missing_rule_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "engine",
+   "case": "missing_account_rejected",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "reporting",
+   "case": "balance_sheet_balanced",
+   "invariants": [
+    "INV-2"
+   ],
+   "status": "implemented"
+  },
+  {
+   "module": "reporting",
+   "case": "pnl_net_profit",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "reporting",
+   "case": "drill_down_anchor",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "localization",
+   "case": "rule_resolution_versioned",
+   "invariants": [],
+   "status": "implemented"
+  },
+  {
+   "module": "localization",
+   "case": "no_hardcode_explicit_error",
+   "invariants": [],
+   "status": "implemented"
+  }
+ ],
+ "ci_gate": "composer test = pint + phpstan(level 7) + pest"
+}

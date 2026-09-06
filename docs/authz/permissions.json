@@ -1,0 +1,776 @@
+{
+ "decision_model": "ALLOW = RBAC(permission) AND SCOPE(abac) AND SoD AND CONDITIONS",
+ "scope_dimensions": [
+  "org_scope",
+  "company_scope",
+  "dimension_scope",
+  "book_scope",
+  "data_mode",
+  "amount_band",
+  "record_ownership"
+ ],
+ "permission_count": 87,
+ "permissions_by_group": {
+  "CORE": 21,
+  "AR": 11,
+  "AP": 10,
+  "TREASURY": 8,
+  "OPERATIONS": 3,
+  "CONTROL": 16,
+  "REPORTING": 6,
+  "TAX": 4,
+  "GOVERNANCE": 8
+ },
+ "permissions": [
+  {
+   "id": "analytics.view",
+   "group": "REPORTING"
+  },
+  {
+   "id": "ap.bill.approve",
+   "group": "AP"
+  },
+  {
+   "id": "ap.bill.create",
+   "group": "AP"
+  },
+  {
+   "id": "ap.bill.match",
+   "group": "AP"
+  },
+  {
+   "id": "ap.bill.view",
+   "group": "AP"
+  },
+  {
+   "id": "ap.payment.approve",
+   "group": "AP"
+  },
+  {
+   "id": "ap.payment.create",
+   "group": "AP"
+  },
+  {
+   "id": "ap.payment.execute",
+   "group": "AP"
+  },
+  {
+   "id": "ap.supplier.bank.manage",
+   "group": "AP"
+  },
+  {
+   "id": "ap.supplier.manage",
+   "group": "AP"
+  },
+  {
+   "id": "ap.supplier.view",
+   "group": "AP"
+  },
+  {
+   "id": "ar.credit.approve",
+   "group": "AR"
+  },
+  {
+   "id": "ar.customer.manage",
+   "group": "AR"
+  },
+  {
+   "id": "ar.customer.view",
+   "group": "AR"
+  },
+  {
+   "id": "ar.invoice.approve",
+   "group": "AR"
+  },
+  {
+   "id": "ar.invoice.create",
+   "group": "AR"
+  },
+  {
+   "id": "ar.invoice.view",
+   "group": "AR"
+  },
+  {
+   "id": "ar.receipt.allocate",
+   "group": "AR"
+  },
+  {
+   "id": "ar.receipt.create",
+   "group": "AR"
+  },
+  {
+   "id": "ar.statement.view",
+   "group": "AR"
+  },
+  {
+   "id": "ar.writeoff.approve",
+   "group": "AR"
+  },
+  {
+   "id": "ar.writeoff.request",
+   "group": "AR"
+  },
+  {
+   "id": "audit.export",
+   "group": "GOVERNANCE"
+  },
+  {
+   "id": "audit.view",
+   "group": "GOVERNANCE"
+  },
+  {
+   "id": "bank.reconcile",
+   "group": "TREASURY"
+  },
+  {
+   "id": "bank.reconcile_lock",
+   "group": "TREASURY"
+  },
+  {
+   "id": "bank.view",
+   "group": "TREASURY"
+  },
+  {
+   "id": "book.manage",
+   "group": "CORE"
+  },
+  {
+   "id": "budget.approve",
+   "group": "CONTROL"
+  },
+  {
+   "id": "budget.manage",
+   "group": "CONTROL"
+  },
+  {
+   "id": "budget.view",
+   "group": "CONTROL"
+  },
+  {
+   "id": "cash.manage",
+   "group": "TREASURY"
+  },
+  {
+   "id": "cash.view",
+   "group": "TREASURY"
+  },
+  {
+   "id": "cashflow.view",
+   "group": "CONTROL"
+  },
+  {
+   "id": "closing.execute",
+   "group": "CONTROL"
+  },
+  {
+   "id": "closing.review",
+   "group": "CONTROL"
+  },
+  {
+   "id": "closing.task_perform",
+   "group": "CONTROL"
+  },
+  {
+   "id": "coa.manage",
+   "group": "CORE"
+  },
+  {
+   "id": "coa.view",
+   "group": "CORE"
+  },
+  {
+   "id": "consolidation.run",
+   "group": "CONTROL"
+  },
+  {
+   "id": "consolidation.view",
+   "group": "CONTROL"
+  },
+  {
+   "id": "controls.manage",
+   "group": "GOVERNANCE"
+  },
+  {
+   "id": "controls.test",
+   "group": "GOVERNANCE"
+  },
+  {
+   "id": "cost.manage",
+   "group": "CONTROL"
+  },
+  {
+   "id": "cost.view",
+   "group": "CONTROL"
+  },
+  {
+   "id": "dimension.manage",
+   "group": "CORE"
+  },
+  {
+   "id": "expense.approve",
+   "group": "OPERATIONS"
+  },
+  {
+   "id": "expense.create",
+   "group": "OPERATIONS"
+  },
+  {
+   "id": "expense.reimburse",
+   "group": "OPERATIONS"
+  },
+  {
+   "id": "forecast.manage",
+   "group": "CONTROL"
+  },
+  {
+   "id": "forecast.view",
+   "group": "CONTROL"
+  },
+  {
+   "id": "fx.rate.manage",
+   "group": "CORE"
+  },
+  {
+   "id": "fx.revalue",
+   "group": "CORE"
+  },
+  {
+   "id": "gl.view",
+   "group": "CORE"
+  },
+  {
+   "id": "journal.adjust",
+   "group": "CORE"
+  },
+  {
+   "id": "journal.approve",
+   "group": "CORE"
+  },
+  {
+   "id": "journal.create",
+   "group": "CORE"
+  },
+  {
+   "id": "journal.post",
+   "group": "CORE"
+  },
+  {
+   "id": "journal.reverse",
+   "group": "CORE"
+  },
+  {
+   "id": "journal.submit",
+   "group": "CORE"
+  },
+  {
+   "id": "journal.view",
+   "group": "CORE"
+  },
+  {
+   "id": "payment.batch.approve",
+   "group": "TREASURY"
+  },
+  {
+   "id": "payment.batch.create",
+   "group": "TREASURY"
+  },
+  {
+   "id": "payment.execute",
+   "group": "TREASURY"
+  },
+  {
+   "id": "period.close_hard",
+   "group": "CORE"
+  },
+  {
+   "id": "period.close_soft",
+   "group": "CORE"
+  },
+  {
+   "id": "period.reopen",
+   "group": "CORE"
+  },
+  {
+   "id": "period.view",
+   "group": "CORE"
+  },
+  {
+   "id": "permission.manage",
+   "group": "GOVERNANCE"
+  },
+  {
+   "id": "policy.manage",
+   "group": "CORE"
+  },
+  {
+   "id": "recon.lock",
+   "group": "CONTROL"
+  },
+  {
+   "id": "recon.perform",
+   "group": "CONTROL"
+  },
+  {
+   "id": "recon.review",
+   "group": "CONTROL"
+  },
+  {
+   "id": "report.custom.build",
+   "group": "REPORTING"
+  },
+  {
+   "id": "report.financial.view",
+   "group": "REPORTING"
+  },
+  {
+   "id": "report.management.view",
+   "group": "REPORTING"
+  },
+  {
+   "id": "report.regulatory.view",
+   "group": "REPORTING"
+  },
+  {
+   "id": "risk.view",
+   "group": "REPORTING"
+  },
+  {
+   "id": "role.manage",
+   "group": "GOVERNANCE"
+  },
+  {
+   "id": "rules.manage",
+   "group": "CORE"
+  },
+  {
+   "id": "tax.engine.manage",
+   "group": "TAX"
+  },
+  {
+   "id": "tax.reconcile",
+   "group": "TAX"
+  },
+  {
+   "id": "tax.return.file",
+   "group": "TAX"
+  },
+  {
+   "id": "tax.return.prepare",
+   "group": "TAX"
+  },
+  {
+   "id": "trialbalance.view",
+   "group": "CORE"
+  },
+  {
+   "id": "user.manage",
+   "group": "GOVERNANCE"
+  },
+  {
+   "id": "workflow.manage",
+   "group": "GOVERNANCE"
+  }
+ ],
+ "roles": {
+  "accountant": {
+   "name_ar": "محاسب",
+   "tier": 0,
+   "scope": {
+    "company_scope": "single",
+    "data_mode": "read_write",
+    "book_scope": "all_view",
+    "record_ownership": "own",
+    "amount_band": 0
+   },
+   "permissions": [
+    "journal.view",
+    "journal.create",
+    "journal.submit",
+    "gl.view",
+    "coa.view",
+    "ar.customer.view",
+    "ar.invoice.view",
+    "ar.invoice.create",
+    "ar.receipt.create",
+    "ar.receipt.allocate",
+    "ar.statement.view",
+    "ap.supplier.view",
+    "ap.bill.view",
+    "ap.bill.create",
+    "ap.bill.match",
+    "expense.create",
+    "bank.view",
+    "bank.reconcile",
+    "recon.perform",
+    "closing.task_perform",
+    "report.financial.view",
+    "period.view"
+   ],
+   "effective_permissions": [
+    "ap.bill.create",
+    "ap.bill.match",
+    "ap.bill.view",
+    "ap.supplier.view",
+    "ar.customer.view",
+    "ar.invoice.create",
+    "ar.invoice.view",
+    "ar.receipt.allocate",
+    "ar.receipt.create",
+    "ar.statement.view",
+    "bank.reconcile",
+    "bank.view",
+    "closing.task_perform",
+    "coa.view",
+    "expense.create",
+    "gl.view",
+    "journal.create",
+    "journal.submit",
+    "journal.view",
+    "period.view",
+    "recon.perform",
+    "report.financial.view"
+   ]
+  },
+  "senior_accountant": {
+   "name_ar": "محاسب أول",
+   "tier": 1,
+   "inherits": "accountant",
+   "scope": {
+    "company_scope": "assigned",
+    "data_mode": "read_write",
+    "book_scope": "all",
+    "record_ownership": "team",
+    "amount_band": 1
+   },
+   "permissions": [
+    "journal.approve",
+    "journal.post",
+    "journal.adjust",
+    "ar.invoice.approve",
+    "ar.writeoff.request",
+    "ap.bill.approve",
+    "recon.review",
+    "recon.lock",
+    "bank.reconcile_lock",
+    "period.close_soft",
+    "trialbalance.view"
+   ],
+   "effective_permissions": [
+    "ap.bill.approve",
+    "ap.bill.create",
+    "ap.bill.match",
+    "ap.bill.view",
+    "ap.supplier.view",
+    "ar.customer.view",
+    "ar.invoice.approve",
+    "ar.invoice.create",
+    "ar.invoice.view",
+    "ar.receipt.allocate",
+    "ar.receipt.create",
+    "ar.statement.view",
+    "ar.writeoff.request",
+    "bank.reconcile",
+    "bank.reconcile_lock",
+    "bank.view",
+    "closing.task_perform",
+    "coa.view",
+    "expense.create",
+    "gl.view",
+    "journal.adjust",
+    "journal.approve",
+    "journal.create",
+    "journal.post",
+    "journal.submit",
+    "journal.view",
+    "period.close_soft",
+    "period.view",
+    "recon.lock",
+    "recon.perform",
+    "recon.review",
+    "report.financial.view",
+    "trialbalance.view"
+   ]
+  },
+  "chief_accountant": {
+   "name_ar": "رئيس الحسابات",
+   "tier": 2,
+   "inherits": "senior_accountant",
+   "scope": {
+    "company_scope": "group_assigned",
+    "data_mode": "read_write",
+    "book_scope": "all",
+    "record_ownership": "all",
+    "amount_band": 2
+   },
+   "permissions": [
+    "journal.reverse",
+    "period.close_hard",
+    "period.reopen",
+    "closing.review",
+    "closing.execute",
+    "policy.manage",
+    "rules.manage",
+    "book.manage",
+    "dimension.manage",
+    "fx.revalue",
+    "fx.rate.manage",
+    "ar.writeoff.approve",
+    "audit.view",
+    "consolidation.view"
+   ],
+   "effective_permissions": [
+    "ap.bill.approve",
+    "ap.bill.create",
+    "ap.bill.match",
+    "ap.bill.view",
+    "ap.supplier.view",
+    "ar.customer.view",
+    "ar.invoice.approve",
+    "ar.invoice.create",
+    "ar.invoice.view",
+    "ar.receipt.allocate",
+    "ar.receipt.create",
+    "ar.statement.view",
+    "ar.writeoff.approve",
+    "ar.writeoff.request",
+    "audit.view",
+    "bank.reconcile",
+    "bank.reconcile_lock",
+    "bank.view",
+    "book.manage",
+    "closing.execute",
+    "closing.review",
+    "closing.task_perform",
+    "coa.view",
+    "consolidation.view",
+    "dimension.manage",
+    "expense.create",
+    "fx.rate.manage",
+    "fx.revalue",
+    "gl.view",
+    "journal.adjust",
+    "journal.approve",
+    "journal.create",
+    "journal.post",
+    "journal.reverse",
+    "journal.submit",
+    "journal.view",
+    "period.close_hard",
+    "period.close_soft",
+    "period.reopen",
+    "period.view",
+    "policy.manage",
+    "recon.lock",
+    "recon.perform",
+    "recon.review",
+    "report.financial.view",
+    "rules.manage",
+    "trialbalance.view"
+   ]
+  },
+  "finance_manager": {
+   "name_ar": "مدير مالي",
+   "tier": 3,
+   "scope": {
+    "company_scope": "group_assigned",
+    "data_mode": "read_write_planning",
+    "book_scope": "all",
+    "record_ownership": "all",
+    "amount_band": 3
+   },
+   "permissions": [
+    "budget.view",
+    "budget.manage",
+    "budget.approve",
+    "forecast.view",
+    "forecast.manage",
+    "cashflow.view",
+    "cost.view",
+    "cost.manage",
+    "report.management.view",
+    "analytics.view",
+    "controls.test",
+    "controls.manage",
+    "gl.view",
+    "trialbalance.view",
+    "report.financial.view",
+    "payment.batch.approve",
+    "audit.view",
+    "risk.view"
+   ],
+   "effective_permissions": [
+    "analytics.view",
+    "audit.view",
+    "budget.approve",
+    "budget.manage",
+    "budget.view",
+    "cashflow.view",
+    "controls.manage",
+    "controls.test",
+    "cost.manage",
+    "cost.view",
+    "forecast.manage",
+    "forecast.view",
+    "gl.view",
+    "payment.batch.approve",
+    "report.financial.view",
+    "report.management.view",
+    "risk.view",
+    "trialbalance.view"
+   ]
+  },
+  "cfo": {
+   "name_ar": "المدير المالي التنفيذي",
+   "tier": 4,
+   "scope": {
+    "company_scope": "group",
+    "data_mode": "read_only_plus_approve",
+    "book_scope": "all",
+    "record_ownership": "none",
+    "amount_band": 4
+   },
+   "permissions": [
+    "report.financial.view",
+    "report.management.view",
+    "analytics.view",
+    "consolidation.view",
+    "consolidation.run",
+    "budget.view",
+    "forecast.view",
+    "cashflow.view",
+    "risk.view",
+    "trialbalance.view",
+    "gl.view",
+    "journal.approve",
+    "period.reopen",
+    "payment.batch.approve",
+    "audit.view"
+   ],
+   "effective_permissions": [
+    "analytics.view",
+    "audit.view",
+    "budget.view",
+    "cashflow.view",
+    "consolidation.run",
+    "consolidation.view",
+    "forecast.view",
+    "gl.view",
+    "journal.approve",
+    "payment.batch.approve",
+    "period.reopen",
+    "report.financial.view",
+    "report.management.view",
+    "risk.view",
+    "trialbalance.view"
+   ]
+  },
+  "auditor": {
+   "name_ar": "مدقّق",
+   "tier": 0,
+   "scope": {
+    "company_scope": "assigned",
+    "data_mode": "read_only",
+    "book_scope": "all",
+    "record_ownership": "none",
+    "amount_band": 0
+   },
+   "permissions": [
+    "audit.view",
+    "audit.export",
+    "journal.view",
+    "gl.view",
+    "trialbalance.view",
+    "report.financial.view",
+    "report.management.view",
+    "report.regulatory.view",
+    "controls.test",
+    "ar.statement.view",
+    "ap.bill.view",
+    "bank.view",
+    "period.view",
+    "coa.view"
+   ],
+   "effective_permissions": [
+    "ap.bill.view",
+    "ar.statement.view",
+    "audit.export",
+    "audit.view",
+    "bank.view",
+    "coa.view",
+    "controls.test",
+    "gl.view",
+    "journal.view",
+    "period.view",
+    "report.financial.view",
+    "report.management.view",
+    "report.regulatory.view",
+    "trialbalance.view"
+   ]
+  }
+ },
+ "sod_rules": [
+  {
+   "id": "SoD-1",
+   "rule": "actor != created_by for approve/post",
+   "enforce": "runtime"
+  },
+  {
+   "id": "SoD-2",
+   "rule": "separate create/approve/post/execute",
+   "enforce": "assignment+runtime"
+  },
+  {
+   "id": "SoD-3",
+   "rule": "supplier-bank manager != payment approver/executor",
+   "enforce": "runtime"
+  },
+  {
+   "id": "SoD-4",
+   "rule": "bank poster != bank reconciliation locker",
+   "enforce": "assignment(optional)"
+  },
+  {
+   "id": "SoD-5",
+   "rule": "period reopen requires higher role + reason + audit",
+   "enforce": "runtime"
+  },
+  {
+   "id": "SoD-6",
+   "rule": "auditor is read-only-exclusive (no write perms)",
+   "enforce": "assignment"
+  },
+  {
+   "id": "SoD-7",
+   "rule": "security admin holds no operational accounting perms",
+   "enforce": "assignment"
+  },
+  {
+   "id": "SoD-8",
+   "rule": "customer/supplier creator != approver of its invoices",
+   "enforce": "runtime(optional)"
+  }
+ ],
+ "approval_matrix": [
+  {
+   "band": "Tier-1",
+   "max_amount": 1000,
+   "approver": "senior_accountant"
+  },
+  {
+   "band": "Tier-2",
+   "max_amount": 10000,
+   "approver": "chief_accountant"
+  },
+  {
+   "band": "Tier-3",
+   "max_amount": 100000,
+   "approver": "finance_manager"
+  },
+  {
+   "band": "Tier-4",
+   "max_amount": null,
+   "approver": "cfo"
+  }
+ ],
+ "note": "approval_matrix amounts are illustrative configuration, not hard-coded (spec 33). Auditor is strictly read-only."
+}
