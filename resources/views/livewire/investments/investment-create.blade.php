@@ -5,7 +5,7 @@
         <x-ui.form-section :title="__('erp.investment.identity')">
             <x-ui.field :label="__('erp.code')" for="inv-code" required :error="$errors->first('code')"><input id="inv-code" wire:model="code" class="erp-control" dir="ltr" /></x-ui.field>
             <x-ui.field :label="__('erp.investment.name')" for="inv-name" required :error="$errors->first('name')"><input id="inv-name" wire:model="name" class="erp-control" /></x-ui.field>
-            <x-ui.field :label="__('erp.investment.classification')" for="inv-class" required :error="$errors->first('classification')"><select id="inv-class" wire:model="classification" class="erp-control">@foreach($classifications as $class)<option value="{{ $class->value }}">{{ __('erp.investment.classifications.'.$class->value) }}</option>@endforeach</select></x-ui.field>
+            <x-ui.searchable-select id="inv-class" wire:model="classification" :label="__('erp.investment.classification')" required :error="$errors->first('classification')">@foreach($classifications as $class)<option value="{{ $class->value }}">{{ __('erp.investment.classifications.'.$class->value) }}</option>@endforeach</x-ui.searchable-select>
             <x-ui.field :label="__('erp.investment.instrument_type')" for="inv-type" required :error="$errors->first('instrument_type')"><input id="inv-type" wire:model="instrument_type" class="erp-control" /></x-ui.field>
         </x-ui.form-section>
         <x-ui.form-section :title="__('erp.investment.acquisition')">

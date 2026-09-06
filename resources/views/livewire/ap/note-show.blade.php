@@ -70,7 +70,7 @@
         <x-ui.card :title="__('erp.receipt.allocations')" :description="__('erp.note.ap_allocations_hint')" flush>
             @if((float)$note->openBalance()>0)
                 <form wire:submit="allocate" class="grid gap-3 border-b border-border bg-muted/20 p-4 md:grid-cols-[minmax(0,1fr)_12rem_auto] md:items-end">
-                    <x-ui.field :label="__('erp.payment.invoice')" for="ap-credit-allocation-invoice" required><select id="ap-credit-allocation-invoice" wire:model="invoice_id" class="erp-control"><option value="">{{ __('erp.payment.select_open_invoice') }}</option>@foreach($openInvoices as $invoice)<option value="{{ $invoice->id }}">{{ $invoice->number }} — {{ number_format((float)$invoice->openBalance(),2) }} {{ $invoice->currency }}</option>@endforeach</select></x-ui.field>
+                    <x-ui.searchable-select :label="__('erp.payment.invoice')" required id="ap-credit-allocation-invoice" wire:model="invoice_id"><option value="">{{ __('erp.payment.select_open_invoice') }}</option>@foreach($openInvoices as $invoice)<option value="{{ $invoice->id }}">{{ $invoice->number }} — {{ number_format((float)$invoice->openBalance(),2) }} {{ $invoice->currency }}</option>@endforeach</x-ui.searchable-select>
                     <x-ui.field :label="__('erp.receipt.alloc_amount')" for="ap-credit-allocation-amount" required><input id="ap-credit-allocation-amount" type="number" min="0.000001" step="0.000001" max="{{ $note->openBalance() }}" wire:model="allocation_amount" class="erp-control text-end tabular-nums" dir="ltr" /></x-ui.field>
                     <x-ui.button type="submit" :disabled="$openInvoices->isEmpty()">{{ __('erp.receipt.allocate') }}</x-ui.button>
                 </form>

@@ -6,7 +6,7 @@
 <x-ui.field :label="__('erp.name_ar')" for="treasury-name-ar" required :error="$errors->first('name_ar')"><input id="treasury-name-ar" wire:model="name_ar" class="erp-control" dir="rtl" /></x-ui.field>
 <x-ui.field :label="__('erp.name_en')" for="treasury-name-en"><input id="treasury-name-en" wire:model="name_en" class="erp-control" dir="ltr" /></x-ui.field>
 <x-ui.field :label="__('erp.currency')" for="treasury-currency" required><input id="treasury-currency" wire:model="currency" maxlength="3" class="erp-control uppercase" dir="ltr" /></x-ui.field>
-<x-ui.field :label="__('erp.banking.gl_account')" for="treasury-gl" required :error="$errors->first('gl_account_code')"><select id="treasury-gl" wire:model="gl_account_code" class="erp-control">@foreach($glAccounts as $gl)<option value="{{ $gl->code }}">{{ $gl->code }} — {{ app()->getLocale()==='ar'?$gl->name_ar:($gl->name_en??$gl->name_ar) }}</option>@endforeach</select></x-ui.field>
+<x-ui.searchable-select :label="__('erp.banking.gl_account')" required :error="$errors->first('gl_account_code')" id="treasury-gl" wire:model="gl_account_code">@foreach($glAccounts as $gl)<option value="{{ $gl->code }}">{{ $gl->code }} — {{ app()->getLocale()==='ar'?$gl->name_ar:($gl->name_en??$gl->name_ar) }}</option>@endforeach</x-ui.searchable-select>
 </x-ui.form-section>
 @if($type==='bank')<x-ui.form-section :title="__('erp.banking.bank_details')">
 <x-ui.field :label="__('erp.banking.bank_code')" for="bank-code" required :error="$errors->first('bank_code')"><input id="bank-code" wire:model="bank_code" class="erp-control" dir="ltr" /></x-ui.field>

@@ -1,8 +1,18 @@
 <div>
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.books')]]" :title="__('erp.nav.books')" :description="__('erp.books.description')" />
 
+    <x-ui.toolbar :placeholder="__('erp.books.search_placeholder')" />
+
     @if ($books === [] || (is_countable($books) && count($books) === 0))
-        @include('livewire.partials.empty-state')
+        @if ($search !== '')
+            <x-ui.empty-state :title="__('erp.filter.no_matches_title')" :message="__('erp.filter.no_matches_hint')">
+                <x-slot:actions>
+                    <x-ui.button variant="secondary" wire:click="$set('search', '')">{{ __('erp.filter.clear') }}</x-ui.button>
+                </x-slot:actions>
+            </x-ui.empty-state>
+        @else
+            @include('livewire.partials.empty-state')
+        @endif
     @else
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             @foreach ($books as $book)

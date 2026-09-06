@@ -48,7 +48,7 @@ class PeriodIndex extends Component
     {
         $company = $this->company();
         $periods = $company
-            ? app(GlApplicationService::class)->listPeriods($company, $this->listRequest())
+            ? app(GlApplicationService::class)->listPeriods($company, $this->listRequest(searchColumns: 'period_no'))
             : null;
 
         return view('livewire.gl.period-index', compact('periods'));

@@ -1,12 +1,12 @@
 <div>
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ar')], ['label' => __('erp.nav.open_items')]]" :title="__('erp.open_items.ar_title')" :description="__('erp.open_items.ar_hint')">
         <x-slot:actions>
-            <select wire:model.live="customerId" class="erp-control w-auto min-w-[16rem] appearance-none pe-9">
+            <x-ui.searchable-select wire:model.live="customerId" :block="false">
                 <option value="">{{ __('erp.statement_page.select_customer') }}</option>
                 @foreach ($customers as $c)
                     <option value="{{ $c->id }}">{{ $c->code }} - {{ app()->getLocale() === 'ar' ? ($c->name_ar ?? $c->name_en) : ($c->name_en ?? $c->name_ar) }}</option>
                 @endforeach
-            </select>
+            </x-ui.searchable-select>
         </x-slot:actions>
     </x-ui.page-header>
 

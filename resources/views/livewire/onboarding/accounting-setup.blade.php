@@ -7,25 +7,25 @@
     <x-ui.card>
         <form wire:submit="finish" class="space-y-5">
             <div class="grid gap-5 sm:grid-cols-2">
-                <x-ui.select id="functional_currency" wire:model="functional_currency" :label="__('erp.onboarding.field_functional_currency')" :hint="__('erp.onboarding.functional_hint')" :error="$errors->first('functional_currency')" required>
+                <x-ui.searchable-select id="functional_currency" wire:model="functional_currency" :label="__('erp.onboarding.field_functional_currency')" :hint="__('erp.onboarding.functional_hint')" :error="$errors->first('functional_currency')" required>
                     @foreach ($currencies as $currency)
                         <option value="{{ $currency->code }}">{{ $currency->code }} — {{ app()->getLocale() === 'ar' ? $currency->name_ar : ($currency->name_en ?? $currency->name_ar) }}</option>
                     @endforeach
-                </x-ui.select>
+                </x-ui.searchable-select>
 
-                <x-ui.select id="presentation_currency" wire:model="presentation_currency" :label="__('erp.onboarding.field_presentation_currency')" :error="$errors->first('presentation_currency')" required>
+                <x-ui.searchable-select id="presentation_currency" wire:model="presentation_currency" :label="__('erp.onboarding.field_presentation_currency')" :error="$errors->first('presentation_currency')" required>
                     @foreach ($currencies as $currency)
                         <option value="{{ $currency->code }}">{{ $currency->code }} — {{ app()->getLocale() === 'ar' ? $currency->name_ar : ($currency->name_en ?? $currency->name_ar) }}</option>
                     @endforeach
-                </x-ui.select>
+                </x-ui.searchable-select>
             </div>
 
             <div class="grid gap-5 sm:grid-cols-2">
-                <x-ui.select id="accounting_framework" wire:model="accounting_framework" :label="__('erp.onboarding.field_framework')" :error="$errors->first('accounting_framework')" required>
+                <x-ui.searchable-select id="accounting_framework" wire:model="accounting_framework" :label="__('erp.onboarding.field_framework')" :error="$errors->first('accounting_framework')" required>
                     @foreach ($frameworks as $framework)
                         <option value="{{ $framework->value }}">{{ __('erp.onboarding.framework.'.$framework->value) }}</option>
                     @endforeach
-                </x-ui.select>
+                </x-ui.searchable-select>
 
                 <x-ui.input id="fiscal_year" type="number" wire:model="fiscal_year" :label="__('erp.onboarding.field_fiscal_year')" :hint="__('erp.onboarding.fiscal_year_hint')" :error="$errors->first('fiscal_year')" dir="ltr" required />
             </div>

@@ -42,12 +42,12 @@
         :summary="$invoices ? trans_choice('erp.pagination.result_count', $invoices->total(), ['count' => number_format($invoices->total())]) : null"
     >
         <x-slot:filters>
-            <select wire:model.live="statusFilter" class="erp-control w-auto appearance-none pe-8" aria-label="{{ __('erp.status') }}">
+            <x-ui.searchable-select wire:model.live="statusFilter" :block="false" aria-label="{{ __('erp.status') }}">
                 <option value="">{{ __('erp.filter.all_statuses') }}</option>
                 @foreach ($statuses as $status)
                     <option value="{{ $status->value }}">{{ $status->label() }}</option>
                 @endforeach
-            </select>
+            </x-ui.searchable-select>
         </x-slot:filters>
     </x-ui.toolbar>
 

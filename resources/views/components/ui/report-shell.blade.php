@@ -6,6 +6,8 @@
     'period' => null,
     'asOf' => null,
     'breadcrumbs' => [],
+    // Every report is downloadable; set false only where the screen has no exportExcel action.
+    'export' => true,
 ])
 
 @php
@@ -32,9 +34,14 @@
 --}}
 <div {{ $attributes }}>
     <x-ui.page-header :title="$title" :description="$description" :breadcrumbs="$breadcrumbs" :eyebrow="__('erp.nav.reports')" class="erp-no-print">
-        @isset($filters)
-            <x-slot:actions>{{ $filters }}</x-slot:actions>
-        @endisset
+        @if (isset($filters) || $export)
+            <x-slot:actions>
+                @isset($filters){{ $filters }}@endisset
+                @if ($export)
+                    <x-ui.export-button />
+                @endif
+            </x-slot:actions>
+        @endif
     </x-ui.page-header>
 
     <div class="mizan-report-identity mb-6 overflow-hidden border border-border bg-card">

@@ -12,7 +12,7 @@
         </x-ui.form-section>
         <x-ui.form-section :title="__('erp.document.accounting')">
             @foreach(['cost_account_code'=>__('erp.assets.cost_account'),'accum_account_code'=>__('erp.assets.accum_account'),'expense_account_code'=>__('erp.assets.expense_account'),'ap_account_code'=>__('erp.assets.ap_account')] as $field=>$label)
-                <x-ui.field :label="$label" :for="'asset-'.$field" required :error="$errors->first($field)"><select id="asset-{{ $field }}" wire:model="{{ $field }}" class="erp-control">@foreach($field === 'ap_account_code' ? $settlementAccounts : $accounts as $account)<option value="{{ $account->code }}">{{ $account->code }} — {{ app()->getLocale()==='ar' ? $account->name_ar : ($account->name_en ?? $account->name_ar) }}</option>@endforeach</select></x-ui.field>
+                <x-ui.searchable-select :label="$label" :for="'asset-'.$field" required :error="$errors->first($field)" id="asset-{{ $field }}" wire:model="{{ $field }}">@foreach($field === 'ap_account_code' ? $settlementAccounts : $accounts as $account)<option value="{{ $account->code }}">{{ $account->code }} — {{ app()->getLocale()==='ar' ? $account->name_ar : ($account->name_en ?? $account->name_ar) }}</option>@endforeach</x-ui.searchable-select>
             @endforeach
         </x-ui.form-section>
         <x-ui.form-actions><x-ui.button variant="secondary" :href="route('assets.index')">{{ __('erp.cancel') }}</x-ui.button><x-ui.button type="submit">{{ __('erp.assets.acquire') }}</x-ui.button></x-ui.form-actions>

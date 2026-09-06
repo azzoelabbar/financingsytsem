@@ -8,8 +8,22 @@
     @error('period')<x-ui.alert variant="danger" class="mb-5">{{ $message }}</x-ui.alert>@enderror
     <x-ui.card :title="__('erp.period_page.reopen_control')" class="mb-5"><x-ui.field :label="__('erp.period_page.reopen_reason')" for="reopen-reason" :error="$errors->first('reopenReason')"><input id="reopen-reason" wire:model="reopenReason" class="erp-control"/></x-ui.field></x-ui.card>
 
+    <x-ui.toolbar
+        :placeholder="__('erp.period_page.search_placeholder')"
+        :summary="$periods ? trans_choice('erp.pagination.result_count', $periods->total(), ['count' => number_format($periods->total())]) : null"
+    />
+
     @if ($periods === null || $periods->isEmpty())
-        <x-ui.empty-state :title="__('erp.period_page.empty_title')" :message="__('erp.period_page.empty_hint')" />
+        <x-ui.empty-state
+            :title="$search !== '' ? __('erp.filter.no_matches_title') : __('erp.period_page.empty_title')"
+            :message="$search !== '' ? __('erp.filter.no_matches_hint') : __('erp.period_page.empty_hint')"
+        >
+            @if ($search !== '')
+                <x-slot:actions>
+                    <x-ui.button variant="secondary" wire:click="$set('search', '')">{{ __('erp.filter.clear') }}</x-ui.button>
+                </x-slot:actions>
+            @endif
+        </x-ui.empty-state>
     @else
         <x-ui.card :title="__('erp.period_page.card_title')" :description="__('erp.period_page.card_hint')" flush>
             <x-ui.table flush>

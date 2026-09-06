@@ -43,6 +43,12 @@ return [
     'search' => 'Search',
     'search_placeholder' => 'Search...',
     'breadcrumb' => 'Breadcrumb',
+    'picker' => [
+        'search' => 'Search this list...',
+        'no_results' => 'No matching item',
+        'choose' => 'Choose from the list',
+        'clear' => 'Clear selection',
+    ],
     'filter' => [
         'all_statuses' => 'All statuses',
         'all' => 'All',
@@ -146,6 +152,7 @@ return [
         ],
     ],
     'books' => [
+        'search_placeholder' => 'Search by book name or code...',
         'description' => "The company's multi-basis accounting books. Each book presents the same company on a different accounting basis.",
         'current' => 'Current book',
         'active' => 'Active',
@@ -309,6 +316,7 @@ return [
     ],
 
     'period_page' => [
+        'search_placeholder' => 'Search by period number...',
         'reopen_control' => 'Period control',
         'reopen_reason' => 'Reason for reopening',
         'soft_close' => 'Soft close',
@@ -631,6 +639,7 @@ return [
     ],
 
     'opening' => [
+        'search_placeholder' => 'Search by date or currency...',
         'create' => 'New Opening Balance Batch',
         'create_hint' => 'Create a controlled batch, add permanent-account balances, validate, post and lock it.',
         'batch_details' => 'Batch identity',
@@ -857,6 +866,7 @@ return [
     ],
 
     'banking' => [
+        'recon_search_placeholder' => 'Search by account name or statement date...',
         'title' => 'Banking & Treasury',
         'accounts' => 'Treasury Accounts',
         'statements' => 'Bank Statements',
@@ -1190,5 +1200,15 @@ return [
         'feature_reports' => 'Reports',
         'feature_reports_hint' => 'Balance sheet, P&L, and cash flow.',
         'footer' => 'Mizan Financial Management & ERP - Balance fuels growth',
+    ],
+    'export' => [
+        'excel' => 'Export to Excel',
+        'generated_at' => 'Generated at',
+        'nothing_to_export' => 'There is nothing on this screen to export yet.',
+        'filters' => 'Applied filters',
+        'sheet_summary' => 'Summary',
+        'sheet_lines' => 'Lines',
+        'sheet_details' => 'Details',
+        'sheet_allocations' => 'Allocations',
     ],
 ];

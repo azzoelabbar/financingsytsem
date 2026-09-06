@@ -61,13 +61,13 @@ trait InteractsWithAccountingContext
     /**
      * @param  array<string, mixed>  $extra
      */
-    protected function listRequest(array $extra = [], ?string $searchColumns = null): Request
+    protected function listRequest(array $extra = [], ?string $searchColumns = null, ?int $perPage = null, ?int $page = null): Request
     {
         $params = array_merge([
             'search' => $this->search !== '' ? $this->search : null,
             'search_columns' => $searchColumns,
-            'page' => $this->getPage(),
-            'per_page' => $this->perPage,
+            'page' => $page ?? $this->getPage(),
+            'per_page' => $perPage ?? $this->perPage,
         ], $extra);
 
         return Request::create('/', 'GET', array_filter(

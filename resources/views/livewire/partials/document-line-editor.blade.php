@@ -46,12 +46,12 @@
             @if ($hasTaxCodes)
                 <label class="mizan-line-tax">
                     <span class="mizan-line-label">{{ __('erp.tax.tax_code') }}</span>
-                    <select wire:model="lines.{{ $i }}.tax_code" class="erp-control {{ $errors->has("lines.$i.tax_code") ? 'erp-control-invalid' : '' }}">
+                    <x-ui.searchable-select wire:model="lines.{{ $i }}.tax_code">
                         <option value="">{{ __('erp.tax.no_tax') }}</option>
                         @foreach ($taxCodes as $taxCode)
                             <option value="{{ $taxCode->code }}">{{ $taxCode->code }} — {{ $taxCode->name }}</option>
                         @endforeach
-                    </select>
+                    </x-ui.searchable-select>
                     @if ($errors->has("lines.$i.tax_code"))
                         <span class="mt-1 block text-xs text-[var(--danger)]">{{ $errors->first("lines.$i.tax_code") }}</span>
                     @endif

@@ -10,7 +10,7 @@
             <x-ui.field :label="__('erp.description')" for="exp-description" :error="$errors->first('description')"><input id="exp-description" wire:model="description" class="erp-control" /></x-ui.field>
         </x-ui.form-section>
         <x-ui.form-section :title="__('erp.expense.lines')">
-            <x-ui.field :label="__('erp.account')" for="exp-account" required :error="$errors->first('expense_account')"><select id="exp-account" wire:model="expense_account" class="erp-control"><option value="">{{ __('erp.select') }}</option>@foreach($accounts as $account)<option value="{{ $account->code }}">{{ $account->code }} — {{ app()->getLocale()==='ar' ? $account->name_ar : ($account->name_en ?? $account->name_ar) }}</option>@endforeach</select></x-ui.field>
+            <x-ui.searchable-select :label="__('erp.account')" required :error="$errors->first('expense_account')" id="exp-account" wire:model="expense_account"><option value="">{{ __('erp.select') }}</option>@foreach($accounts as $account)<option value="{{ $account->code }}">{{ $account->code }} — {{ app()->getLocale()==='ar' ? $account->name_ar : ($account->name_en ?? $account->name_ar) }}</option>@endforeach</x-ui.searchable-select>
             <x-ui.field :label="__('erp.description')" for="exp-line-description" :error="$errors->first('line_description')"><input id="exp-line-description" wire:model="line_description" class="erp-control" /></x-ui.field>
             <x-ui.field :label="__('erp.amount')" for="exp-amount" required :error="$errors->first('amount')"><input id="exp-amount" type="number" min="0.000001" step="0.000001" wire:model="amount" class="erp-control text-end tabular-nums" dir="ltr" /></x-ui.field>
         </x-ui.form-section>

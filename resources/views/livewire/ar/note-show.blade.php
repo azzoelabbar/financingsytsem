@@ -75,14 +75,12 @@
         <x-ui.card :title="__('erp.receipt.allocations')" :description="__('erp.note.allocations_hint')" flush>
             @if ((float) $note->openBalance() > 0)
                 <form wire:submit="allocate" class="grid gap-3 border-b border-border bg-muted/20 p-4 md:grid-cols-[minmax(0,1fr)_12rem_auto] md:items-end">
-                    <x-ui.field :label="__('erp.receipt.invoice')" for="credit-allocation-invoice" required :error="$errors->first('invoice_id')">
-                        <select id="credit-allocation-invoice" wire:model="invoice_id" class="erp-control {{ $errors->has('invoice_id') ? 'erp-control-invalid' : '' }}" required>
+                    <x-ui.searchable-select :label="__('erp.receipt.invoice')" required :error="$errors->first('invoice_id')" id="credit-allocation-invoice" wire:model="invoice_id" required>
                             <option value="">{{ __('erp.receipt.select_open_invoice') }}</option>
                             @foreach ($openInvoices as $invoice)
                                 <option value="{{ $invoice->id }}">{{ $invoice->number }} — {{ number_format((float) $invoice->openBalance(), 2) }} {{ $invoice->currency }}</option>
                             @endforeach
-                        </select>
-                    </x-ui.field>
+                        </x-ui.searchable-select>
                     <x-ui.field :label="__('erp.receipt.alloc_amount')" for="credit-allocation-amount" required :error="$errors->first('allocation_amount')">
                         <input id="credit-allocation-amount" type="number" min="0.000001" step="0.000001" max="{{ $note->openBalance() }}" wire:model="allocation_amount" class="erp-control text-end tabular-nums {{ $errors->has('allocation_amount') ? 'erp-control-invalid' : '' }}" dir="ltr" required />
                     </x-ui.field>

@@ -1,8 +1,22 @@
 <div>
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.opening_balances')]]" :title="__('erp.opening.title')" :description="__('erp.opening.hint')"><x-slot:actions><x-ui.button :href="route('opening-balances.create')">{{ __('erp.opening.create') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
+    <x-ui.toolbar
+        :placeholder="__('erp.opening.search_placeholder')"
+        :summary="$batches ? trans_choice('erp.pagination.result_count', $batches->total(), ['count' => number_format($batches->total())]) : null"
+    />
+
     @if ($batches === null || $batches->isEmpty())
-        <x-ui.empty-state :title="__('erp.opening.empty_title')" :message="__('erp.opening.empty_hint')" />
+        <x-ui.empty-state
+            :title="$search !== '' ? __('erp.filter.no_matches_title') : __('erp.opening.empty_title')"
+            :message="$search !== '' ? __('erp.filter.no_matches_hint') : __('erp.opening.empty_hint')"
+        >
+            @if ($search !== '')
+                <x-slot:actions>
+                    <x-ui.button variant="secondary" wire:click="$set('search', '')">{{ __('erp.filter.clear') }}</x-ui.button>
+                </x-slot:actions>
+            @endif
+        </x-ui.empty-state>
     @else
         <x-ui.table>
             <thead><tr>

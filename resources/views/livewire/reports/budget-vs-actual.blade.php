@@ -18,14 +18,12 @@
                     <x-ui.field :label="__('erp.reports.period_key')" for="budget-period" required :error="$errors->first('budgetPeriod')">
                         <input id="budget-period" type="month" wire:model="budgetPeriod" class="erp-control" dir="ltr" />
                     </x-ui.field>
-                    <x-ui.field :label="__('erp.account')" for="budget-account" required :error="$errors->first('budgetAccount')">
-                        <select id="budget-account" wire:model="budgetAccount" class="erp-control">
+                    <x-ui.searchable-select :label="__('erp.account')" required :error="$errors->first('budgetAccount')" id="budget-account" wire:model="budgetAccount">
                             <option value="">{{ __('erp.select') }}</option>
                             @foreach ($accounts as $account)
                                 <option value="{{ $account->code }}">{{ $account->code }} — {{ app()->getLocale() === 'ar' ? $account->name_ar : ($account->name_en ?? $account->name_ar) }}</option>
                             @endforeach
-                        </select>
-                    </x-ui.field>
+                        </x-ui.searchable-select>
                     <x-ui.field :label="__('erp.project.budget')" for="budget-amount" required :error="$errors->first('budgetAmount')">
                         <input id="budget-amount" type="number" min="0.000001" step="0.000001" wire:model="budgetAmount" class="erp-control text-end tabular-nums" dir="ltr" />
                     </x-ui.field>

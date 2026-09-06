@@ -11,14 +11,12 @@
 
     <form wire:submit="save" class="mx-auto max-w-5xl overflow-hidden rounded-lg border border-border bg-card">
         <x-ui.form-section :title="__('erp.form.parties')" :description="__('erp.receipt.parties_hint')">
-            <x-ui.field :label="__('erp.sales_invoice.customer')" for="receipt-customer" required :error="$errors->first('customer_id')">
-                <select id="receipt-customer" wire:model.live="customer_id" class="erp-control {{ $errors->has('customer_id') ? 'erp-control-invalid' : '' }}" required>
+            <x-ui.searchable-select :label="__('erp.sales_invoice.customer')" required :error="$errors->first('customer_id')" id="receipt-customer" wire:model.live="customer_id" required>
                     <option value="">{{ __('erp.sales_invoice.select_customer') }}</option>
                     @foreach ($customers as $customer)
                         <option value="{{ $customer->id }}">{{ $customer->code }} — {{ app()->getLocale() === 'ar' ? ($customer->name_ar ?? $customer->name_en) : ($customer->name_en ?? $customer->name_ar) }}</option>
                     @endforeach
-                </select>
-            </x-ui.field>
+                </x-ui.searchable-select>
 
             <x-ui.field :label="__('erp.receipt.date')" for="receipt-date" required :error="$errors->first('receipt_date')">
                 <input id="receipt-date" type="date" wire:model="receipt_date" class="erp-control {{ $errors->has('receipt_date') ? 'erp-control-invalid' : '' }}" dir="ltr" required />
@@ -34,20 +32,16 @@
                 <input id="receipt-currency" wire:model="currency" maxlength="3" class="erp-control uppercase {{ $errors->has('currency') ? 'erp-control-invalid' : '' }}" dir="ltr" required />
             </x-ui.field>
 
-            <x-ui.field :label="__('erp.receipt.method')" for="receipt-method" required :error="$errors->first('method')">
-                <select id="receipt-method" wire:model="method" class="erp-control" required>
-                    <option value="bank">{{ __('erp.receipt.method_bank') }}</option>
-                    <option value="cash">{{ __('erp.receipt.method_cash') }}</option>
-                </select>
-            </x-ui.field>
+            <x-ui.searchable-select id="receipt-method" wire:model="method" :label="__('erp.receipt.method')" required :error="$errors->first('method')">
+                <option value="bank">{{ __('erp.receipt.method_bank') }}</option>
+                <option value="cash">{{ __('erp.receipt.method_cash') }}</option>
+            </x-ui.searchable-select>
 
-            <x-ui.field :label="__('erp.receipt.cash_bank_account')" for="receipt-account" required :error="$errors->first('cash_bank_account')">
-                <select id="receipt-account" wire:model="cash_bank_account" class="erp-control {{ $errors->has('cash_bank_account') ? 'erp-control-invalid' : '' }}" required>
+            <x-ui.searchable-select :label="__('erp.receipt.cash_bank_account')" required :error="$errors->first('cash_bank_account')" id="receipt-account" wire:model="cash_bank_account" required>
                     @foreach ($accounts as $account)
                         <option value="{{ $account->code }}">{{ $account->code }} — {{ app()->getLocale() === 'ar' ? $account->name_ar : ($account->name_en ?? $account->name_ar) }}</option>
                     @endforeach
-                </select>
-            </x-ui.field>
+                </x-ui.searchable-select>
 
             <x-ui.field :label="__('erp.document.exchange_rate')" for="receipt-rate" required :error="$errors->first('exchange_rate')">
                 <input id="receipt-rate" type="number" min="0.0000000001" step="0.0000000001" wire:model="exchange_rate" class="erp-control text-end tabular-nums {{ $errors->has('exchange_rate') ? 'erp-control-invalid' : '' }}" dir="ltr" required />

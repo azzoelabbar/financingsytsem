@@ -26,6 +26,13 @@ class ReconciliationIndex extends Component
             $reconciliations = BankReconciliation::query()
                 ->where('company_id', $company->id)
                 ->with('treasuryAccount')
+                ->when($this->search !== '', function ($q): void {
+                    $needle = '%'.$this->search.'%';
+                    $q->where(fn ($w) => $w->where('as_of_date', 'like', $needle)
+                        ->orWhereHas('treasuryAccount', fn ($a) => $a->where('code', 'like', $needle)
+                            ->orWhere('name_ar', 'like', $needle)
+                            ->orWhere('name_en', 'like', $needle)));
+                })
                 ->orderByDesc('as_of_date')
                 ->orderByDesc('id')
                 ->paginate($this->perPage);

@@ -20,7 +20,7 @@ class Index extends Component
         $company = $this->company();
         $book = $this->book();
         $batches = ($company && $book)
-            ? app(DomainApplicationService::class)->listOpeningBalances($company, $book, $this->listRequest())
+            ? app(DomainApplicationService::class)->listOpeningBalances($company, $book, $this->listRequest(searchColumns: 'as_of,currency'))
             : null;
 
         return view('livewire.opening-balances.index', compact('batches'));

@@ -1,34 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ * What every install needs, and nothing more.
+ *
+ * `php artisan migrate:fresh --seed` must leave the system in the state a new
+ * install expects: reference data in place, and **no user accounts at all**, so
+ * the first visitor still gets the one-time registration form.
+ *
+ * The demo company, demo operator and sample transactions are deliberately not
+ * here — creating a user would take the single account this install allows.
+ * Ask for them explicitly when you want them:
+ *
+ *     php artisan db:seed --class=DemoSeeder
+ */
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        User::query()->firstOrCreate(
-            ['email' => 'test@example.com'],
-            [
-                'name' => 'Test User',
-                'password' => 'password',
-                'email_verified_at' => now(),
-            ],
-        );
-
         $this->call([
             AccountingReferenceSeeder::class,
-            DemoCompanySeeder::class,
-            DemoUserSeeder::class,
-            DemoDataSeeder::class,
         ]);
     }
 }

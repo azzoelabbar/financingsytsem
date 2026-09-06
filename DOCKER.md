@@ -399,8 +399,22 @@ The start-up script waits for the server to answer before it migrates.
 2. `stop-mizan.bat` ثم `start-mizan.bat` — إعادة التشغيل تحل أغلب الحالات / a restart fixes most things
 3. تأكد أن Docker Desktop يعمل / make sure Docker Desktop is running
 
-لا تشغّل `php artisan db:seed` وحده داخل الحاوية: البذرة الافتراضية تنشئ حساباً تجريبياً
-وبيانات وهمية، وقد يشغل ذلك الحساب الوحيد المسموح به.
-Never run a bare `php artisan db:seed` inside the container — the default seeder
-creates a demo account and demo books, and that demo account would take the one
-account slot this install allows.
+### البدء من جديد / Starting over
+
+لمسح كل شيء والعودة إلى نظام جديد فارغ يعرض استمارة التسجيل من جديد:
+To wipe everything and get back to a brand-new system that shows the
+registration form again:
+
+```bash
+docker compose exec mizan php artisan migrate:fresh --seed --force
+```
+
+هذا الأمر **يمحو كل البيانات نهائياً** ثم يعيد تثبيت العملات ويترك النظام بلا حسابات.
+This **erases all data permanently**, then reinstalls the currencies and leaves
+the system with no accounts at all.
+
+`php artisan db:seed` وحده آمن: البذرة الافتراضية تضيف البيانات المرجعية فقط ولا تنشئ
+أي حساب. الشركة التجريبية وحسابها منفصلان في `DemoSeeder` وللتطوير فقط.
+A bare `php artisan db:seed` is safe: the default seeder installs reference data
+only and creates no account. The demo company and its operator live separately
+in `DemoSeeder`, and are for development only.

@@ -34,7 +34,7 @@
                     required
                 />
 
-                <x-ui.select
+                <x-ui.searchable-select
                     id="country"
                     wire:model="country"
                     :label="__('erp.onboarding.field_country')"
@@ -44,7 +44,7 @@
                     @foreach ($countries as $iso => $name)
                         <option value="{{ $iso }}">{{ $name }}</option>
                     @endforeach
-                </x-ui.select>
+                </x-ui.searchable-select>
             </div>
 
             <x-ui.input

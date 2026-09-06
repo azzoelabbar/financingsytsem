@@ -1,8 +1,24 @@
 <div>
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.banking')], ['label' => __('erp.banking.reconciliation')]]" :title="__('erp.banking.reconciliation')" :description="__('erp.banking.reconciliation_hint')"><x-slot:actions><x-ui.button :href="route('banking.reconciliation.create')">{{ __('erp.banking.new_reconciliation') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
+    <x-ui.toolbar
+        :placeholder="__('erp.banking.recon_search_placeholder')"
+        :summary="$reconciliations ? trans_choice('erp.pagination.result_count', $reconciliations->total(), ['count' => number_format($reconciliations->total())]) : null"
+    />
+
     @if ($reconciliations === null || $reconciliations->isEmpty())
-        <x-ui.empty-state :title="__('erp.banking.recon_empty_title')" :message="__('erp.banking.recon_empty_hint')"><x-slot:actions><x-ui.button :href="route('banking.reconciliation.create')">{{ __('erp.banking.new_reconciliation') }}</x-ui.button></x-slot:actions></x-ui.empty-state>
+        <x-ui.empty-state
+            :title="$search !== '' ? __('erp.filter.no_matches_title') : __('erp.banking.recon_empty_title')"
+            :message="$search !== '' ? __('erp.filter.no_matches_hint') : __('erp.banking.recon_empty_hint')"
+        >
+            <x-slot:actions>
+                @if ($search !== '')
+                    <x-ui.button variant="secondary" wire:click="$set('search', '')">{{ __('erp.filter.clear') }}</x-ui.button>
+                @else
+                    <x-ui.button :href="route('banking.reconciliation.create')">{{ __('erp.banking.new_reconciliation') }}</x-ui.button>
+                @endif
+            </x-slot:actions>
+        </x-ui.empty-state>
     @else
         <div class="space-y-3">
             @foreach ($reconciliations as $rec)

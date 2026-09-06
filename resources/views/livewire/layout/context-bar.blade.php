@@ -15,17 +15,17 @@
         <svg class="h-4 w-4 shrink-0 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>
         <div class="min-w-0 flex flex-col leading-none">
             <span class="text-[0.625rem] font-medium uppercase tracking-wide text-muted-foreground">{{ __('erp.company') }}</span>
-            <select
+            <x-ui.searchable-select
                 wire:change="setCompany($event.target.value)"
                 aria-label="{{ __('erp.company') }}"
-                class="-ms-0.5 mt-0.5 max-w-[10rem] cursor-pointer truncate border-0 bg-transparent p-0 pe-4 text-[0.8125rem] font-semibold text-foreground focus:outline-none focus:ring-0"
+                trigger-class="-ms-0.5 mt-0.5 max-w-[10rem] cursor-pointer truncate text-[0.8125rem] font-semibold text-foreground"
             >
                 @forelse ($companies as $c)
                     <option value="{{ $c->id }}" @selected($company?->id === $c->id)>{{ $c->code }} - {{ app()->getLocale() === 'ar' ? ($c->name_ar ?? $c->code) : ($c->name_en ?? $c->name_ar ?? $c->code) }}</option>
                 @empty
                     <option value="">{{ __('erp.no_company') }}</option>
                 @endforelse
-            </select>
+            </x-ui.searchable-select>
         </div>
     </div>
 
@@ -34,17 +34,17 @@
         <span class="h-6 w-1 shrink-0 rounded-full" style="background: {{ $bookTone }}" aria-hidden="true"></span>
         <div class="flex flex-col leading-none">
             <span class="text-[0.625rem] font-medium uppercase tracking-wide text-muted-foreground">{{ __('erp.book') }}</span>
-            <select
+            <x-ui.searchable-select
                 wire:change="setBook($event.target.value)"
                 aria-label="{{ __('erp.book') }}"
-                class="-ms-0.5 mt-0.5 cursor-pointer border-0 bg-transparent p-0 pe-4 text-[0.8125rem] font-semibold text-foreground focus:outline-none focus:ring-0"
+                trigger-class="-ms-0.5 mt-0.5 cursor-pointer text-[0.8125rem] font-semibold text-foreground"
             >
                 @forelse ($books as $b)
                     <option value="{{ $b->id }}" @selected($book?->id === $b->id)>{{ $b->code }}</option>
                 @empty
                     <option value="">{{ __('erp.no_book') }}</option>
                 @endforelse
-            </select>
+            </x-ui.searchable-select>
         </div>
 
         {{-- Basis info --}}

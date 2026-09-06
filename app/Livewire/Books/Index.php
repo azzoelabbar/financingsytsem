@@ -22,6 +22,19 @@ class Index extends Component
             ? app(DomainApplicationService::class)->listBooks($company)
             : [];
 
+        if ($this->search !== '') {
+            $needle = mb_strtolower($this->search);
+            $books = array_values(array_filter($books, function ($book) use ($needle): bool {
+                $haystack = mb_strtolower(implode(' ', array_filter([
+                    $book->code,
+                    $book->name_ar,
+                    $book->name_en,
+                ])));
+
+                return str_contains($haystack, $needle);
+            }));
+        }
+
         return view('livewire.books.index', [
             'books' => $books,
             'company' => $company,

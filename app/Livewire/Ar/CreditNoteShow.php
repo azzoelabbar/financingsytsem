@@ -6,11 +6,13 @@ namespace App\Livewire\Ar;
 
 use App\Application\Api\Ar\ArApplicationService;
 use App\Livewire\Concerns\BuildsDocTimeline;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Ar\SalesCreditNote;
 use App\Models\Ar\SalesInvoice;
 use App\Services\Accounting\Exceptions\PostingException;
 use App\Services\Ar\Exceptions\ArException;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
@@ -20,6 +22,7 @@ use Livewire\Component;
 class CreditNoteShow extends Component
 {
     use BuildsDocTimeline;
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public SalesCreditNote $note;
@@ -106,5 +109,43 @@ class CreditNoteShow extends Component
             'openInvoices' => $openInvoices,
             'timeline' => $this->docTimeline($this->note, withAllocations: true),
         ]);
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.credit_note.ar_title').' '.($this->note->number ?? '');
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $this->note->loadMissing(['customer', 'lines']);
+
+        $meta = $this->excelMeta([
+            __('erp.number') => $this->note->number ?? __('erp.sales_invoice.draft_number'),
+            __('erp.sales_invoice.customer') => $this->localisedName($this->note->customer),
+            __('erp.date') => $this->exportDate($this->note->credit_note_date),
+            __('erp.status') => $this->statusLabel($this->note->status),
+            __('erp.currency') => $this->note->currency,
+        ]);
+
+        return [$this->excelSheetFrom(
+            __('erp.export.sheet_lines'),
+            [
+                ['#', ExcelSheet::NUMBER, fn ($l) => $l->line_no],
+                [__('erp.sales_invoice.line_description'), ExcelSheet::TEXT, fn ($l) => $l->description],
+                [__('erp.document.tax'), ExcelSheet::MONEY, fn ($l) => $l->tax_amount],
+                [__('erp.document.amount'), ExcelSheet::MONEY, fn ($l) => $l->net_amount],
+            ],
+            $this->note->lines,
+            $meta,
+            totals: [[
+                null,
+                __('erp.document.total'),
+                $this->note->tax_total,
+                $this->note->gross_total,
+            ]],
+            heading: __('erp.credit_note.ar_title').' '.($this->note->number ?? ''),
+        )];
     }
 }

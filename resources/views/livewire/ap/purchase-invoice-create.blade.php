@@ -12,17 +12,12 @@
     <form wire:submit="save" class="mizan-document-form mx-auto max-w-6xl">
         <x-ui.draft-journey />
         <x-ui.form-section :title="__('erp.form.parties')" :description="__('erp.purchase_invoice.parties_hint')">
-            <x-ui.field :label="__('erp.purchase_invoice.supplier')" for="pi-supplier" required :error="$errors->first('supplier_id')">
-                <div class="relative">
-                    <select id="pi-supplier" wire:model="supplier_id" class="erp-control appearance-none pe-9 {{ $errors->has('supplier_id') ? 'erp-control-invalid' : '' }}" required>
-                        <option value="">{{ __('erp.purchase_invoice.select_supplier') }}</option>
-                        @foreach ($suppliers as $s)
-                            <option value="{{ $s->id }}">{{ $s->code }} - {{ $s->legal_name }}</option>
-                        @endforeach
-                    </select>
-                    <svg class="pointer-events-none absolute inset-y-0 end-3 my-auto h-4 w-4 text-muted-foreground" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 8l4 4 4-4" /></svg>
-                </div>
-            </x-ui.field>
+            <x-ui.searchable-select id="pi-supplier" wire:model="supplier_id" :label="__('erp.purchase_invoice.supplier')" required :error="$errors->first('supplier_id')">
+                <option value="">{{ __('erp.purchase_invoice.select_supplier') }}</option>
+                @foreach ($suppliers as $s)
+                    <option value="{{ $s->id }}">{{ $s->code }} - {{ $s->legal_name }}</option>
+                @endforeach
+            </x-ui.searchable-select>
 
             <x-ui.field :label="__('erp.date')" for="pi-date" required :error="$errors->first('invoice_date')" :hint="__('erp.purchase_invoice.date_hint')">
                 <input id="pi-date" type="date" wire:model="invoice_date" class="erp-control {{ $errors->has('invoice_date') ? 'erp-control-invalid' : '' }}" dir="ltr" required />

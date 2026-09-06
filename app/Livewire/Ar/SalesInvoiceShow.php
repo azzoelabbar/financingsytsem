@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Livewire\Ar;
 
 use App\Application\Api\Ar\ArApplicationService;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Ar\SalesInvoice;
 use App\Services\Accounting\Exceptions\PostingException;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -15,6 +17,7 @@ use Livewire\Component;
 #[Layout('layouts.erp')]
 class SalesInvoiceShow extends Component
 {
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public SalesInvoice $invoice;
@@ -101,5 +104,48 @@ class SalesInvoiceShow extends Component
         }
 
         return $events;
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.sales_invoice.title').' '.($this->invoice->number ?? '');
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $this->invoice->loadMissing(['customer', 'lines']);
+
+        $meta = $this->excelMeta([
+            __('erp.number') => $this->invoice->number ?? __('erp.sales_invoice.draft_number'),
+            __('erp.sales_invoice.customer') => $this->localisedName($this->invoice->customer),
+            __('erp.date') => $this->exportDate($this->invoice->invoice_date),
+            __('erp.document.due_date') => $this->exportDate($this->invoice->due_date),
+            __('erp.status') => $this->statusLabel($this->invoice->status),
+            __('erp.currency') => $this->invoice->currency,
+        ]);
+
+        return [$this->excelSheetFrom(
+            __('erp.export.sheet_lines'),
+            [
+                ['#', ExcelSheet::NUMBER, fn ($l) => $l->line_no],
+                [__('erp.sales_invoice.line_description'), ExcelSheet::TEXT, fn ($l) => $l->description],
+                [__('erp.sales_invoice.quantity'), ExcelSheet::NUMBER, fn ($l) => $l->quantity],
+                [__('erp.sales_invoice.unit_price'), ExcelSheet::MONEY, fn ($l) => $l->unit_price],
+                [__('erp.document.tax'), ExcelSheet::MONEY, fn ($l) => $l->tax_amount],
+                [__('erp.document.amount'), ExcelSheet::MONEY, fn ($l) => $l->net_amount],
+            ],
+            $this->invoice->lines,
+            $meta,
+            totals: [[
+                null,
+                __('erp.document.total'),
+                null,
+                $this->invoice->net_total,
+                $this->invoice->tax_total,
+                $this->invoice->gross_total,
+            ]],
+            heading: __('erp.sales_invoice.title').' '.($this->invoice->number ?? ''),
+        )];
     }
 }

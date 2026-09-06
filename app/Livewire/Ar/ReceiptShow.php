@@ -6,11 +6,13 @@ namespace App\Livewire\Ar;
 
 use App\Application\Api\Ar\ArApplicationService;
 use App\Livewire\Concerns\BuildsDocTimeline;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Ar\Receipt;
 use App\Models\Ar\SalesInvoice;
 use App\Services\Accounting\Exceptions\PostingException;
 use App\Services\Ar\Exceptions\ArException;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
@@ -20,6 +22,7 @@ use Livewire\Component;
 class ReceiptShow extends Component
 {
     use BuildsDocTimeline;
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public Receipt $receipt;
@@ -102,5 +105,38 @@ class ReceiptShow extends Component
             'openInvoices' => $openInvoices,
             'timeline' => $this->docTimeline($this->receipt, withAllocations: true),
         ]);
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.nav.receipts').' '.($this->receipt->number ?? '');
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $this->receipt->loadMissing(['customer', 'allocations.invoice']);
+
+        $meta = $this->excelMeta([
+            __('erp.number') => $this->receipt->number ?? __('erp.sales_invoice.draft_number'),
+            __('erp.customer.title') => $this->localisedName($this->receipt->customer),
+            __('erp.date') => $this->exportDate($this->receipt->receipt_date),
+            __('erp.status') => $this->statusLabel($this->receipt->status),
+            __('erp.currency') => $this->receipt->currency,
+            __('erp.receipt.amount') => (string) $this->receipt->amount,
+            __('erp.receipt.unallocated') => (string) $this->receipt->unallocated_amount,
+        ]);
+
+        return [$this->excelSheetFrom(
+            __('erp.export.sheet_allocations'),
+            [
+                [__('erp.receipt.invoice'), ExcelSheet::TEXT, fn ($a) => $a->invoice?->number],
+                [__('erp.date'), ExcelSheet::DATE, fn ($a) => $this->exportDate($a->allocation_date)],
+                [__('erp.amount'), ExcelSheet::MONEY, fn ($a) => $a->amount],
+            ],
+            $this->receipt->allocations,
+            $meta,
+            heading: __('erp.nav.receipts').' '.($this->receipt->number ?? ''),
+        )];
     }
 }
