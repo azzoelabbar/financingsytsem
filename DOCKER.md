@@ -18,7 +18,7 @@ docker run -d --name mizan -p 8080:8080 \
   -v mizan-data:/data \
   -v mizan-storage:/app/storage \
   --restart unless-stopped \
-  ghcr.io/YOUR-GITHUB-USERNAME/mizan:latest
+  ghcr.io/azzoelabbar/mizan:latest
 ```
 
 ثم افتح **<http://localhost:8080>**.
@@ -41,13 +41,13 @@ docker run -d --name mizan -p 9000:8080 \
   -e APP_URL=http://localhost:9000 \
   -v mizan-data:/data -v mizan-storage:/app/storage \
   --restart unless-stopped \
-  ghcr.io/YOUR-GITHUB-USERNAME/mizan:latest
+  ghcr.io/azzoelabbar/mizan:latest
 ```
 
 للتحديث لاحقاً / To update later:
 
 ```bash
-docker pull ghcr.io/YOUR-GITHUB-USERNAME/mizan:latest
+docker pull ghcr.io/azzoelabbar/mizan:latest
 docker rm -f mizan
 # ثم أعد أمر التشغيل نفسه / then run the same command again
 ```
@@ -59,25 +59,81 @@ The data lives in the volumes, so removing the container does not touch it.
 
 ## النشر / Publishing the image
 
+> ### 🔑 المستودع خاص، والصورة عامة — وهذا ممكن تماماً
+> ### The repository stays private while the image is public
+>
+> ظهور الحزمة (package) في GitHub **مستقل تماماً** عن ظهور المستودع. يبقى
+> `azzoelabbar/financingsytsem` خاصاً ولا يرى أحد الكود، بينما تكون صورة Docker
+> عامة يشغّلها أي شخص بأمر واحد.
+>
+> A package's visibility on GitHub is **completely independent** of the
+> repository's. `azzoelabbar/financingsytsem` stays private and nobody sees the
+> source, while the Docker image is public and anyone can run it with one command.
+
 ملف [`.github/workflows/publish-image.yml`](.github/workflows/publish-image.yml)
-ينشر الصورة تلقائياً لـ `linux/amd64` و`linux/arm64` (بما فيها أجهزة آبل الحديثة).
+يبني الصورة وينشرها.
 The workflow at [`.github/workflows/publish-image.yml`](.github/workflows/publish-image.yml)
-publishes the image automatically for both `linux/amd64` and `linux/arm64`
-(Apple Silicon included).
+builds and publishes the image.
 
-1. ارفع المشروع إلى GitHub.
-   Push this project to GitHub.
-2. سيعمل الإجراء عند كل دفع إلى `main` وينشر الصورة على:
-   The workflow runs on every push to `main` and publishes to:
+**الخطوات / The steps:**
 
-   `ghcr.io/<اسم-حسابك>/mizan:latest`
+1. ادفع التغييرات إلى `main` — سيعمل الإجراء تلقائياً.
+   Push to `main` — the workflow runs by itself.
 
-3. اجعل الحزمة عامة مرة واحدة من صفحة المستودع → **Packages → mizan → Package settings → Change visibility → Public**، حتى لا يحتاج المستخدمون لتسجيل الدخول.
-   Make the package public once, under the repository's **Packages → mizan →
-   Package settings → Change visibility → Public**, so users do not need to log in.
+   ```bash
+   git push origin main
+   ```
+
+2. انتظر انتهاءه من تبويب **Actions**، ثم افتح صفحة حسابك:
+   Wait for it to finish under the **Actions** tab, then open your profile:
+
+   <https://github.com/users/azzoelabbar/packages/container/package/mizan>
+
+3. **Package settings** ← ثم انزل إلى **Danger Zone** ← **Change visibility** ←
+   اختر **Public** واكتب `mizan` للتأكيد.
+   **Package settings** → scroll to **Danger Zone** → **Change visibility** →
+   choose **Public** and type `mizan` to confirm.
+
+   تفعل هذا **مرة واحدة فقط**. كل نشر لاحق يبقى عاماً.
+   You do this **once only**. Every later push stays public.
+
+4. من تلك اللحظة يعمل هذا الأمر عند أي شخص، بلا تسجيل دخول وبلا وصول للكود:
+   From then on this works for anyone, with no login and no access to the code:
+
+   ```bash
+   docker run -d -p 8080:8080 -v mizan-data:/data ghcr.io/azzoelabbar/mizan
+   ```
 
 لا حاجة لإضافة أي مفتاح سري: GitHub يوفّر الصلاحية تلقائياً.
 No secret to add: GitHub supplies the credential itself.
+
+### ملاحظة عن دقائق Actions / A note on Actions minutes
+
+المستودعات الخاصة تُحاسَب على دقائق التشغيل (٢٠٠٠ دقيقة شهرياً في الخطة المجانية).
+بناء صورة arm64 بالمحاكاة بطيء جداً، لذلك يبني الإجراء **amd64 فقط** عند كل دفع،
+ويضيف arm64 فقط عند إصدار وسم `v*` أو عند تشغيله يدوياً مع تفعيل الخيار.
+Private repositories are billed for Actions minutes (2,000/month on the free
+plan). Emulated arm64 builds are slow, so the workflow builds **amd64 only** on
+each push, and adds arm64 only for a `v*` tag or a manual run with the option on.
+
+### البناء والنشر من جهازك بلا دقائق Actions / Building and pushing from your own machine
+
+إذا أردت تجنّب دقائق Actions تماماً، سجّل الدخول بنفسك وابنِ محلياً:
+To avoid Actions minutes entirely, sign in yourself and build locally:
+
+```bash
+docker login ghcr.io -u azzoelabbar
+docker build -t ghcr.io/azzoelabbar/mizan:latest .
+docker push ghcr.io/azzoelabbar/mizan:latest
+```
+
+> كلمة المرور هنا هي **Personal Access Token (classic)** بصلاحية `write:packages`،
+> تنشئه من <https://github.com/settings/tokens>. لا تستخدم كلمة مرور حسابك.
+> The password is a **Personal Access Token (classic)** with the `write:packages`
+> scope, created at <https://github.com/settings/tokens>. Not your account password.
+
+ثم اجعل الحزمة عامة كما في الخطوة ٣ أعلاه.
+Then make the package public as in step 3 above.
 
 ### النشر يدوياً إلى Docker Hub / Publishing manually to Docker Hub
 
