@@ -87,32 +87,37 @@ trait ExportsToExcel
     /**
      * The company/book/period/generated-at block printed above every table.
      *
-     * @param  array<string, string|null>  $extra  Screen-specific lines, e.g. active filters.
+     * @param  array<string, mixed>  $extra  Screen-specific lines, e.g. active filters.
      * @return array<string, string|null>
      */
     protected function excelMeta(array $extra = []): array
     {
-        $company = method_exists($this, 'company') ? $this->company() : null;
-        $book = method_exists($this, 'book') ? $this->book() : null;
-        $period = method_exists($this, 'period') ? $this->period() : null;
-        $arabic = app()->getLocale() === 'ar';
+        $company = $this->company();
+        $book = $this->book();
+        $period = $this->period();
 
         $meta = [
-            __('erp.company') => $company === null
-                ? null
-                : ($arabic ? ($company->name_ar ?? $company->name_en) : ($company->name_en ?? $company->name_ar)),
-            __('erp.book') => $book === null
-                ? null
-                : ($arabic ? ($book->name_ar ?? $book->name_en) : ($book->name_en ?? $book->name_ar)),
-            __('erp.period') => $period?->code,
-            __('erp.export.generated_at') => Carbon::now()->format('Y-m-d H:i'),
+            (string) __('erp.company') => $this->localisedName($company),
+            (string) __('erp.book') => $this->localisedName($book),
+            (string) __('erp.period') => $period === null ? null : (string) $period->period_no,
+            (string) __('erp.export.generated_at') => Carbon::now()->format('Y-m-d H:i'),
         ];
 
         foreach ($extra as $label => $value) {
-            $meta[$label] = $value;
+            $meta[(string) $label] = $this->text($value);
         }
 
         return array_filter($meta, static fn (?string $value): bool => $value !== null && $value !== '');
+    }
+
+    /** Flatten anything a screen hands us for a meta line into plain text. */
+    private function text(mixed $value): ?string
+    {
+        if ($value === null || is_array($value)) {
+            return null;
+        }
+
+        return is_scalar($value) ? (string) $value : null;
     }
 
     /**
@@ -172,12 +177,12 @@ trait ExportsToExcel
         $rows = [];
 
         foreach ($values as $label => $value) {
-            $rows[] = [$label, $value];
+            $rows[] = [(string) $label, $value];
         }
 
         return new ExcelSheet(
             title: $title,
-            headings: [__('erp.description'), $valueHeading ?? __('erp.amount')],
+            headings: [(string) __('erp.description'), $valueHeading ?? (string) __('erp.amount')],
             rows: $rows,
             formats: [ExcelSheet::TEXT, $format],
             meta: $meta ?? $this->excelMeta(),
@@ -199,7 +204,9 @@ trait ExportsToExcel
             return $status->label();
         }
 
-        $raw = is_string($status) ? $status : (string) ($status->value ?? '');
+        $raw = is_string($status)
+            ? $status
+            : (string) ($status instanceof \BackedEnum ? $status->value : '');
 
         if ($raw === '') {
             return null;
@@ -207,7 +214,7 @@ trait ExportsToExcel
 
         $enum = DocumentStatus::tryFrom($raw);
 
-        return $enum !== null ? $enum->label() : __('erp.doc_status.'.$raw);
+        return $enum !== null ? $enum->label() : (string) __('erp.doc_status.'.$raw);
     }
 
     /** A date rendered the way the screens render it, or null when absent. */

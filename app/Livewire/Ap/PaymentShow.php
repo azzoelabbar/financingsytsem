@@ -6,11 +6,13 @@ namespace App\Livewire\Ap;
 
 use App\Application\Api\Ap\ApApplicationService;
 use App\Livewire\Concerns\BuildsDocTimeline;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Ap\PurchaseInvoice;
 use App\Models\Ap\SupplierPayment;
 use App\Services\Accounting\Exceptions\PostingException;
 use App\Services\Ap\Exceptions\ApException;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
@@ -20,6 +22,7 @@ use Livewire\Component;
 class PaymentShow extends Component
 {
     use BuildsDocTimeline;
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public SupplierPayment $payment;
@@ -86,5 +89,38 @@ class PaymentShow extends Component
             'openInvoices' => $openInvoices,
             'timeline' => $this->docTimeline($this->payment, withAllocations: true),
         ]);
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.payment.title').' '.($this->payment->number ?? '');
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $this->payment->loadMissing(['supplier', 'allocations.invoice']);
+
+        $meta = $this->excelMeta([
+            __('erp.number') => $this->payment->number ?? __('erp.sales_invoice.draft_number'),
+            __('erp.supplier.title') => $this->payment->supplier?->legal_name,
+            __('erp.date') => $this->exportDate($this->payment->payment_date),
+            __('erp.status') => $this->statusLabel($this->payment->status),
+            __('erp.currency') => $this->payment->currency,
+            __('erp.payment.amount') => (string) $this->payment->amount,
+            __('erp.receipt.unallocated') => (string) $this->payment->unallocated_amount,
+        ]);
+
+        return [$this->excelSheetFrom(
+            __('erp.export.sheet_allocations'),
+            [
+                [__('erp.payment.invoice'), ExcelSheet::TEXT, fn ($a) => $a->invoice?->number],
+                [__('erp.date'), ExcelSheet::DATE, fn ($a) => $this->exportDate($a->allocation_date)],
+                [__('erp.amount'), ExcelSheet::MONEY, fn ($a) => $a->amount],
+            ],
+            $this->payment->allocations,
+            $meta,
+            heading: __('erp.payment.title').' '.($this->payment->number ?? ''),
+        )];
     }
 }

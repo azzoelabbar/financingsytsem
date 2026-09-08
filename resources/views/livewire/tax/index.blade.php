@@ -1,5 +1,5 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.tax')], ['label' => __('erp.nav.tax_codes')]]" :title="__('erp.tax.codes_title')" :description="__('erp.tax.codes_hint')"><x-slot:actions><x-ui.button :href="route('tax.create')">{{ __('erp.tax.create_code') }}</x-ui.button></x-slot:actions></x-ui.page-header>
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.tax')], ['label' => __('erp.nav.tax_codes')]]" :title="__('erp.tax.codes_title')" :description="__('erp.tax.codes_hint')"><x-slot:actions><x-ui.export-button /><x-ui.button :href="route('tax.create')">{{ __('erp.tax.create_code') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
     <x-ui.toolbar :summary="$taxCodes ? trans_choice('erp.pagination.result_count', $taxCodes->total(), ['count' => number_format($taxCodes->total())]) : null" />
 

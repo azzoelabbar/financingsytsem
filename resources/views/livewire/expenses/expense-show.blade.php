@@ -22,6 +22,7 @@
         ]"
     >
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="ghost" :href="route('expenses.index')">{{ __('erp.action.back') }}</x-ui.button>
             @if ($claim->journal_id)
                 <x-ui.button variant="secondary" :href="route('gl.journals.show', $claim->journal_id)">{{ __('erp.document.view_journal') }}</x-ui.button>

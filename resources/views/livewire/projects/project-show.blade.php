@@ -11,6 +11,7 @@
         ]"
     >
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="ghost" :href="route('projects.index')">{{ __('erp.action.back') }}</x-ui.button>
         </x-slot:actions>
 

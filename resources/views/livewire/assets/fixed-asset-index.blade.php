@@ -1,5 +1,5 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.fixed_assets')], ['label' => __('erp.nav.assets')]]" :title="__('erp.assets.title')" :description="__('erp.assets.hint')"><x-slot:actions><x-ui.button :href="route('assets.create')">{{ __('erp.assets.create') }}</x-ui.button></x-slot:actions></x-ui.page-header>
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.fixed_assets')], ['label' => __('erp.nav.assets')]]" :title="__('erp.assets.title')" :description="__('erp.assets.hint')"><x-slot:actions><x-ui.export-button /><x-ui.button :href="route('assets.create')">{{ __('erp.assets.create') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
     <div class="mb-4 flex flex-wrap items-center gap-3">
         <div class="flex rounded-md border border-border bg-card p-0.5 text-sm">

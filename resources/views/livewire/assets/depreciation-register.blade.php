@@ -1,5 +1,9 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.fixed_assets')], ['label' => __('erp.nav.depreciation')]]" :title="__('erp.assets.depreciation')" :description="__('erp.assets.depreciation_hint')" />
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.fixed_assets')], ['label' => __('erp.nav.depreciation')]]" :title="__('erp.assets.depreciation')" :description="__('erp.assets.depreciation_hint')">
+        <x-slot:actions>
+            <x-ui.export-button />
+        </x-slot:actions>
+    </x-ui.page-header>
 
     <x-ui.toolbar :summary="$assets ? trans_choice('erp.pagination.result_count', $assets->total(), ['count' => number_format($assets->total())]) : null" />
 

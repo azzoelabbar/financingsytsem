@@ -1,5 +1,5 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.banking')], ['label' => __('erp.banking.transactions')]]" :title="__('erp.banking.transactions')" :description="__('erp.banking.transactions_hint')"><x-slot:actions><x-ui.button :href="route('banking.transactions.create')">{{ __('erp.banking.create_transaction') }}</x-ui.button></x-slot:actions></x-ui.page-header>
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.banking')], ['label' => __('erp.banking.transactions')]]" :title="__('erp.banking.transactions')" :description="__('erp.banking.transactions_hint')"><x-slot:actions><x-ui.export-button /><x-ui.button :href="route('banking.transactions.create')">{{ __('erp.banking.create_transaction') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
     <x-ui.toolbar :summary="$transactions ? trans_choice('erp.pagination.result_count', $transactions->total(), ['count' => number_format($transactions->total())]) : null" />
 

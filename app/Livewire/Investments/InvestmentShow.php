@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Livewire\Investments;
 
 use App\Application\Api\Other\DomainApplicationService;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Investment\Investment;
 use App\Services\Accounting\Exceptions\PostingException;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -15,6 +17,7 @@ use Livewire\Component;
 #[Layout('layouts.erp')]
 class InvestmentShow extends Component
 {
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public Investment $investment;
@@ -73,5 +76,59 @@ class InvestmentShow extends Component
         return view('livewire.investments.investment-show', [
             'investment' => $this->investment,
         ]);
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.investment.title').' '.$this->investment->code;
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $this->investment->loadMissing(['valuations', 'incomes', 'disposals']);
+
+        $meta = $this->excelMeta([
+            __('erp.code') => $this->investment->code,
+            __('erp.investment.name') => $this->investment->name,
+            __('erp.investment.classification') => __('erp.investment.classifications.'.$this->investment->classification->value),
+            __('erp.investment.cost') => (string) $this->investment->cost,
+            __('erp.investment.carrying') => (string) $this->investment->carrying_amount,
+            __('erp.status') => $this->statusLabel($this->investment->status),
+        ]);
+
+        return [
+            $this->excelSheetFrom(
+                __('erp.investment.valuations'),
+                [
+                    [__('erp.date'), ExcelSheet::DATE, fn ($v) => $this->exportDate($v->valued_at)],
+                    [__('erp.investment.fair_value'), ExcelSheet::MONEY, fn ($v) => $v->fair_value],
+                    [__('erp.document.journal'), ExcelSheet::TEXT, fn ($v) => $v->journal_id],
+                ],
+                $this->investment->valuations,
+                $meta,
+                heading: __('erp.investment.title').' '.$this->investment->code,
+            ),
+            $this->excelSheetFrom(
+                __('erp.investment.income'),
+                [
+                    [__('erp.date'), ExcelSheet::DATE, fn ($i) => $this->exportDate($i->received_at ?? $i->income_date)],
+                    [__('erp.amount'), ExcelSheet::MONEY, fn ($i) => $i->amount],
+                    [__('erp.document.journal'), ExcelSheet::TEXT, fn ($i) => $i->journal_id],
+                ],
+                $this->investment->incomes,
+                $meta,
+            ),
+            $this->excelSheetFrom(
+                __('erp.investment.disposals'),
+                [
+                    [__('erp.date'), ExcelSheet::DATE, fn ($d) => $this->exportDate($d->disposed_at)],
+                    [__('erp.investment.proceeds'), ExcelSheet::MONEY, fn ($d) => $d->proceeds],
+                    [__('erp.document.journal'), ExcelSheet::TEXT, fn ($d) => $d->journal_id],
+                ],
+                $this->investment->disposals,
+                $meta,
+            ),
+        ];
     }
 }

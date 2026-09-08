@@ -1,5 +1,9 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.gl')], ['label' => __('erp.nav.gl_ledger')]]" :title="__('erp.nav.gl_ledger')" :description="__('erp.gl_ledger.hint')" />
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.gl')], ['label' => __('erp.nav.gl_ledger')]]" :title="__('erp.nav.gl_ledger')" :description="__('erp.gl_ledger.hint')">
+        <x-slot:actions>
+            <x-ui.export-button />
+        </x-slot:actions>
+    </x-ui.page-header>
 
     {{-- Filters --}}
     <div class="mb-4 flex flex-wrap items-end gap-3 rounded-lg border border-border bg-card p-3">

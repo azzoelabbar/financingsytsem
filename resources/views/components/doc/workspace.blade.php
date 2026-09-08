@@ -13,6 +13,8 @@
     'timeline' => [],
     'posted' => false,
     'breadcrumbs' => [],
+    // Every document workspace is downloadable; set false where the screen has no exportExcel action.
+    'export' => true,
 ])
 
 {{--
@@ -37,6 +39,9 @@
             @endif
             @if ($journalId)
                 <x-ui.button variant="secondary" :href="route('gl.journals.show', $journalId)">{{ __('erp.document.view_journal') }}</x-ui.button>
+            @endif
+            @if ($export)
+                <x-ui.export-button />
             @endif
             {{ $actions ?? '' }}
         </x-slot:actions>

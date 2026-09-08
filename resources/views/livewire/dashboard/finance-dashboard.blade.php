@@ -6,6 +6,7 @@
     >
         @if ($company && $book)
             <x-slot:actions>
+                <x-ui.export-button />
                 <x-ui.button variant="secondary" :href="route('reports.management-pack')">{{ __('erp.nav.management_pack') }}</x-ui.button>
                 <x-ui.button :href="route('ar.invoices.create')"><x-ui.icon name="plus" class="h-4 w-4" />{{ __('erp.sales_invoice.create') }}</x-ui.button>
             </x-slot:actions>

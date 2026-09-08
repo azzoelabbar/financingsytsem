@@ -1,6 +1,6 @@
 <div>
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ar')], ['label' => __('erp.nav.receipts')]]" :title="__('erp.nav.receipts')" :description="__('erp.receipt.hint')">
-        <x-slot:actions><x-ui.button :href="route('ar.receipts.create')">{{ __('erp.receipt.create') }}</x-ui.button></x-slot:actions>
+        <x-slot:actions><x-ui.import-button kind="receipts" /><x-ui.export-button /><x-ui.button :href="route('ar.receipts.create')">{{ __('erp.receipt.create') }}</x-ui.button></x-slot:actions>
     </x-ui.page-header>
 
     <x-ui.toolbar :summary="$receipts ? trans_choice('erp.pagination.result_count', $receipts->total(), ['count' => number_format($receipts->total())]) : null" />

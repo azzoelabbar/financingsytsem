@@ -190,6 +190,7 @@ switched on. Just open <http://localhost:8080>.
 |---|---|
 | `start-mizan.bat` | يشغّل النظام ويفتح المتصفح — Starts it and opens the browser |
 | `stop-mizan.bat` | يوقف النظام (البيانات تبقى محفوظة) — Stops it; data is kept |
+| `update-mizan.bat` | ينزّل آخر كود ويعيد البناء — Pulls the latest code and rebuilds |
 | `show-logs.bat` | يعرض السجل عند وجود مشكلة — Shows the log when something looks wrong |
 | `backup-mizan.bat` | ينسخ قاعدة البيانات إلى مجلد `backups` — Copies the database into `backups` |
 | `share-link.bat` | ينشئ رابطاً للمشاركة من أي مكان — Creates a link others can open from anywhere |
@@ -332,15 +333,64 @@ docker compose restart mizan
 
 ## التحديث / Updating
 
-بعد أي تغيير في الكود:
-After the code changes:
+> **مهم:** الصورة تُبنى من الكود، ولا تعرف شيئاً عن GitHub. رفع الكود إلى GitHub
+> **لا يحدّث** أي حاوية تعمل — لا بد من خطوة تحديث على الجهاز نفسه.
+>
+> **Important:** the image is built from the source; it knows nothing about
+> GitHub. Pushing to GitHub does **not** update a running container — an update
+> step on the machine itself is always required.
+
+### الحالة ١ — الجهاز الذي عليه مجلد المشروع / The machine that has the project folder
+
+انقر نقراً مزدوجاً على **`update-mizan.bat`**. يقوم بكل شيء:
+Double-click **`update-mizan.bat`**. It does the whole thing:
+
+1. `git pull` — ينزّل آخر كود من GitHub / downloads the latest code
+2. `docker compose up -d --build` — يعيد بناء الصورة ويستبدل الحاوية / rebuilds and replaces the container
+3. ينتظر حتى يعود النظام / waits until the system is back
+
+أو يدوياً / or by hand:
 
 ```bash
+git pull
 docker compose up -d --build
 ```
 
-الترحيلات والبيانات المرجعية تُطبَّق تلقائياً عند الإقلاع. بياناتك تبقى كما هي.
-Migrations and reference data are applied automatically on boot. Your data is untouched.
+### الحالة ٢ — جهاز يشغّل الصورة المنشورة / A machine running the published image
+
+هذا الجهاز لا يملك الكود إطلاقاً، بل يسحب الصورة الجاهزة:
+That machine has no source at all — it pulls the ready-made image:
+
+```bash
+docker compose -f docker-compose.remote.yml pull
+docker compose -f docker-compose.remote.yml up -d
+```
+
+أو بأمر `docker run` مباشرةً / or with a plain `docker run`:
+
+```bash
+docker pull ghcr.io/azzoelabbar/mizan:latest
+docker rm -f mizan
+docker run -d --name mizan -p 8080:8080 \
+  -v mizan-data:/data -v mizan-storage:/app/storage \
+  --restart unless-stopped ghcr.io/azzoelabbar/mizan:latest
+```
+
+تذكّر أن الصورة المنشورة لا تتغير إلا بعد أن ينتهي إجراء GitHub Actions من بنائها،
+فانتظر ظهور العلامة الخضراء في تبويب **Actions** قبل السحب.
+Remember the published image only changes once the GitHub Actions run finishes,
+so wait for the green tick under the **Actions** tab before pulling.
+
+### ماذا يحدث لبياناتك / What happens to your data
+
+لا شيء. البيانات في وحدات التخزين خارج الصورة، والحاوية عند إقلاعها تطبّق أي ترحيلات
+جديدة وتضيف أي عملات جديدة بنفسها. إعادة البناء تستبدل الكود فقط.
+Nothing. The data lives in volumes outside the image, and on boot the container
+applies any new migrations and adds any new currencies by itself. A rebuild
+replaces the code only.
+
+إذا فشل البناء، تبقى النسخة القديمة تعمل كما هي.
+If the build fails, the old version stays running untouched.
 
 ---
 

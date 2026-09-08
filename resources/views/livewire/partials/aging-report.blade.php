@@ -41,6 +41,7 @@
 >
     <x-slot:actions>
         <x-ui.date-filter :label="__('erp.aging.as_of')" model="asOf" />
+        <x-ui.export-button />
         <x-ui.button variant="secondary" :href="$statementRoute">{{ __('erp.aging_page.open_statement') }}</x-ui.button>
     </x-slot:actions>
 </x-ui.page-header>

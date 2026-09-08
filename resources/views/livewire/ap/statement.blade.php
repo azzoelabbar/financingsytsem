@@ -1,6 +1,8 @@
 <div>
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ap')], ['label' => __('erp.nav.supplier_statement')]]" :title="__('erp.statement_page.ap_title')" :description="__('erp.statement_page.ap_hint')">
         <x-slot:actions>
+            <x-ui.import-button kind="supplier-report" />
+            <x-ui.export-button />
             <x-ui.searchable-select wire:model.live="supplierId" :block="false">
                 <option value="">{{ __('erp.statement_page.select_supplier') }}</option>
                 @foreach ($suppliers as $s)

@@ -33,6 +33,7 @@
         </x-slot:badges>
 
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="secondary" :href="route('ar.statement')">{{ __('erp.nav.customer_statement') }}</x-ui.button>
             <x-ui.button :href="route('ar.invoices.create')">{{ __('erp.sales_invoice.create') }}</x-ui.button>
         </x-slot:actions>

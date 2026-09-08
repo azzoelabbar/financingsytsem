@@ -1,5 +1,9 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.gl')], ['label' => __('erp.nav.account_balances')]]" :title="__('erp.nav.account_balances')" :description="__('erp.account_balances.hint')" />
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.gl')], ['label' => __('erp.nav.account_balances')]]" :title="__('erp.nav.account_balances')" :description="__('erp.account_balances.hint')">
+        <x-slot:actions>
+            <x-ui.export-button />
+        </x-slot:actions>
+    </x-ui.page-header>
 
     <x-ui.toolbar />
 

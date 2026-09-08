@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Livewire\Reports;
 
 use App\Application\Api\Other\DomainApplicationService;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Accounting\Account;
 use App\Models\Accounting\Company;
 use App\Services\Accounting\Support\Decimal;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -16,6 +18,7 @@ use Livewire\Component;
 #[Layout('layouts.erp')]
 class CashFlow extends Component
 {
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public string $asOf = '';
@@ -91,5 +94,48 @@ class CashFlow extends Component
     private function numeric(mixed $value): string
     {
         return is_string($value) || is_int($value) || is_float($value) ? (string) $value : '0';
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.nav.cash_flow');
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $company = $this->company();
+        $book = $this->book();
+
+        if ($company === null || $book === null) {
+            return [];
+        }
+
+        $report = app(DomainApplicationService::class)->cashFlow($company, $book, $this->asOf);
+        $meta = $this->excelMeta([__('erp.aging.as_of') => $this->asOf]);
+
+        return [
+            $this->excelKeyValueSheet(__('erp.export.sheet_summary'), [
+                __('erp.reports.activity_operating') => $report['operating'] ?? '0',
+                __('erp.reports.activity_investing') => $report['investing'] ?? '0',
+                __('erp.reports.activity_financing') => $report['financing'] ?? '0',
+                __('erp.reports.cash_in') => $report['inflows'] ?? '0',
+                __('erp.reports.cash_out') => $report['outflows'] ?? '0',
+                __('erp.reports.net_cash_change') => $report['net'] ?? '0',
+            ], meta: $meta),
+            $this->excelSheetFrom(
+                __('erp.reports.cash_movements'),
+                [
+                    [__('erp.code'), ExcelSheet::TEXT, fn (array $r) => $r['account']],
+                    [__('erp.name'), ExcelSheet::TEXT, fn (array $r) => $r['name']],
+                    [__('erp.reports.activity_label'), ExcelSheet::TEXT, fn (array $r) => __('erp.reports.activity_'.$r['classification'])],
+                    [__('erp.reports.cash_in'), ExcelSheet::MONEY, fn (array $r) => $r['in']],
+                    [__('erp.reports.cash_out'), ExcelSheet::MONEY, fn (array $r) => $r['out']],
+                    [__('erp.reports.net_cash_change'), ExcelSheet::MONEY, fn (array $r) => $r['net']],
+                ],
+                $this->movements($report, $company),
+                $meta,
+            ),
+        ];
     }
 }

@@ -1,5 +1,5 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.banking')], ['label' => __('erp.banking.reconciliation')]]" :title="__('erp.banking.reconciliation')" :description="__('erp.banking.reconciliation_hint')"><x-slot:actions><x-ui.button :href="route('banking.reconciliation.create')">{{ __('erp.banking.new_reconciliation') }}</x-ui.button></x-slot:actions></x-ui.page-header>
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.banking')], ['label' => __('erp.banking.reconciliation')]]" :title="__('erp.banking.reconciliation')" :description="__('erp.banking.reconciliation_hint')"><x-slot:actions><x-ui.export-button /><x-ui.button :href="route('banking.reconciliation.create')">{{ __('erp.banking.new_reconciliation') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
     <x-ui.toolbar
         :placeholder="__('erp.banking.recon_search_placeholder')"

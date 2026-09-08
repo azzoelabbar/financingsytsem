@@ -31,6 +31,7 @@
         </x-slot:badges>
 
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="ghost" :href="route('ar.invoices')">{{ __('erp.action.back') }}</x-ui.button>
 
             @if ($invoice->journal)

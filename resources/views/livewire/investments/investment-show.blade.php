@@ -15,6 +15,7 @@
         </x-slot:badges>
 
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="ghost" :href="route('investments.index')">{{ __('erp.action.back') }}</x-ui.button>
             @if ($investment->journal_id)
                 <x-ui.button variant="secondary" :href="route('gl.journals.show', $investment->journal_id)">{{ __('erp.document.view_journal') }}</x-ui.button>

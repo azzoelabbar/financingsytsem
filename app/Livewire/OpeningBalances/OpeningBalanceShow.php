@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire\OpeningBalances;
 
 use App\Application\Api\Other\DomainApplicationService;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Accounting\Account;
 use App\Models\Gl\OpeningBalanceBatch;
 use App\Services\Accounting\Exceptions\PostingException;
 use App\Services\Accounting\Support\Decimal;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
@@ -18,6 +20,7 @@ use Livewire\Component;
 #[Layout('layouts.erp')]
 class OpeningBalanceShow extends Component
 {
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public OpeningBalanceBatch $batch;
@@ -103,5 +106,43 @@ class OpeningBalanceShow extends Component
             'difference' => Decimal::sub($totalDebit, $totalCredit),
             'accounts' => $accounts,
         ]);
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.opening.batch').' '.$this->batch->id;
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $this->batch->loadMissing('lines');
+
+        $totalDebit = '0';
+        $totalCredit = '0';
+
+        foreach ($this->batch->lines as $line) {
+            $totalDebit = Decimal::add($totalDebit, (string) $line->debit);
+            $totalCredit = Decimal::add($totalCredit, (string) $line->credit);
+        }
+
+        $meta = $this->excelMeta([
+            __('erp.opening.as_of') => $this->exportDate($this->batch->as_of),
+            __('erp.currency') => $this->batch->currency,
+            __('erp.status') => $this->statusLabel($this->batch->status),
+        ]);
+
+        return [$this->excelSheetFrom(
+            __('erp.opening.lines'),
+            [
+                [__('erp.code'), ExcelSheet::TEXT, fn ($l) => $l->account_code],
+                [__('erp.debit'), ExcelSheet::MONEY, fn ($l) => $l->debit],
+                [__('erp.credit'), ExcelSheet::MONEY, fn ($l) => $l->credit],
+            ],
+            $this->batch->lines,
+            $meta,
+            totals: [[__('erp.total'), $totalDebit, $totalCredit]],
+            heading: __('erp.opening.batch').' '.$this->batch->id,
+        )];
     }
 }

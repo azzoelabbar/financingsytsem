@@ -1,6 +1,6 @@
 <div>
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ar')], ['label' => __('erp.nav.credit_notes')]]" :title="__('erp.credit_note.ar_title')" :description="__('erp.credit_note.ar_hint')">
-        <x-slot:actions><x-ui.button :href="route('ar.credit-notes.create')">{{ __('erp.credit_note.create') }}</x-ui.button></x-slot:actions>
+        <x-slot:actions><x-ui.export-button /><x-ui.button :href="route('ar.credit-notes.create')">{{ __('erp.credit_note.create') }}</x-ui.button></x-slot:actions>
     </x-ui.page-header>
 
     <x-ui.toolbar :summary="$notes ? trans_choice('erp.pagination.result_count', $notes->total(), ['count' => number_format($notes->total())]) : null" />

@@ -7,9 +7,11 @@ namespace App\Livewire\Dashboard;
 use App\Application\Api\Ap\ApApplicationService;
 use App\Application\Api\Ar\ArApplicationService;
 use App\Application\Api\Gl\GlApplicationService;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Accounting\Journal;
 use App\Services\Accounting\Support\Decimal;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Layout;
@@ -18,6 +20,7 @@ use Livewire\Component;
 #[Layout('layouts.erp')]
 class FinanceDashboard extends Component
 {
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public function render(): View
@@ -115,5 +118,62 @@ class FinanceDashboard extends Component
         }
 
         return $cash;
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.mizan.overview');
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $company = $this->company();
+        $book = $this->book();
+
+        if ($company === null || $book === null) {
+            return [];
+        }
+
+        $gl = app(GlApplicationService::class);
+        $arAging = app(ArApplicationService::class)->aging($company, book: $book);
+        $apAging = app(ApApplicationService::class)->aging($company, book: $book);
+        $profitLoss = $gl->profitAndLoss($company, $book);
+        $balanceSheet = $gl->balanceSheet($company, $book);
+        $meta = $this->excelMeta();
+
+        $journals = Journal::query()
+            ->where('company_id', $company->id)
+            ->where('book_id', $book->id)
+            ->orderByDesc('journal_date')
+            ->orderByDesc('id')
+            ->limit(50)
+            ->get();
+
+        return [
+            $this->excelKeyValueSheet(__('erp.export.sheet_summary'), [
+                __('erp.dashboard_kpi.cash') => $this->sumCashFromBalanceSheet($balanceSheet),
+                __('erp.dashboard_kpi.ar_total') => $arAging['total'] ?? '0',
+                __('erp.dashboard_kpi.ap_total') => $apAging['total'] ?? '0',
+                __('erp.statement.revenue') => $profitLoss['revenue'] ?? '0',
+                __('erp.statement.expenses') => $profitLoss['expenses'] ?? '0',
+                __('erp.statement.net_income') => $profitLoss['net_profit'] ?? '0',
+                __('erp.reports.total_assets') => $balanceSheet['totals']['assets'] ?? '0',
+                __('erp.reports.total_liabilities') => $balanceSheet['totals']['liabilities'] ?? '0',
+                __('erp.reports.total_equity') => $balanceSheet['totals']['equity'] ?? '0',
+            ], meta: $meta),
+            $this->excelSheetFrom(
+                __('erp.dashboard_sections.recent_journals'),
+                [
+                    [__('erp.number'), ExcelSheet::TEXT, fn ($j) => $j->number],
+                    [__('erp.journal.journal_date'), ExcelSheet::DATE, fn ($j) => $this->exportDate($j->journal_date)],
+                    [__('erp.debit'), ExcelSheet::MONEY, fn ($j) => $j->total_debit],
+                    [__('erp.credit'), ExcelSheet::MONEY, fn ($j) => $j->total_credit],
+                    [__('erp.status'), ExcelSheet::TEXT, fn ($j) => $this->statusLabel($j->status)],
+                ],
+                $journals,
+                $meta,
+            ),
+        ];
     }
 }

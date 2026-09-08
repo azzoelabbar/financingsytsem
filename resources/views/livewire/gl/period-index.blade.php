@@ -3,7 +3,11 @@
         :title="__('erp.nav.periods')"
         :description="__('erp.list.periods_hint')"
         :breadcrumbs="[['label' => __('erp.nav.gl')], ['label' => __('erp.nav.periods')]]"
-    />
+    >
+        <x-slot:actions>
+            <x-ui.export-button />
+        </x-slot:actions>
+    </x-ui.page-header>
 
     @error('period')<x-ui.alert variant="danger" class="mb-5">{{ $message }}</x-ui.alert>@enderror
     <x-ui.card :title="__('erp.period_page.reopen_control')" class="mb-5"><x-ui.field :label="__('erp.period_page.reopen_reason')" for="reopen-reason" :error="$errors->first('reopenReason')"><input id="reopen-reason" wire:model="reopenReason" class="erp-control"/></x-ui.field></x-ui.card>

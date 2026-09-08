@@ -1,5 +1,9 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.gl')], ['label' => __('erp.nav.accounts')]]" :title="__('erp.nav.accounts')" :description="__('erp.accounts.description')" />
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.gl')], ['label' => __('erp.nav.accounts')]]" :title="__('erp.nav.accounts')" :description="__('erp.accounts.description')">
+        <x-slot:actions>
+            <x-ui.export-button />
+        </x-slot:actions>
+    </x-ui.page-header>
     <x-ui.toolbar :summary="$accounts ? trans_choice('erp.pagination.result_count', $accounts->total(), ['count' => number_format($accounts->total())]) : null" />
 
     @if ($accounts === null || $accounts->isEmpty())

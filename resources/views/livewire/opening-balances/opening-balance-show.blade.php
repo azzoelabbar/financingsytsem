@@ -16,6 +16,7 @@
         </x-slot:badges>
 
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="ghost" :href="route('opening-balances.index')">{{ __('erp.action.back') }}</x-ui.button>
             @if ($batch->journal_id)
                 <x-ui.button variant="secondary" :href="route('gl.journals.show', $batch->journal_id)">{{ __('erp.document.view_journal') }}</x-ui.button>

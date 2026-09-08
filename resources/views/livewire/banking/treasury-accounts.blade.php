@@ -2,7 +2,7 @@
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.banking')]]"
         :title="$type === 'cash' ? __('erp.banking.cash_accounts') : __('erp.banking.bank_accounts')"
         :description="$type === 'cash' ? __('erp.banking.cash_hint') : __('erp.banking.bank_hint')"
-    ><x-slot:actions><x-ui.button :href="$type==='cash'?route('banking.cash-accounts.create'):route('banking.bank-accounts.create')">{{ $type==='cash'?__('erp.banking.create_cash_account'):__('erp.banking.create_bank_account') }}</x-ui.button></x-slot:actions></x-ui.page-header>
+    ><x-slot:actions><x-ui.export-button /><x-ui.button :href="$type==='cash'?route('banking.cash-accounts.create'):route('banking.bank-accounts.create')">{{ $type==='cash'?__('erp.banking.create_cash_account'):__('erp.banking.create_bank_account') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
     <x-ui.toolbar :summary="$accounts ? trans_choice('erp.pagination.result_count', $accounts->total(), ['count' => number_format($accounts->total())]) : null" />
 

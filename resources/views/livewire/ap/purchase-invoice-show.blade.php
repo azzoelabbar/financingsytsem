@@ -11,6 +11,7 @@
             @elseif ($posted && $open == 0.0)<x-ui.badge variant="success" size="md">{{ __('erp.doc_status.paid') }}</x-ui.badge>@endif
         </x-slot:badges>
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="ghost" :href="route('ap.invoices')">{{ __('erp.action.back') }}</x-ui.button>
             @if ($invoice->journal)<x-ui.button variant="secondary" :href="route('gl.journals.show',$invoice->journal_id)">{{ __('erp.document.view_journal') }}</x-ui.button>@endif
             @if ($invoice->status->isMutable())<x-ui.confirm-action action="post" :label="__('erp.action.post')" :title="__('erp.purchase_invoice.post_confirm_title')" :message="__('erp.purchase_invoice.post_confirm_body')" :confirm-label="__('erp.action.confirm_post')" />@endif

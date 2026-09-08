@@ -1,5 +1,9 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.books')]]" :title="__('erp.nav.books')" :description="__('erp.books.description')" />
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.books')]]" :title="__('erp.nav.books')" :description="__('erp.books.description')">
+        <x-slot:actions>
+            <x-ui.export-button />
+        </x-slot:actions>
+    </x-ui.page-header>
 
     <x-ui.toolbar :placeholder="__('erp.books.search_placeholder')" />
 

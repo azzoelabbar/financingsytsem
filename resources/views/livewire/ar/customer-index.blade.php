@@ -5,6 +5,8 @@
         :breadcrumbs="[['label' => __('erp.nav.ar')], ['label' => __('erp.nav.customers')]]"
     >
         <x-slot:actions>
+            <x-ui.import-button kind="customers" />
+            <x-ui.export-button />
             <x-ui.button :href="route('ar.customers.create')">
                 <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 4a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H5a1 1 0 110-2h4V5a1 1 0 011-1z"/></svg>
                 {{ __('erp.customer.create') }}

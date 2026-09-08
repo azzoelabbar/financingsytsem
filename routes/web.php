@@ -61,6 +61,8 @@ use App\Livewire\Gl\JournalIndex;
 use App\Livewire\Gl\JournalShow;
 use App\Livewire\Gl\PeriodIndex;
 use App\Livewire\Gl\TrialBalance;
+use App\Livewire\Imports\ImportWorkspace;
+use App\Livewire\Imports\InventoryIndex;
 use App\Livewire\Investments\Index as InvestmentsIndex;
 use App\Livewire\Investments\InvestmentCreate;
 use App\Livewire\Investments\InvestmentShow;
@@ -99,6 +101,8 @@ Route::middleware(['auth', 'verified'])->prefix('onboarding')->name('onboarding.
 
 Route::middleware(['auth', 'verified', EnsureOnboarded::class])->group(function (): void {
     Route::get('/dashboard', FinanceDashboard::class)->name('dashboard');
+    Route::get('/imports/{kind}', ImportWorkspace::class)->name('imports.create');
+    Route::get('/inventory/items', InventoryIndex::class)->name('imports.inventory');
 
     Route::prefix('ar')->name('ar.')->group(function (): void {
         Route::get('/customers', CustomerIndex::class)->name('customers');

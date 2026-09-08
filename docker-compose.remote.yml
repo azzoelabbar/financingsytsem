@@ -1,0 +1,61 @@
+# ميزان / Mizan — for a machine that has no copy of the source.
+#
+# Identical to docker-compose.yml except that it PULLS the published image
+# instead of building one. Put this single file on the machine, then:
+#
+#   Start   :  docker compose -f docker-compose.remote.yml up -d
+#   Update  :  docker compose -f docker-compose.remote.yml pull
+#              docker compose -f docker-compose.remote.yml up -d
+#   Stop    :  docker compose -f docker-compose.remote.yml down
+#
+# The data volumes are shared with docker-compose.yml (same project name), so
+# switching between the two keeps the same database.
+
+name: mizan
+
+services:
+  mizan:
+    image: ghcr.io/azzoelabbar/mizan:latest
+    container_name: mizan
+    restart: unless-stopped
+
+    ports:
+      - "${MIZAN_PORT:-8080}:8080"
+
+    environment:
+      APP_NAME: "ميزان"
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: "${MIZAN_URL:-http://localhost:8080}"
+
+      APP_LOCALE: ar
+      APP_FALLBACK_LOCALE: ar
+      APP_FAKER_LOCALE: ar_SA
+
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /data/mizan.sqlite
+
+      SESSION_DRIVER: database
+      SESSION_LIFETIME: "480"
+      CACHE_STORE: database
+      QUEUE_CONNECTION: database
+
+      LOG_CHANNEL: stderr
+      LOG_LEVEL: warning
+
+      MAIL_MAILER: log
+
+    volumes:
+      - mizan-data:/data
+      - mizan-storage:/app/storage
+
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/up"]
+      interval: 30s
+      timeout: 5s
+      start_period: 90s
+      retries: 5
+
+volumes:
+  mizan-data:
+  mizan-storage:

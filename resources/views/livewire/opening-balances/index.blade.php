@@ -1,5 +1,5 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.opening_balances')]]" :title="__('erp.opening.title')" :description="__('erp.opening.hint')"><x-slot:actions><x-ui.button :href="route('opening-balances.create')">{{ __('erp.opening.create') }}</x-ui.button></x-slot:actions></x-ui.page-header>
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.opening_balances')]]" :title="__('erp.opening.title')" :description="__('erp.opening.hint')"><x-slot:actions><x-ui.export-button /><x-ui.button :href="route('opening-balances.create')">{{ __('erp.opening.create') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
     <x-ui.toolbar
         :placeholder="__('erp.opening.search_placeholder')"

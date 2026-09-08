@@ -69,6 +69,7 @@
         ]],
         ['type' => 'link', 'route' => 'expenses.index', 'active' => ['expenses.*'], 'label' => __('erp.nav.expenses'), 'icon' => $ic['expenses']],
         ['type' => 'heading', 'label' => __('erp.nav_group.assets_projects')],
+        ['type' => 'link', 'route' => 'imports.inventory', 'active' => ['imports.inventory'], 'label' => __('imports.kinds.items'), 'icon' => $ic['projects']],
         ['type' => 'link', 'route' => 'projects.index', 'active' => ['projects.*'], 'label' => __('erp.nav.projects'), 'icon' => $ic['projects']],
         ['type' => 'link', 'route' => 'investments.index', 'active' => ['investments.*'], 'label' => __('erp.nav.investments'), 'icon' => $ic['investments']],
         ['type' => 'group', 'label' => __('erp.nav.fixed_assets'), 'patterns' => ['assets.*'], 'icon' => $ic['fixed_assets'], 'items' => [

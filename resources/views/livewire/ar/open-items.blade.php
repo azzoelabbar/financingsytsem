@@ -1,6 +1,7 @@
 <div>
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ar')], ['label' => __('erp.nav.open_items')]]" :title="__('erp.open_items.ar_title')" :description="__('erp.open_items.ar_hint')">
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.searchable-select wire:model.live="customerId" :block="false">
                 <option value="">{{ __('erp.statement_page.select_customer') }}</option>
                 @foreach ($customers as $c)

@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Livewire\Expenses;
 
 use App\Application\Api\Other\DomainApplicationService;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Expense\ExpenseClaim;
 use App\Services\Accounting\Exceptions\PostingException;
 use App\Services\Expense\ExpenseReimbursementService;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -16,6 +18,7 @@ use Livewire\Component;
 #[Layout('layouts.erp')]
 class ExpenseShow extends Component
 {
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public ExpenseClaim $claim;
@@ -84,5 +87,39 @@ class ExpenseShow extends Component
             'claim' => $this->claim,
             'status' => (string) $this->claim->status,
         ]);
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.expense.title').' '.($this->claim->number ?? '');
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $this->claim->loadMissing('lines');
+
+        $meta = $this->excelMeta([
+            __('erp.number') => $this->claim->number ?? __('erp.expense.draft'),
+            __('erp.expense.employee') => $this->claim->employee_ref,
+            __('erp.date') => $this->exportDate($this->claim->claim_date),
+            __('erp.currency') => $this->claim->currency,
+            __('erp.amount') => (string) $this->claim->amount,
+            __('erp.status') => $this->statusLabel($this->claim->status),
+        ]);
+
+        return [$this->excelSheetFrom(
+            __('erp.export.sheet_lines'),
+            [
+                ['#', ExcelSheet::NUMBER, fn ($l) => $l->line_no],
+                [__('erp.sales_invoice.line_description'), ExcelSheet::TEXT, fn ($l) => $l->description],
+                [__('erp.expense.account'), ExcelSheet::TEXT, fn ($l) => $l->expense_account_code],
+                [__('erp.document.tax'), ExcelSheet::MONEY, fn ($l) => $l->tax_amount],
+                [__('erp.document.amount'), ExcelSheet::MONEY, fn ($l) => $l->amount],
+            ],
+            $this->claim->lines,
+            $meta,
+            heading: __('erp.expense.title').' '.($this->claim->number ?? ''),
+        )];
     }
 }

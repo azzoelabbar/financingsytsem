@@ -6,10 +6,12 @@ namespace App\Livewire\Ap;
 
 use App\Application\Api\Ap\ApApplicationService;
 use App\Livewire\Concerns\BuildsDocTimeline;
+use App\Livewire\Concerns\ExportsToExcel;
 use App\Livewire\Concerns\InteractsWithAccountingContext;
 use App\Models\Ap\PurchaseDebitNote;
 use App\Services\Accounting\Exceptions\PostingException;
 use App\Services\Ap\Exceptions\ApException;
+use App\Support\Export\ExcelSheet;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -18,6 +20,7 @@ use Livewire\Component;
 class DebitNoteShow extends Component
 {
     use BuildsDocTimeline;
+    use ExportsToExcel;
     use InteractsWithAccountingContext;
 
     public PurchaseDebitNote $note;
@@ -57,5 +60,43 @@ class DebitNoteShow extends Component
             'dateField' => 'debit_note_date',
             'timeline' => $this->docTimeline($this->note),
         ]);
+    }
+
+    protected function excelTitle(): string
+    {
+        return __('erp.debit_note.ap_title').' '.($this->note->number ?? '');
+    }
+
+    /** @return list<ExcelSheet> */
+    protected function excelSheets(): array
+    {
+        $this->note->loadMissing(['supplier', 'lines']);
+
+        $meta = $this->excelMeta([
+            __('erp.number') => $this->note->number ?? __('erp.sales_invoice.draft_number'),
+            __('erp.purchase_invoice.supplier') => $this->note->supplier?->legal_name,
+            __('erp.date') => $this->exportDate($this->note->debit_note_date),
+            __('erp.status') => $this->statusLabel($this->note->status),
+            __('erp.currency') => $this->note->currency,
+        ]);
+
+        return [$this->excelSheetFrom(
+            __('erp.export.sheet_lines'),
+            [
+                ['#', ExcelSheet::NUMBER, fn ($l) => $l->line_no],
+                [__('erp.sales_invoice.line_description'), ExcelSheet::TEXT, fn ($l) => $l->description],
+                [__('erp.document.tax'), ExcelSheet::MONEY, fn ($l) => $l->tax_amount],
+                [__('erp.document.amount'), ExcelSheet::MONEY, fn ($l) => $l->net_amount],
+            ],
+            $this->note->lines,
+            $meta,
+            totals: [[
+                null,
+                __('erp.document.total'),
+                $this->note->tax_total,
+                $this->note->gross_total,
+            ]],
+            heading: __('erp.debit_note.ap_title').' '.($this->note->number ?? ''),
+        )];
     }
 }

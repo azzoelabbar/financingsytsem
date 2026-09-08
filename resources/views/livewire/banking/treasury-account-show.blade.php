@@ -8,6 +8,7 @@
         :breadcrumbs="[['label' => __('erp.nav.banking')], ['label' => $account->code]]"
     >
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="ghost" :href="$account->isBank() ? route('banking.bank-accounts') : route('banking.cash-accounts')">{{ __('erp.action.back') }}</x-ui.button>
             <x-ui.button :href="route('banking.transactions.create')"><x-ui.icon name="plus" class="h-4 w-4" />{{ __('erp.banking.create_transaction') }}</x-ui.button>
         </x-slot:actions>

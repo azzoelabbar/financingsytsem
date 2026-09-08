@@ -1,6 +1,7 @@
 <div>
     <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ar')], ['label' => __('erp.nav.ar_reconciliation')]]" :title="__('erp.nav.ar_reconciliation')" :description="__('erp.reconciliation.ar_hint')">
         <x-slot:actions>
+            <x-ui.export-button />
             <label class="flex items-center gap-2 text-sm text-muted-foreground">
                 {{ __('erp.aging.as_of') }}
                 <input type="date" wire:model.live="asOf" class="erp-control w-auto" dir="ltr" />

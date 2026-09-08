@@ -1,5 +1,5 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ap')], ['label' => __('erp.nav.debit_notes')]]" :title="__('erp.debit_note.ap_title')" :description="__('erp.debit_note.ap_hint')"><x-slot:actions><x-ui.button :href="route('ap.debit-notes.create')">{{ __('erp.debit_note.ap_create') }}</x-ui.button></x-slot:actions></x-ui.page-header>
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ap')], ['label' => __('erp.nav.debit_notes')]]" :title="__('erp.debit_note.ap_title')" :description="__('erp.debit_note.ap_hint')"><x-slot:actions><x-ui.export-button /><x-ui.button :href="route('ap.debit-notes.create')">{{ __('erp.debit_note.ap_create') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
     <x-ui.toolbar :summary="$notes ? trans_choice('erp.pagination.result_count', $notes->total(), ['count' => number_format($notes->total())]) : null" />
 

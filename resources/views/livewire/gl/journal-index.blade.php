@@ -5,6 +5,7 @@
         :breadcrumbs="[['label' => __('erp.nav.gl')], ['label' => __('erp.nav.journals')]]"
     >
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="secondary" :href="route('gl.trial-balance')">{{ __('erp.nav.trial_balance') }}</x-ui.button>
         </x-slot:actions>
     </x-ui.page-header>

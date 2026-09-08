@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Support\Export;
 
+use BackedEnum;
 use DateTimeImmutable;
 use DateTimeInterface;
 use RuntimeException;
+use UnitEnum;
 use ZipArchive;
 
 /**
@@ -58,7 +60,6 @@ final class XlsxWriter
             throw new RuntimeException('An Excel workbook needs at least one sheet.');
         }
 
-        $sheets = array_values($sheets);
         $names = $this->uniqueSheetNames($sheets);
 
         $path = tempnam(sys_get_temp_dir(), 'mizan-xlsx-');
@@ -376,11 +377,36 @@ final class XlsxWriter
             }
         }
 
+        return $this->inlineCell($column, $row, $this->stringify($value), $isTotal ? self::S_TOTAL_TEXT : self::S_TEXT);
+    }
+
+    /**
+     * Coerce whatever a screen handed us into cell text. Enums and value
+     * objects reach here routinely, and a single cell is never worth a fatal.
+     */
+    private function stringify(mixed $value): string
+    {
         if (is_bool($value)) {
-            $value = $value ? '1' : '0';
+            return $value ? '1' : '0';
         }
 
-        return $this->inlineCell($column, $row, (string) $value, $isTotal ? self::S_TOTAL_TEXT : self::S_TEXT);
+        if ($value instanceof BackedEnum) {
+            return (string) $value->value;
+        }
+
+        if ($value instanceof UnitEnum) {
+            return $value->name;
+        }
+
+        if (is_array($value)) {
+            return implode(', ', array_map(fn (mixed $item): string => $this->stringify($item), $value));
+        }
+
+        if (is_object($value) && ! method_exists($value, '__toString')) {
+            return '';
+        }
+
+        return (string) $value;
     }
 
     /** Numbers arrive as Decimal-formatted strings, so normalise before writing. */

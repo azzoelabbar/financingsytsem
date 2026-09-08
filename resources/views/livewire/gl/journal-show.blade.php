@@ -24,6 +24,7 @@
         </x-slot:badges>
 
         <x-slot:actions>
+            <x-ui.export-button />
             <x-ui.button variant="ghost" :href="route('gl.journals')">{{ __('erp.action.back') }}</x-ui.button>
         </x-slot:actions>
 

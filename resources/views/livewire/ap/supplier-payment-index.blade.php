@@ -1,5 +1,5 @@
 <div>
-    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ap')], ['label' => __('erp.nav.supplier_payments')]]" :title="__('erp.nav.supplier_payments')" :description="__('erp.payment.hint')"><x-slot:actions><x-ui.button :href="route('ap.payments.create')">{{ __('erp.payment.create') }}</x-ui.button></x-slot:actions></x-ui.page-header>
+    <x-ui.page-header :breadcrumbs="[['label' => __('erp.nav.ap')], ['label' => __('erp.nav.supplier_payments')]]" :title="__('erp.nav.supplier_payments')" :description="__('erp.payment.hint')"><x-slot:actions><x-ui.import-button kind="payments" /><x-ui.export-button /><x-ui.button :href="route('ap.payments.create')">{{ __('erp.payment.create') }}</x-ui.button></x-slot:actions></x-ui.page-header>
 
     <x-ui.toolbar :summary="$payments ? trans_choice('erp.pagination.result_count', $payments->total(), ['count' => number_format($payments->total())]) : null" />
 
