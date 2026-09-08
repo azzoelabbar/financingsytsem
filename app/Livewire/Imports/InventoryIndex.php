@@ -25,7 +25,9 @@ class InventoryIndex extends Component
             ->when($this->search !== '', fn ($q) => $q->where(fn ($q) => $q->where('code', 'like', '%'.$this->search.'%')->orWhere('name', 'like', '%'.$this->search.'%')->orWhere('category', 'like', '%'.$this->search.'%')))
             ->orderBy('code')->paginate(25);
 
-        return view('livewire.imports.inventory', compact('items'));
+        $canWrite = $this->context()->can('gl.write');
+
+        return view('livewire.imports.inventory', compact('items', 'canWrite'));
     }
 
     protected function excelTitle(): string

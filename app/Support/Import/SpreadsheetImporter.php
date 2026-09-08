@@ -19,6 +19,7 @@ use App\Services\Ap\SupplierService;
 use App\Services\Ar\CustomerService;
 use App\Services\Inventory\InventoryService;
 use App\Support\Accounting\AccountingContext;
+use App\Support\Accounting\AccountOptions;
 use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -293,24 +294,11 @@ final class SpreadsheetImporter
     }
 
     /**
-     * The accounts a given import setting may use. The picker and the validator
-     * read the same list, so nothing offered on screen can fail on preview.
-     *
      * @return Builder<Account>
      */
     public function candidates(Company $company, string $purpose): Builder
     {
-        $query = Account::query()->where('company_id', $company->id)->where('is_posting', true)->where('is_active', true);
-        if ($purpose === 'inventory') {
-            $query->where('subledger_mapping', 'INV');
-        } else {
-            $query->where('is_control', false);
-        }
-        if ($purpose === 'cash') {
-            $query->where(fn ($q) => $q->where('is_bank_account', true)->orWhere('code', 'like', '1101%'));
-        }
-
-        return $query->orderBy('code');
+        return AccountOptions::for($company, $purpose);
     }
 
     public static function purpose(string $field): string
@@ -329,20 +317,8 @@ final class SpreadsheetImporter
             $this->error(__('imports.account_required'));
         }
         if (! $this->candidates($company, $purpose)->where('code', $code)->exists()) {
-            $this->error(__('imports.account_missing', ['code' => $code, 'accounts' => $this->suggest($company, $purpose)]));
+            $this->error(__('imports.account_missing', ['code' => $code, 'accounts' => AccountOptions::summary($company, $purpose)]));
         }
-    }
-
-    /** Name the way out of the error: which accounts this setting actually accepts. */
-    private function suggest(Company $company, string $purpose): string
-    {
-        $accounts = $this->candidates($company, $purpose)->limit(8)->get();
-        if ($accounts->isEmpty()) {
-            return __('imports.no_accounts');
-        }
-        $labels = $accounts->map(fn (Account $a): string => $a->code.' — '.(app()->getLocale() === 'ar' ? $a->name_ar : ($a->name_en ?? $a->name_ar)))->all();
-
-        return implode(' • ', $labels);
     }
 
     private function required(string $value, int $max): string

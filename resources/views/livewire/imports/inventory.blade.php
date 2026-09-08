@@ -1,11 +1,11 @@
 <div>
-    <x-ui.page-header :title="__('imports.kinds.items')" :description="__('imports.inventory_hint')"><x-slot:actions><x-ui.export-button /><x-ui.import-button kind="items" /><x-ui.import-button kind="inventory-report" /></x-slot:actions></x-ui.page-header>
+    <x-ui.page-header :title="__('imports.kinds.items')" :description="__('imports.inventory_hint')"><x-slot:actions>@if ($canWrite)<x-ui.button :href="route('imports.items.create')">{{ __('imports.item_create') }}</x-ui.button>@endif<x-ui.export-button /><x-ui.import-button kind="items" /><x-ui.import-button kind="inventory-report" /></x-slot:actions></x-ui.page-header>
     <x-ui.toolbar />
     <x-ui.table>
         <thead><tr>
             <th>{{ __('imports.item_code') }}</th><th>{{ __('imports.item_name') }}</th><th>{{ __('imports.category') }}</th><th>{{ __('imports.unit') }}</th>
             <th>{{ __('imports.standard_cost') }}</th><th>{{ __('imports.sale_price') }}</th><th>{{ __('imports.reorder_level') }}</th>
-            <th>{{ __('imports.quantity') }}</th><th>{{ __('imports.value') }}</th>
+            <th>{{ __('imports.quantity') }}</th><th>{{ __('imports.value') }}</th><th>{{ __('erp.actions') }}</th>
         </tr></thead>
         <tbody>
         @forelse ($items as $item)
@@ -19,9 +19,10 @@
                 <td class="tabular-nums">{{ $item->reorder_level !== null ? rtrim(rtrim((string) $item->reorder_level, '0'), '.') : __('imports.not_set') }}</td>
                 <td class="tabular-nums">{{ $item->quantity }}</td>
                 <td><x-ui.money :amount="$item->value" :currency="$this->company()?->functional_currency" /></td>
+                <td>@if ($canWrite)<x-ui.button size="sm" variant="secondary" :href="route('imports.items.edit', $item)">{{ __('imports.item_edit') }}</x-ui.button>@endif</td>
             </tr>
         @empty
-            <tr><td colspan="9">{{ __('imports.items_empty') }}</td></tr>
+            <tr><td colspan="10">{{ __('imports.items_empty') }}</td></tr>
         @endforelse
         </tbody>
     </x-ui.table>

@@ -39,6 +39,22 @@ class InventoryService
         ]);
     }
 
+    /**
+     * Catalog details only. Quantity and value are moved by receipts, issues and
+     * adjustments, never by editing the item.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function updateItem(InventoryItem $item, array $data): InventoryItem
+    {
+        $item->fill(array_intersect_key($data, array_flip([
+            'code', 'name', 'category', 'unit', 'gl_account_code', 'cogs_account_code', 'standard_cost', 'sale_price', 'reorder_level',
+        ])));
+        $item->save();
+
+        return $item;
+    }
+
     public function receive(InventoryItem $item, string $date, string|float|int $qty, string|float|int $unitCost, string $grniAccount = '210203'): InventoryItem
     {
         $q = Decimal::of($qty);

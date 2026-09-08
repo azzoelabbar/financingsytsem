@@ -63,6 +63,7 @@ use App\Livewire\Gl\PeriodIndex;
 use App\Livewire\Gl\TrialBalance;
 use App\Livewire\Imports\ImportWorkspace;
 use App\Livewire\Imports\InventoryIndex;
+use App\Livewire\Imports\ItemForm;
 use App\Livewire\Investments\Index as InvestmentsIndex;
 use App\Livewire\Investments\InvestmentCreate;
 use App\Livewire\Investments\InvestmentShow;
@@ -103,6 +104,8 @@ Route::middleware(['auth', 'verified', EnsureOnboarded::class])->group(function 
     Route::get('/dashboard', FinanceDashboard::class)->name('dashboard');
     Route::get('/imports/{kind}', ImportWorkspace::class)->name('imports.create');
     Route::get('/inventory/items', InventoryIndex::class)->name('imports.inventory');
+    Route::get('/inventory/items/create', ItemForm::class)->name('imports.items.create');
+    Route::get('/inventory/items/{item}/edit', ItemForm::class)->name('imports.items.edit');
 
     Route::prefix('ar')->name('ar.')->group(function (): void {
         Route::get('/customers', CustomerIndex::class)->name('customers');

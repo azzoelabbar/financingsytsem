@@ -48,5 +48,11 @@ return [
     'save_failed' => 'Unable to save the batch. No part of it was saved. Check the data and duplicates, then try again.',
     'inventory_hint' => 'Item definitions and actual inventory-service balances. Imported reports are independent references, not system balances.',
     'item_code' => 'Item code', 'item_name' => 'Item name', 'quantity' => 'Actual quantity', 'value' => 'Actual value',
+    'item_create' => 'New item', 'item_edit' => 'Edit', 'item_updated' => 'Changes saved.',
+    'item_form_hint' => 'The item card: its catalog details and its two accounts. Quantity and value are not edited here; receipts, issues and adjustments move them.',
+    'item_identity_hint' => 'The code and name as they appear on invoices and reports.',
+    'item_accounts_hint' => 'The accounts the item posts to when it is later received and issued.',
+    'item_catalog' => 'Pricing and reorder level', 'item_catalog_hint' => 'Reference figures on the item card. They create no entries and do not value the stock.',
+    'code_locked' => 'This item has stock movements and its code is a reference in those entries, so it cannot be changed.',
     'category' => 'Category', 'unit' => 'Unit', 'standard_cost' => 'Unit cost', 'sale_price' => 'Sale price', 'reorder_level' => 'Reorder level', 'not_set' => 'Not set', 'items_empty' => 'No items yet. Import item codes and names to create their definitions.',
 ];
