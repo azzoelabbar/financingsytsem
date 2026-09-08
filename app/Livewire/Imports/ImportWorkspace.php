@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Livewire\Imports;
 
 use App\Livewire\Concerns\InteractsWithAccountingContext;
-use App\Models\Accounting\Account;
 use App\Models\SpreadsheetImport;
 use App\Services\Accounting\Exceptions\PostingException;
 use App\Support\Import\ImportCatalog;
@@ -134,12 +133,31 @@ class ImportWorkspace extends Component
             ->where('user_id', auth()->id())->where('kind', $this->kind)->find($this->batchId);
     }
 
+    /**
+     * The account settings this import kind asks for, in the order they are shown.
+     *
+     * @return list<string>
+     */
+    public function accountFields(): array
+    {
+        return match ($this->kind) {
+            'receipts', 'payments' => ['cash_account', 'bank_account'],
+            'items' => ['inventory_account', 'cogs_account'],
+            'sales', 'purchases', 'expenses' => ['account'],
+            default => [],
+        };
+    }
+
     public function render(): View
     {
         $this->authorizeImport();
         $batch = $this->batch();
-        $accounts = Account::query()->where('company_id', $this->requireCompany()->id)->where('is_posting', true)->where('is_active', true)
-            ->where(fn ($query) => $query->where('is_control', false)->when($this->kind === 'items', fn ($query) => $query->orWhere('subledger_mapping', 'INV')))->orderBy('code')->get();
+        $importer = app(SpreadsheetImporter::class);
+        // Each picker offers only what its own field accepts, so a valid choice cannot fail on preview.
+        $accounts = [];
+        foreach ($this->accountFields() as $field) {
+            $accounts[$field] = $importer->candidates($this->requireCompany(), SpreadsheetImporter::purpose($field))->get();
+        }
         $history = SpreadsheetImport::query()->where('company_id', $this->requireCompany()->id)->where('book_id', $this->requireBook()->id)
             ->where('user_id', auth()->id())->where('kind', $this->kind)->whereNotNull('completed_at')->latest()->limit(20)->get();
 

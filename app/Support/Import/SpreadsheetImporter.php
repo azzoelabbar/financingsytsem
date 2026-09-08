@@ -20,6 +20,7 @@ use App\Services\Ar\CustomerService;
 use App\Services\Inventory\InventoryService;
 use App\Support\Accounting\AccountingContext;
 use DateTimeImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -45,6 +46,14 @@ final class SpreadsheetImporter
         $headers = ImportCatalog::schemas()[$kind];
         if (array_slice($payload['headers'], 0, count($headers)) !== $headers) {
             $this->error(__('imports.headers_mismatch'));
+        }
+        // Import-wide settings fail once, before the rows: they are one choice, not a per-row defect.
+        if (in_array($kind, ['sales', 'purchases', 'expenses'], true)) {
+            $this->account($company, $options['account'] ?? '');
+        }
+        if ($kind === 'items') {
+            $this->account($company, $options['inventory_account'] ?? '', inventory: true);
+            $this->account($company, $options['cogs_account'] ?? '');
         }
         $groups = [];
         $errors = [];
@@ -72,6 +81,9 @@ final class SpreadsheetImporter
                     if ($kind !== 'items' && mb_strlen($cells[2] ?? '') > 100) {
                         $this->error(__('imports.invalid_value'));
                     }
+                    if ($kind === 'items') {
+                        $this->extras($kind, $payload['headers'], $cells);
+                    }
                 } else {
                     $this->date($cells[1] ?? '');
                     if ($kind === 'expenses') {
@@ -96,13 +108,6 @@ final class SpreadsheetImporter
                             $this->account($company, $options[$method.'_account'] ?? '', true);
                         }
                     }
-                }
-                if (in_array($kind, ['sales', 'purchases', 'expenses'], true)) {
-                    $this->account($company, $options['account'] ?? '');
-                }
-                if ($kind === 'items') {
-                    $this->account($company, $options['inventory_account'] ?? '', inventory: true);
-                    $this->account($company, $options['cogs_account'] ?? '');
                 }
                 $key = 'ref:'.$reference;
                 if (isset($groups[$key])) {
@@ -161,7 +166,7 @@ final class SpreadsheetImporter
                     DB::table('spreadsheet_import_keys')->insert([
                         'company_id' => $company->id, 'import_id' => $batch->id, 'kind' => $kind, 'source_key' => hash('sha256', $reference),
                     ]);
-                    $url = $this->create($kind, $company, $book, $rows, $options);
+                    $url = $this->create($kind, $company, $book, $rows, $options, $payload['headers']);
                     $results[] = ['reference' => $reference, 'url' => $url];
                 }
             }
@@ -173,8 +178,9 @@ final class SpreadsheetImporter
 
     /** @param list<array{row: int, cells: list<string>}> $rows
      * @param  array<string, string>  $options
+     * @param  list<string>  $headers
      */
-    private function create(string $kind, Company $company, AccountingBook $book, array $rows, array $options): string
+    private function create(string $kind, Company $company, AccountingBook $book, array $rows, array $options, array $headers): string
     {
         $c = $rows[0]['cells'];
         $ar = app(ArApplicationService::class);
@@ -197,7 +203,9 @@ final class SpreadsheetImporter
             return route('ap.suppliers');
         }
         if ($kind === 'items') {
-            app(InventoryService::class)->defineItem($company, ['code' => $c[0], 'name' => $c[1], 'gl_account_code' => $options['inventory_account'], 'cogs_account_code' => $options['cogs_account']]);
+            app(InventoryService::class)->defineItem($company, $this->extras($kind, $headers, $c) + [
+                'code' => $c[0], 'name' => $c[1], 'gl_account_code' => $options['inventory_account'], 'cogs_account_code' => $options['cogs_account'],
+            ]);
 
             return route('imports.inventory');
         }
@@ -243,6 +251,36 @@ final class SpreadsheetImporter
         return route('ap.payments.show', $payment->id);
     }
 
+    /**
+     * Catalog attributes read from optional columns. They describe the item only:
+     * no journal entry, no stock movement, no valuation.
+     *
+     * @param  list<string>  $headers
+     * @param  list<string>  $cells
+     * @return array<string, string>
+     */
+    private function extras(string $kind, array $headers, array $cells): array
+    {
+        $values = [];
+        foreach (ImportCatalog::extraColumns($kind, $headers) as $spec) {
+            $value = trim($cells[$spec['index']] ?? '');
+            if ($value === '') {
+                continue;
+            }
+            if ($spec['type'] === 'number') {
+                $this->number($value, false);
+                if ((float) $value < 0) {
+                    $this->error(__('imports.invalid_amount'));
+                }
+            } elseif (mb_strlen($value) > $spec['max']) {
+                $this->error(__('imports.invalid_value'));
+            }
+            $values[$spec['field']] = $value;
+        }
+
+        return $values;
+    }
+
     private function party(string $kind, Company $company, string $code): Customer|Supplier
     {
         $class = in_array($kind, ['sales', 'receipts'], true) ? Customer::class : Supplier::class;
@@ -254,20 +292,57 @@ final class SpreadsheetImporter
         return $party;
     }
 
-    private function account(Company $company, string $code, bool $cash = false, bool $inventory = false): void
+    /**
+     * The accounts a given import setting may use. The picker and the validator
+     * read the same list, so nothing offered on screen can fail on preview.
+     *
+     * @return Builder<Account>
+     */
+    public function candidates(Company $company, string $purpose): Builder
     {
-        $query = Account::query()->where('company_id', $company->id)->where('code', $code)->where('is_posting', true)->where('is_active', true);
-        if ($inventory) {
+        $query = Account::query()->where('company_id', $company->id)->where('is_posting', true)->where('is_active', true);
+        if ($purpose === 'inventory') {
             $query->where('subledger_mapping', 'INV');
         } else {
             $query->where('is_control', false);
         }
-        if ($cash) {
+        if ($purpose === 'cash') {
             $query->where(fn ($q) => $q->where('is_bank_account', true)->orWhere('code', 'like', '1101%'));
         }
-        if (! $query->exists()) {
-            $this->error(__('imports.account_missing', ['code' => $code]));
+
+        return $query->orderBy('code');
+    }
+
+    public static function purpose(string $field): string
+    {
+        return match ($field) {
+            'inventory_account' => 'inventory',
+            'cash_account', 'bank_account' => 'cash',
+            default => 'general',
+        };
+    }
+
+    private function account(Company $company, string $code, bool $cash = false, bool $inventory = false): void
+    {
+        $purpose = $inventory ? 'inventory' : ($cash ? 'cash' : 'general');
+        if ($code === '') {
+            $this->error(__('imports.account_required'));
         }
+        if (! $this->candidates($company, $purpose)->where('code', $code)->exists()) {
+            $this->error(__('imports.account_missing', ['code' => $code, 'accounts' => $this->suggest($company, $purpose)]));
+        }
+    }
+
+    /** Name the way out of the error: which accounts this setting actually accepts. */
+    private function suggest(Company $company, string $purpose): string
+    {
+        $accounts = $this->candidates($company, $purpose)->limit(8)->get();
+        if ($accounts->isEmpty()) {
+            return __('imports.no_accounts');
+        }
+        $labels = $accounts->map(fn (Account $a): string => $a->code.' — '.(app()->getLocale() === 'ar' ? $a->name_ar : ($a->name_en ?? $a->name_ar)))->all();
+
+        return implode(' • ', $labels);
     }
 
     private function required(string $value, int $max): string

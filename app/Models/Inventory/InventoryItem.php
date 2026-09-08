@@ -17,6 +17,9 @@ class InventoryItem extends Model
     protected $casts = [
         'quantity' => 'decimal:6',
         'value' => 'decimal:6',
+        'standard_cost' => 'decimal:6',
+        'sale_price' => 'decimal:6',
+        'reorder_level' => 'decimal:6',
     ];
 
     /** @return BelongsTo<Company, $this> */

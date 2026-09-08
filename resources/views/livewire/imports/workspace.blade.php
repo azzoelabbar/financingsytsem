@@ -20,25 +20,33 @@
                 <input id="import-file" type="file" wire:model="file" accept=".xlsx" class="erp-control" />
                 <p wire:loading wire:target="file" role="status" class="mt-2 text-sm">{{ __('imports.uploading') }}</p>
             </x-ui.field>
-            @if (in_array($kind, ['sales', 'purchases', 'expenses', 'receipts', 'payments', 'items']))
-                @php $fields = match ($kind) { 'receipts', 'payments' => ['cash_account', 'bank_account'], 'items' => ['inventory_account', 'cogs_account'], default => ['account'] }; @endphp
-                @foreach ($fields as $field)
-                    <x-ui.field :for="'import-'.$field" :label="__('imports.'.$field)">
+            @foreach ($this->accountFields() as $field)
+                <x-ui.field :for="'import-'.$field" :label="__('imports.'.$field)" :hint="__('imports.field_hints.'.$field)" required>
+                    @if ($accounts[$field]->isEmpty())
+                        <x-ui.alert variant="warning">{{ __('imports.no_accounts') }}</x-ui.alert>
+                    @else
                         <select id="import-{{ $field }}" wire:model.live="options.{{ $field }}" class="erp-control">
                             <option value="">{{ __('imports.select_account') }}</option>
-                            @foreach ($accounts as $account)
+                            @foreach ($accounts[$field] as $account)
                                 <option value="{{ $account->code }}">{{ $account->code }} — {{ app()->getLocale() === 'ar' ? $account->name_ar : ($account->name_en ?? $account->name_ar) }}</option>
                             @endforeach
                         </select>
-                    </x-ui.field>
-                @endforeach
-            @endif
+                    @endif
+                </x-ui.field>
+            @endforeach
             @if ($kind === 'expenses')
                 <x-ui.field for="import-employee" :label="__('imports.employee_ref')"><input id="import-employee" wire:model.live="options.employee_ref" class="erp-control" maxlength="100" /></x-ui.field>
             @endif
         </x-ui.form-section>
         <div class="border-t border-border p-4">
-            <details class="mb-4 text-sm"><summary class="cursor-pointer font-medium">{{ __('imports.columns') }}</summary><p class="mt-2 leading-7 text-muted-foreground">{{ implode(' • ', \App\Support\Import\ImportCatalog::schemas()[$kind]) }}</p></details>
+            <details class="mb-4 text-sm">
+                <summary class="cursor-pointer font-medium">{{ __('imports.columns') }}</summary>
+                <p class="mt-2 leading-7 text-muted-foreground">{{ implode(' • ', \App\Support\Import\ImportCatalog::schemas()[$kind]) }}</p>
+                @if (\App\Support\Import\ImportCatalog::extras($kind) !== [])
+                    <p class="mt-2 font-medium">{{ __('imports.optional_columns') }}</p>
+                    <p class="mt-1 leading-7 text-muted-foreground">{{ implode(' • ', array_keys(\App\Support\Import\ImportCatalog::extras($kind))) }}</p>
+                @endif
+            </details>
             <x-ui.button type="submit" wire:loading.attr="disabled" wire:target="file,preview">{{ __('imports.preview') }}</x-ui.button>
         </div>
     </form>

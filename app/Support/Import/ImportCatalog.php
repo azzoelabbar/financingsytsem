@@ -24,6 +24,45 @@ final class ImportCatalog
         ];
     }
 
+    /**
+     * Optional columns recognised by header name anywhere after the required prefix.
+     * They enrich the record but never post accounting entries or stock movements.
+     *
+     * @return array<string, array{field: string, type: string, max: int}>
+     */
+    public static function extras(string $kind): array
+    {
+        if ($kind !== 'items') {
+            return [];
+        }
+
+        return [
+            'التصنيف' => ['field' => 'category', 'type' => 'text', 'max' => 100],
+            'الوحدة' => ['field' => 'unit', 'type' => 'text', 'max' => 50],
+            'تكلفة الوحدة' => ['field' => 'standard_cost', 'type' => 'number', 'max' => 0],
+            'سعر البيع' => ['field' => 'sale_price', 'type' => 'number', 'max' => 0],
+            'الحد الأدنى' => ['field' => 'reorder_level', 'type' => 'number', 'max' => 0],
+        ];
+    }
+
+    /**
+     * @param  list<string>  $headers
+     * @return array<string, array{field: string, type: string, max: int, index: int}>
+     */
+    public static function extraColumns(string $kind, array $headers): array
+    {
+        $found = [];
+        $required = count(self::schemas()[$kind] ?? []);
+        foreach (self::extras($kind) as $header => $spec) {
+            $index = array_search($header, $headers, true);
+            if (is_int($index) && $index >= $required) {
+                $found[$header] = $spec + ['index' => $index];
+            }
+        }
+
+        return $found;
+    }
+
     public static function reference(string $kind): bool
     {
         return str_ends_with($kind, '-report');

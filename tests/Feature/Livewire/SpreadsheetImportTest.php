@@ -124,6 +124,64 @@ test('report imports remain references and item definitions start at zero', func
         ->and(DB::table('journals')->count())->toBe($journals)->and(Customer::count())->toBe(0);
 });
 
+test('item workbook stores catalog columns without journals or stock movement', function () {
+    $journals = DB::table('journals')->count();
+    $headers = ['كود الصنف', 'اسم الصنف', 'التصنيف', 'الوحدة', 'تكلفة الوحدة', 'سعر البيع', 'الحد الأدنى'];
+    $bytes = app(XlsxWriter::class)->render([new ExcelSheet('Sheet1', $headers, [
+        ['1001', 'مالية نص', 'تيشرت', 'قطعة', '45', '75', '60'],
+        ['1003', 'توتة كاملة', 'توتة', 'قطعة', '100', '150', '100'],
+    ])]);
+    Livewire::test(ImportWorkspace::class, ['kind' => 'items'])
+        ->set('options.inventory_account', '110301')->set('options.cogs_account', '510101')
+        ->set('file', UploadedFile::fake()->createWithContent('uat-items.xlsx', $bytes))
+        ->call('preview')->assertHasNoErrors()->set('acknowledged', true)->call('confirm')->assertHasNoErrors();
+    $item = InventoryItem::where('code', '1001')->firstOrFail();
+    expect($item->name)->toBe('مالية نص')->and($item->category)->toBe('تيشرت')->and($item->unit)->toBe('قطعة')
+        ->and($item->standard_cost)->toBe('45.000000')->and($item->sale_price)->toBe('75.000000')->and($item->reorder_level)->toBe('60.000000')
+        ->and($item->quantity)->toBe('0.000000')->and($item->value)->toBe('0.000000')
+        ->and(InventoryItem::where('code', '1003')->firstOrFail()->category)->toBe('توتة')
+        ->and(DB::table('journals')->count())->toBe($journals)->and(DB::table('stock_moves')->count())->toBe(0);
+});
+
+test('item workbook rejects a negative catalog amount', function () {
+    $headers = ['كود الصنف', 'اسم الصنف', 'التصنيف', 'الوحدة', 'تكلفة الوحدة', 'سعر البيع', 'الحد الأدنى'];
+    $bytes = app(XlsxWriter::class)->render([new ExcelSheet('Sheet1', $headers, [['1001', 'مالية نص', 'تيشرت', 'قطعة', '-45', '75', '60']])]);
+    Livewire::test(ImportWorkspace::class, ['kind' => 'items'])
+        ->set('options.inventory_account', '110301')->set('options.cogs_account', '510101')
+        ->set('file', UploadedFile::fake()->createWithContent('uat-items.xlsx', $bytes))
+        ->call('preview')->assertHasErrors('import');
+    expect(InventoryItem::where('code', '1001')->exists())->toBeFalse();
+});
+
+test('missing import accounts fail once, not once per row', function () {
+    $headers = ['كود الصنف', 'اسم الصنف', 'التصنيف', 'الوحدة', 'تكلفة الوحدة', 'سعر البيع', 'الحد الأدنى'];
+    $bytes = app(XlsxWriter::class)->render([new ExcelSheet('Sheet1', $headers, [
+        ['1001', 'مالية نص', 'تيشرت', 'قطعة', '45', '75', '60'],
+        ['1002', 'سروال', 'سروال', 'قطعة', '40', '75', '60'],
+        ['1003', 'توتة كاملة', 'توتة', 'قطعة', '100', '150', '100'],
+    ])]);
+    $component = Livewire::test(ImportWorkspace::class, ['kind' => 'items'])
+        ->set('file', UploadedFile::fake()->createWithContent('uat-items.xlsx', $bytes))
+        ->call('preview')->assertHasErrors('import');
+    expect($component->errors()->get('import'))->toBe([__('imports.account_required')]);
+});
+
+test('account pickers offer only what each field accepts and errors name the alternatives', function () {
+    $component = Livewire::test(ImportWorkspace::class, ['kind' => 'items'])->assertOk();
+    $offered = $component->viewData('accounts');
+    expect($offered['inventory_account']->pluck('code')->all())->toContain('110301')->not->toContain('110202')
+        ->and($offered['cogs_account']->pluck('code')->all())->toContain('510101');
+
+    $headers = ['كود الصنف', 'اسم الصنف', 'التصنيف', 'الوحدة', 'تكلفة الوحدة', 'سعر البيع', 'الحد الأدنى'];
+    $bytes = app(XlsxWriter::class)->render([new ExcelSheet('Sheet1', $headers, [['1001', 'مالية نص', 'تيشرت', 'قطعة', '45', '75', '60']])]);
+    $failed = Livewire::test(ImportWorkspace::class, ['kind' => 'items'])
+        ->set('options.inventory_account', '110202')->set('options.cogs_account', '510101')
+        ->set('file', UploadedFile::fake()->createWithContent('uat-items.xlsx', $bytes))
+        ->call('preview')->assertHasErrors('import');
+    $message = $failed->errors()->get('import')[0];
+    expect($message)->toContain('110202')->toContain('110301');
+});
+
 test('confirmation revalidates source codes and rolls back every record', function () {
     $component = Livewire::test(ImportWorkspace::class, ['kind' => 'customers'])
         ->set('file', importFile('customers', [['IMP-A', 'A', '', '0'], ['IMP-B', 'B', '', '0']]))->call('preview')->assertHasNoErrors();
